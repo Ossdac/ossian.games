@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ossian Däckfors — Gameplay Programmer</title>
+  <meta name="description" content="Portfolio of Ossian Däckfors, a gameplay programmer focused on gameplay systems, real-time simulation, and engine-level tools in C++ (Unreal) and C# (Unity).">
+  <link rel="canonical" href="https://ossian.games/">
+  <meta name="theme-color" content="#0a0c0f">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ossian Däckfors">
+  <meta property="og:title" content="Ossian Däckfors — Gameplay Programmer">
+  <meta property="og:description" content="Gameplay systems, real-time simulation, and engine-level tools in C++ (Unreal) and C# (Unity).">
+  <meta property="og:url" content="https://ossian.games/">
+  <meta property="og:image" content="https://ossian.games/assets/img/thrall/closing.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./" aria-label="Ossian Däckfors, home"><span class="brand__mark">OD</span><span class="brand__name">Ossian Däckfors</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a class="nav__resume" href="assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero__grid">
+        <div>
+          <span class="status"><span class="status__dot" aria-hidden="true"></span>Open to junior gameplay programming roles</span>
+          <h1 class="hero__title">Ossian<br>Däckfors</h1>
+          <p class="hero__role">Gameplay Programmer</p>
+          <p class="hero__lede">Game programmer focused on gameplay systems, real-time simulation, and engine-level tools. I build systems that are modular, data-driven, and easy for designers to iterate on.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#projects">View projects
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></a>
+            <a class="btn" href="assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>Resume</a>
+            <a class="btn" href="https://github.com/Ossdac" target="_blank" rel="me noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+          </div>
+          <ul class="chips" aria-label="Main tools">
+            <li class="chip chip--accent">C++</li>
+            <li class="chip">Unreal</li>
+            <li class="chip chip--accent">C#</li>
+            <li class="chip">Unity</li>
+            <li class="chip">Python</li>
+          </ul>
+        </div>
+
+        <div class="panel" aria-hidden="true">
+          <div class="panel__bar">
+            <div class="panel__dots"><span></span><span></span><span></span></div>
+            <span class="panel__title">Thrall · ASCR_Projectile::LaunchProjectile</span>
+          </div>
+<pre><code>void ASCR_Projectile::LaunchProjectile(FVector AimVector)
+{
+    ProjectileMovement-&gt;StopMovementImmediately();
+    ProjectileMovement-&gt;Velocity = AimVector * InitialSpeed;
+    ProjectileMovement-&gt;UpdateComponentVelocity();
+
+    // Start gravity after a delay to allow straight flight first
+    if (InitialGravityDelay &gt; 0.f)
+        GetWorldTimerManager().SetTimer(GravityTimerHandle, this,
+            &amp;ASCR_Projectile::EnableGravity, InitialGravityDelay);
+    else
+        ProjectileMovement-&gt;ProjectileGravityScale = CustomGravityScale;
+
+    ActivateTrailEffect();
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">01 — Projects</span>
+            <h2 id="projects-title">Projects</h2>
+          </div>
+        </div>
+
+        <div class="project-grid">
+          <article class="card">
+            <div class="card__media">
+              <img src="assets/img/voxel-generator/card.png" alt="Voxel terrain generated from Perlin noise, with rolling green hills" width="660" height="662" loading="lazy" style="object-position: center 70%">
+              <span class="card__index">01</span>
+            </div>
+            <div class="card__body">
+              <p class="card__type">Voxel World/Asset Generation</p>
+              <h3 class="card__title"><a href="voxel-generator/">Voxel Generator</a>
+                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
+              <p class="card__role">Procedural terrain generation with chunk-based streaming</p>
+              <ul class="chips" aria-label="Project facts">
+                <li class="chip">Unity</li>
+                <li class="chip">C#</li>
+                <li class="chip">Solo project</li>
+                <li class="chip">4-6 weeks</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media">
+              <img src="assets/img/time-to-breach/card.png" alt="Top-down view of Time to Breach combat in a neon-lit sci-fi arena" width="964" height="964" loading="lazy">
+              <span class="card__index">02</span>
+            </div>
+            <div class="card__body">
+              <p class="card__type">CRPG</p>
+              <h3 class="card__title"><a href="time-to-breach/">Time to Breach</a>
+                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
+              <p class="card__role">Role: <strong>Time Rewind System</strong></p>
+              <ul class="chips" aria-label="Project facts">
+                <li class="chip">Unreal</li>
+                <li class="chip">C++, Python</li>
+                <li class="chip">8 people</li>
+                <li class="chip">4 Weeks</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media">
+              <img src="assets/img/thrall/card.jpg" alt="Thrall key art: a possessed knight glowing green in front of a church at night" width="1448" height="1448" loading="lazy" style="object-position: center 60%">
+              <span class="card__index">03</span>
+            </div>
+            <div class="card__body">
+              <p class="card__type">Doom Shooter Action Game</p>
+              <h3 class="card__title"><a href="thrall/">Thrall</a>
+                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
+              <p class="card__role">Role: <strong>Projectile System</strong></p>
+              <ul class="chips" aria-label="Project facts">
+                <li class="chip">Unreal</li>
+                <li class="chip">C++</li>
+                <li class="chip">13 people</li>
+                <li class="chip">7 weeks</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media">
+              <img src="assets/img/scapegoat/card.png" alt="Scapegoat key art: a chained, blood-powered sword among ruined pillars" width="1448" height="1448" loading="lazy">
+              <span class="card__index">04</span>
+            </div>
+            <div class="card__body">
+              <p class="card__type">Hack and Slash Action Game</p>
+              <h3 class="card__title"><a href="scapegoat/">Scapegoat</a>
+                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
+              <p class="card__role">Role: <strong>Save &amp; Progression Systems</strong></p>
+              <ul class="chips" aria-label="Project facts">
+                <li class="chip">Unity</li>
+                <li class="chip">C#</li>
+                <li class="chip">14 people</li>
+                <li class="chip">4 weeks</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">02 — About</span>
+            <h2 id="about-title">About Me</h2>
+          </div>
+        </div>
+
+        <div class="about">
+          <div class="about__text">
+            <p>I’m Ossian Däckfors, a game programmer focused on gameplay systems, real-time simulation, and engine-level tools. I study Game Programming at Futuregames, working mainly in C++ (Unreal) and C# (Unity).</p>
+            <p>I build systems that are modular, data-driven, and easy for designers to iterate on. My work centers on making technical features that feel good to use and integrate cleanly with the rest of production.</p>
+            <p>Before Futuregames I studied mathematics and information science, worked in logistics and hospitality, and volunteered in wildlife rescue in South Africa—experiences that taught adaptability and structured problem solving, both useful in game development.</p>
+            <p>I’m currently looking for a junior position in gameplay programming, but I’m also open to tools or generalist roles where strong technical communication and system design are valuable.</p>
+          </div>
+
+          <div>
+            <div class="aside-box">
+              <h3>Selected Projects</h3>
+              <ul class="selected">
+                <li><a href="thrall/"><strong>Thrall</strong><span>Modular projectile system built in Unreal (C++ / pooled + data-driven)</span></a></li>
+                <li><a href="time-to-breach/"><strong>Time to Breach</strong><span>Player-only rewind component with state ring buffer and event reversal</span></a></li>
+                <li><a href="voxel-generator/"><strong>Voxel Generator</strong><span>Procedural terrain generation with chunk-based streaming</span></a></li>
+              </ul>
+            </div>
+            <div class="aside-box">
+              <h3>Toolkit</h3>
+              <ul class="chips">
+                <li class="chip chip--accent">C++</li>
+                <li class="chip">Unreal Engine</li>
+                <li class="chip chip--accent">C#</li>
+                <li class="chip">Unity</li>
+                <li class="chip">Python</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">03 — Contact</span>
+            <h2 id="contact-title">Get in touch</h2>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:ossian.dackfors@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <div><div class="contact-card__label">Email</div><div class="contact-card__value">ossian.dackfors@gmail.com</div></div>
+          </a>
+          <a class="contact-card" href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            <div><div class="contact-card__label">LinkedIn</div><div class="contact-card__value">Ossian Däckfors</div></div>
+          </a>
+          <a class="contact-card" href="https://github.com/Ossdac" target="_blank" rel="me noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+            <div><div class="contact-card__label">GitHub</div><div class="contact-card__value">github.com/Ossdac</div></div>
+          </a>
+          <a class="contact-card" href="assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            <div><div class="contact-card__label">Resume</div><div class="contact-card__value">View PDF</div></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span data-year>2026</span> Ossian Däckfors · Gameplay Programmer</p>
+      <nav aria-label="Footer">
+        <a href="mailto:ossian.dackfors@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">LinkedIn</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a href="assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

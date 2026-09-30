@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thrall — Ossian Däckfors</title>
+  <meta name="description" content="Thrall: a first-person possession action game. A modular, data-driven projectile system in Unreal C++ with pooled projectiles and interchangeable hit effects.">
+  <link rel="canonical" href="https://ossian.games/thrall/">
+  <meta name="theme-color" content="#0a0c0f">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ossian Däckfors">
+  <meta property="og:title" content="Thrall — Projectile System">
+  <meta property="og:description" content="A modular, data-driven projectile system in Unreal C++: pooled projectiles, gravity delay, penetration and interchangeable hit effects.">
+  <meta property="og:url" content="https://ossian.games/thrall/">
+  <meta property="og:image" content="https://ossian.games/assets/img/thrall/closing.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../" aria-label="Ossian Däckfors, home"><span class="brand__mark">OD</span><span class="brand__name">Ossian Däckfors</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../#projects">Projects</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a class="nav__resume" href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
+        <div class="project-hero__grid">
+          <div>
+            <span class="eyebrow">Project 03 · Unreal · C++</span>
+            <h1>Thrall</h1>
+            <p class="project-hero__role">Role: Projectile System</p>
+            <p class="project-hero__lede">Thrall is a first-person action game built around possession-based combat. The player begins as a ghost and can possess any enemy they come across. Once possessed, the player gains that enemy’s attack abilities, but with increased power due to the ghost’s presence. If the currently possessed host dies, the player dies with them—so combat revolves around swapping hosts before your current body is destroyed.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://futuregames.itch.io/thrall" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Play on itch.io</a>
+              <a class="btn" href="https://github.com/Ossdac/Thrall" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Source on GitHub</a>
+            </div>
+          </div>
+          <div class="project-hero__media">
+            <div class="video" data-yt="cQyiZSHRfBM" data-title="Thrall gameplay video">
+              <button type="button" aria-label="Play the Thrall gameplay video (loads YouTube)">
+                <img src="../assets/img/thrall/closing.png" alt="" width="1896" height="1046">
+                <span class="video__play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+                <span class="video__note">Gameplay video · plays from YouTube</span>
+              </button>
+              <noscript><a class="btn" href="https://www.youtube.com/watch?v=cQyiZSHRfBM" style="position:absolute;left:16px;bottom:16px">Watch on YouTube</a></noscript>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-wrap" aria-labelledby="overview-title">
+      <h2 class="sr-only" id="overview-title">Project Overview</h2>
+      <div class="container">
+        <dl class="spec">
+          <div><dt>Project Type</dt><dd>Doom Shooter Action Game</dd></div>
+          <div><dt>Role</dt><dd>Projectile System</dd></div>
+          <div><dt>Team Size</dt><dd>13 people</dd></div>
+          <div><dt>Duration</dt><dd>7 weeks</dd></div>
+          <div><dt>Engine</dt><dd>Unreal</dd></div>
+          <div><dt>Language</dt><dd>C++</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
+
+      <article class="prose">
+        <h2>Problem &amp; Goal</h2>
+        <p>The game required a flexible projectile system that could support different projectile behaviors without writing new code for each variation. Designers needed to be able to:</p>
+        <ul>
+          <li>Create new projectiles,</li>
+          <li>Adjust their movement and collision behavior,</li>
+          <li>Change impact effects,</li>
+          <li>And tune them rapidly for game feel.</li>
+        </ul>
+        <p>The goal was to build a modular, data-driven architecture where core logic is implemented once in C++, and all gameplay-specific variation happens in Blueprint or through effect subclasses. The system needed to remain efficient under many active projectiles and work for both player and AI controlled units.</p>
+
+        <figure class="fig">
+          <div class="fig__frame"><img src="../assets/img/thrall/gameplay.jpg" alt="Thrall key art: a possessed knight glowing green in front of a church at night" width="1448" height="1519" loading="lazy"></div>
+        </figure>
+
+        <h2>Solution</h2>
+        <p>The projectile system is built from several focused C++ classes, each handling one part of a projectile’s behavior. This keeps the logic maintainable and allows designers to create new projectile variations without writing code.</p>
+
+        <h3>ASCR_Projectile</h3>
+        <ul>
+          <li>Controls movement and collision.</li>
+          <li>Supports gravity delay (projectile flies straight first, then arcs).</li>
+          <li>Handles penetration rules (how many targets it can pass through, and speed loss per hit).</li>
+          <li>Activates trail and visual effects.</li>
+        </ul>
+
+        <h3>USCR_ProjectileEffectBase</h3>
+        <ul>
+          <li>Defines what happens on hit.</li>
+          <li>Serves as a base class for interchangeable effect behaviors (<code>USCR_DirectHitEffect</code> and <code>USCR_AreaEffect</code>).</li>
+        </ul>
+
+        <h3>USCR_DirectHitEffect</h3>
+        <ul>
+          <li>Applies single-target damage.</li>
+          <li>Can optionally trigger status effects (e.g. stun/poison—even if not used in final build).</li>
+        </ul>
+
+        <h3>USCR_AreaEffect</h3>
+        <ul>
+          <li>Applies damage in a radius around the impact.</li>
+          <li>Damage falloff is designer-tunable (linear or curve-based).</li>
+          <li>Fully implemented but unused due to project scope.</li>
+          <li>Can also optionally trigger status effects (e.g. stun/poison—even if not used in final build).</li>
+        </ul>
+
+        <h3>USCR_ProjectileLauncherComponent</h3>
+        <ul>
+          <li>Allows any actor (player or AI) to fire projectiles.</li>
+          <li>Handles reload timing and projectile spawn points.</li>
+          <li>Performs vertical aim correction for AI.</li>
+        </ul>
+
+        <h3>Modified Object Pool</h3>
+        <ul>
+          <li>Uses Round-Robin retrieval to keep more projectiles active in the world.</li>
+          <li>Avoids unnecessary spawn/despawn cycles and maintains chaotic projectile density.</li>
+        </ul>
+
+        <p class="takeaway">The result is a data-driven workflow:<br>Designers create new projectile types by adjusting Blueprint parameters and assigning different effect classes—no C++ changes required.</p>
+
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/thrall/crossbow-archer.png" alt="First-person view of a crossbow aiming at an archer who is reloading" width="1891" height="1019" loading="lazy"></div>
+          <figcaption>Crossbow aiming at an archer reloading</figcaption>
+        </figure>
+
+        <h2>Technical Details</h2>
+        <p>The projectile system works as a chain of responsibility between three layers:</p>
+
+        <h3>1) Launching (USCR_ProjectileLauncherComponent)</h3>
+        <ul>
+          <li>Retrieves a projectile from the pool.</li>
+          <li>Places it at the correct spawn point with physics disabled.</li>
+          <li>Waits for input release (player) or trigger event (AI).</li>
+          <li>On fire:
+            <ul>
+              <li>Detaches projectile.</li>
+              <li>Enables movement.</li>
+              <li>Computes AimVector.</li>
+              <li>Calls <code>LaunchProjectile(AimVector)</code>.</li>
+            </ul>
+          </li>
+          <li>Starts reload timer immediately (independent of projectile lifetime).</li>
+        </ul>
+        <p class="takeaway">Launcher controls when projectiles exist and who fires them.<br>It does not control how they fly.</p>
+
+        <h3>2) Flight &amp; Collision (ASCR_Projectile)</h3>
+        <ul>
+          <li>Sets internal velocity using the aim vector and initial speed.</li>
+          <li>Optionally delays gravity to allow a straight-first → arc-later trajectory.</li>
+          <li>Handles penetration logic (speed reduction + max hit count).</li>
+          <li>Detects hits via collision components.</li>
+          <li>On hit, forwards control to the effect class.</li>
+        </ul>
+        <p class="takeaway">Projectile controls movement and hit detection.</p>
+
+        <h3>3) On-Hit Effects (USCR_ProjectileEffectBase + subclasses)</h3>
+        <ul>
+          <li><strong>DirectHitEffect</strong>: applies single-target damage.</li>
+          <li><strong>AreaEffect</strong>: applies radial damage using designer-controlled falloff curves.</li>
+          <li>Additional effects can be added by inheriting from the base class.</li>
+        </ul>
+        <p class="takeaway">Effects decide what happens when something is hit.</p>
+
+        <h3>4) Object Pool (Modified)</h3>
+        <ul>
+          <li>Uses a Round-Robin retrieval strategy.</li>
+          <li>Projectiles stay in the world until needed again.</li>
+          <li>Reduces spawn/despawn churn and maintains projectile density.</li>
+        </ul>
+        <p class="takeaway">Pooling controls performance and world presence, not gameplay.</p>
+
+        <h3>Launching (Key Method)</h3>
+        <figure class="code" data-lang="C++" data-name="ASCR_Projectile::LaunchProjectile">
+<pre><code>void ASCR_Projectile::LaunchProjectile(FVector AimVector)
+{
+    ProjectileMovement-&gt;StopMovementImmediately();
+    ProjectileMovement-&gt;Velocity = AimVector * InitialSpeed;
+    ProjectileMovement-&gt;UpdateComponentVelocity();
+
+    // Start gravity after a delay to allow straight flight first
+    if (InitialGravityDelay &gt; 0.f)
+        GetWorldTimerManager().SetTimer(GravityTimerHandle, this, &amp;ASCR_Projectile::EnableGravity, InitialGravityDelay);
+    else
+        ProjectileMovement-&gt;ProjectileGravityScale = CustomGravityScale;
+
+    ActivateTrailEffect();
+}</code></pre>
+        </figure>
+        <p>The projectile calculates its own flight behavior. The launcher only decides when to fire and in which direction.</p>
+
+        <h2>Designer Workflow</h2>
+        <p>The system was built so that designers could create and tune projectiles entirely in Blueprint without needing new C++ code. Each gameplay variation comes from adjusting exposed properties and selecting which effect class the projectile uses.</p>
+
+        <h3>Creating a New Projectile</h3>
+        <ol>
+          <li>Duplicate an existing projectile Blueprint derived from <code>ASCR_Projectile</code>.</li>
+          <li>Adjust movement parameters, such as initial speed, gravity delay, and penetration count.</li>
+          <li>Assign visuals, including mesh and trail VFX.</li>
+          <li>Choose an effect type (DirectHit or AreaEffect) and configure damage and falloff.</li>
+          <li>Place the projectile into the Launcher component on any enemy or the player.</li>
+        </ol>
+        <p>Most projectile tuning (speed, arc behavior, number of pierces, and visual expression) could be done live in-editor with immediate feedback, which made balancing combat feel fast and designer-driven.</p>
+
+        <figure class="fig fig--pad">
+          <div class="fig__frame"><img src="../assets/img/thrall/projectile-settings.png" alt="Unreal Details panel listing the projectile's exposed settings" width="535" height="568" loading="lazy"></div>
+          <figcaption>Setting menu for the Projectile with all its options</figcaption>
+        </figure>
+
+        <h2>Results</h2>
+        <ul>
+          <li>Designers were able to create and tune new projectile variations without requesting new code, reducing programmer bottleneck during combat iteration.</li>
+          <li>The gravity-delay flight model allowed projectiles to feel accurate at short range while still arcing at distance.</li>
+          <li>The Round-Robin object pool let many projectiles remain active simultaneously without performance spikes or allocation churn.</li>
+          <li>AI and player shared the same launcher logic, which kept behavior consistent and prevented duplicated systems.</li>
+          <li>The system remained modular, meaning additional effect types (e.g., status effects, ricochets, homing) could be added by inheriting from the base effect class.</li>
+        </ul>
+
+        <aside class="project-cta" aria-label="Project links">
+          <dl>
+            <div><dt>Download build:</dt><dd><a href="https://futuregames.itch.io/thrall" target="_blank" rel="noopener">On itch.io</a></dd></div>
+            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/Thrall" target="_blank" rel="noopener">Source on GitHub</a></dd></div>
+          </dl>
+        </aside>
+
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/thrall/closing.png" alt="Thrall gameplay: a crossbow bolt bursting an enemy in a burning medieval town square" width="1896" height="1046" loading="lazy"></div>
+        </figure>
+      </article>
+    </div>
+
+    <nav class="container pager" aria-label="More projects">
+      <a href="../time-to-breach/"><span>← Previous</span><strong>Time to Breach</strong></a>
+      <a class="pager__next" href="../scapegoat/"><span>Next →</span><strong>Scapegoat</strong></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span data-year>2026</span> Ossian Däckfors · Gameplay Programmer</p>
+      <nav aria-label="Footer">
+        <a href="mailto:ossian.dackfors@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">LinkedIn</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

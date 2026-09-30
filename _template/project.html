@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+  New project page template.
+  1. Copy this file to /<project-slug>/index.html (e.g. /my-game/index.html).
+  2. Replace every TODO. Put images in /assets/img/<project-slug>/.
+  3. Add a card for it in /index.html (#projects) and update the prev/next pager links.
+  Everything under .prose is plain HTML: h2 = section (numbered + in the table of contents),
+  h3 = subsection (in the table of contents), h4 = minor heading (not in the table of contents).
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TODO Project Name — Ossian Däckfors</title>
+  <meta name="description" content="TODO one or two sentences about the project and your role.">
+  <link rel="canonical" href="https://ossian.games/TODO-slug/">
+  <meta name="theme-color" content="#0a0c0f">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ossian Däckfors">
+  <meta property="og:title" content="TODO Project Name — TODO Role">
+  <meta property="og:description" content="TODO short description.">
+  <meta property="og:url" content="https://ossian.games/TODO-slug/">
+  <meta property="og:image" content="https://ossian.games/assets/img/TODO-slug/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../" aria-label="Ossian Däckfors, home"><span class="brand__mark">OD</span><span class="brand__name">Ossian Däckfors</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../#projects">Projects</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a class="nav__resume" href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
+        <div class="project-hero__grid">
+          <div>
+            <span class="eyebrow">Project 05 · TODO Engine · TODO Language</span>
+            <h1>TODO Project Name</h1>
+            <p class="project-hero__role">Role: TODO</p>
+            <p class="project-hero__lede">TODO the overview paragraph: what the game is and what you built.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://TODO.itch.io/TODO" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Play on itch.io</a>
+              <a class="btn" href="https://github.com/Ossdac/TODO" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Source on GitHub</a>
+            </div>
+          </div>
+          <div class="project-hero__media">
+            <!-- Landscape or square art: leave as is. Tall or small art: add the class project-hero__media--contain. -->
+            <img src="../assets/img/TODO-slug/hero.jpg" alt="TODO describe the image" width="1600" height="900">
+            <!-- Or a video instead of the image (nothing loads from YouTube until it's clicked):
+            <div class="video" data-yt="YOUTUBE_ID" data-title="TODO gameplay video">
+              <button type="button" aria-label="Play the gameplay video (loads YouTube)">
+                <img src="../assets/img/TODO-slug/poster.jpg" alt="" width="1920" height="1080">
+                <span class="video__play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+                <span class="video__note">Gameplay video · plays from YouTube</span>
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-wrap" aria-labelledby="overview-title">
+      <h2 class="sr-only" id="overview-title">Project Overview</h2>
+      <div class="container">
+        <!-- Six rows fit; with five, add data-cols="5" to the dl. -->
+        <dl class="spec">
+          <div><dt>Project Type</dt><dd>TODO</dd></div>
+          <div><dt>Role</dt><dd>TODO</dd></div>
+          <div><dt>Team Size</dt><dd>TODO people</dd></div>
+          <div><dt>Duration</dt><dd>TODO weeks</dd></div>
+          <div><dt>Engine</dt><dd>TODO</dd></div>
+          <div><dt>Language</dt><dd>TODO</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
+
+      <article class="prose">
+        <h2>Problem &amp; Goal</h2>
+        <p>TODO</p>
+
+        <h2>Solution</h2>
+        <p>TODO</p>
+        <h3>TODO subsystem</h3>
+        <ul>
+          <li>TODO</li>
+        </ul>
+        <p class="takeaway">TODO a one-line summary worth highlighting.</p>
+
+        <!-- Full-width screenshot. Drop fig--wide and add fig--pad for small or tall images. -->
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/TODO-slug/screenshot.jpg" alt="TODO" width="1920" height="1080" loading="lazy"></div>
+          <figcaption>TODO caption</figcaption>
+        </figure>
+
+        <!-- Code: escape < > & as &lt; &gt; &amp;. Highlighting and the copy button are added by site.js. -->
+        <figure class="code" data-lang="C++" data-name="TODO::Function">
+<pre><code>void TODO()
+{
+}</code></pre>
+          <figcaption>TODO optional caption</figcaption>
+        </figure>
+
+        <h2>Results</h2>
+        <ul>
+          <li>TODO</li>
+        </ul>
+
+        <aside class="project-cta" aria-label="Project links">
+          <dl>
+            <div><dt>Download build:</dt><dd><a href="https://TODO.itch.io/TODO" target="_blank" rel="noopener">On itch.io</a></dd></div>
+            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/TODO" target="_blank" rel="noopener">Source on GitHub</a></dd></div>
+          </dl>
+        </aside>
+      </article>
+    </div>
+
+    <nav class="container pager" aria-label="More projects">
+      <a href="../TODO-previous/"><span>← Previous</span><strong>TODO</strong></a>
+      <a class="pager__next" href="../TODO-next/"><span>Next →</span><strong>TODO</strong></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span data-year>2026</span> Ossian Däckfors · Gameplay Programmer</p>
+      <nav aria-label="Footer">
+        <a href="mailto:ossian.dackfors@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">LinkedIn</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

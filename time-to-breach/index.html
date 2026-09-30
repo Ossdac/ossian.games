@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time to Breach — Ossian Däckfors</title>
+  <meta name="description" content="Time to Breach: a CRPG with a player-only time rewind system built in Unreal (C++, Python). Ring-buffer state snapshots and an event timeline for reversible gameplay.">
+  <link rel="canonical" href="https://ossian.games/time-to-breach/">
+  <meta name="theme-color" content="#0a0c0f">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ossian Däckfors">
+  <meta property="og:title" content="Time to Breach — Time Rewind System">
+  <meta property="og:description" content="A player-only rewind mechanic in Unreal: ring-buffer state snapshots plus an event timeline for reversible health changes.">
+  <meta property="og:url" content="https://ossian.games/time-to-breach/">
+  <meta property="og:image" content="https://ossian.games/assets/img/time-to-breach/card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../" aria-label="Ossian Däckfors, home"><span class="brand__mark">OD</span><span class="brand__name">Ossian Däckfors</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../#projects">Projects</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a class="nav__resume" href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
+        <div class="project-hero__grid">
+          <div>
+            <span class="eyebrow">Project 02 · Unreal · C++, Python</span>
+            <h1>Time to Breach</h1>
+            <p class="project-hero__role">Role: Time Rewind System</p>
+            <p class="project-hero__lede">Time to Breach is a CRPG with a player-only rewind mechanic. The player can scrub back along their own timeline—position, rotation, velocity, and selected player variables—while the world and enemies continue forward in normal time. This is a true state rewind of the player, not a cinematic effect.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://futuregames.itch.io/time-to-breach" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Play on itch.io</a>
+              <a class="btn" href="https://github.com/Ossdac/TimeToBreach" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Source on GitHub</a>
+            </div>
+          </div>
+          <div class="project-hero__media">
+            <img src="../assets/img/time-to-breach/hero.jpg" alt="Time to Breach: an armoured soldier holding a rifle" width="803" height="807">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-wrap" aria-labelledby="overview-title">
+      <h2 class="sr-only" id="overview-title">Project Overview</h2>
+      <div class="container">
+        <dl class="spec">
+          <div><dt>Project Type</dt><dd>CRPG</dd></div>
+          <div><dt>Role</dt><dd>Time Rewind System</dd></div>
+          <div><dt>Team Size</dt><dd>8 people</dd></div>
+          <div><dt>Duration</dt><dd>4 Weeks</dd></div>
+          <div><dt>Engine</dt><dd>Unreal</dd></div>
+          <div><dt>Language</dt><dd>C++, Python</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
+
+      <article class="prose">
+        <h2>System Breakdown</h2>
+        <p class="lead">The rewind system stores two different kinds of data: continuous motion state and discrete gameplay events.<br>Separating these keeps memory stable and avoids unnecessary data recording.</p>
+
+        <h3>1) Continuous State (Ring Buffer)</h3>
+        <p>The component samples the owner’s state at a fixed interval and stores each snapshot in a constant-size ring buffer. This keeps memory usage stable and prevents unbounded growth over long sessions.</p>
+        <p>Each snapshot contains:</p>
+        <ul>
+          <li>World transform</li>
+          <li>Linear velocity</li>
+          <li>Angular velocity</li>
+          <li>Movement mode + movement input velocity (used to drive correct animation state during rewind)</li>
+        </ul>
+        <p>When rewind is active:</p>
+        <ul>
+          <li>Physics simulation is disabled on the actor</li>
+          <li>Snapshots are read backwards through the ring buffer</li>
+          <li>The actor is positioned using interpolation to avoid visual snapping or jitter</li>
+        </ul>
+        <p>This recreates the player's physical motion in reverse, smoothly.</p>
+
+        <h3>2) Event Timeline (Health Only in This Project)</h3>
+        <p>Discrete gameplay changes are not stored every frame.<br>Instead, the system records health change events with timestamps.</p>
+        <p>During rewind:</p>
+        <ul>
+          <li>The timeline is stepped backwards</li>
+          <li>Any health change that occurred during the rewind window is undone</li>
+        </ul>
+        <p>The system is structured so additional reversible events (resources, status flags, etc.) could be added the same way, but only health was implemented in this project due to scope.</p>
+        <p class="takeaway">Continuous motion is reversed mathematically.<br>Health changes are reversed logically.</p>
+
+        <h3>Editor Workflow Support (Python)</h3>
+        <p>A small Unreal Python tool was written to automatically generate reversed animation assets (AnimSequences and Montages) for testing rewind animation playback. This allowed animation variations to be batch-processed instead of duplicated by hand.</p>
+
+        <h3>Code</h3>
+        <figure class="code" data-lang="C++" data-name="URewindComponent::RecordSnapshot">
+<pre><code>void URewindComponent::RecordSnapshot(float DeltaTime)
+{
+    TimeSinceSnapshotsChanged += DeltaTime;
+    LocalTimeFromStart += DeltaTime;
+
+    // sample at fixed frequency
+    if (TimeSinceSnapshotsChanged &lt; SnapshotFrequencySeconds &amp;&amp;
+        TransformAndVelocityRecentHistory.Num() != 0)
+        return;
+
+    // ring buffer: drop oldest when full
+    if (TransformAndVelocityRecentHistory.Num() == MaxSnapshots)
+        TransformAndVelocityRecentHistory.PopFront();
+
+    const FTransform T = GetOwner()-&gt;GetActorTransform();
+    const FVector Lin = OwnerRootComponent
+        ? OwnerRootComponent-&gt;GetPhysicsLinearVelocity() : FVector::ZeroVector;
+    const FVector Ang = OwnerRootComponent
+        ? OwnerRootComponent-&gt;GetPhysicsAngularVelocityInRadians() : FVector::ZeroVector;
+
+    LatestSnapshotIndex =
+        TransformAndVelocityRecentHistory.Emplace(LocalTimeFromStart,
+                                                  TimeSinceSnapshotsChanged,
+                                                  T, Lin, Ang);
+
+    // optional animation sampling (if enabled)
+    if (bSnapshotAnimationVariables &amp;&amp; OwnerMovementComponent)
+    {
+        if (AnimationRecentHistory.Num() == MaxSnapshots)
+            AnimationRecentHistory.PopFront();
+
+        AnimationRecentHistory.Emplace(LocalTimeFromStart,
+                                       TimeSinceSnapshotsChanged,
+                                       OwnerMovementComponent-&gt;Velocity,
+                                       OwnerMovementComponent-&gt;MovementMode);
+    }
+    TimeSinceSnapshotsChanged = 0.f;
+}</code></pre>
+          <figcaption>Core snapshot recording into a fixed-size ring buffer; optional animation state captured for correct rewind playback.</figcaption>
+        </figure>
+
+        <h2>Results</h2>
+        <ul>
+          <li>The player rewind mechanic worked reliably and remained visually smooth due to interpolation during playback.</li>
+          <li>The ring buffer kept memory usage fixed and allowed rewind duration to scale predictably from game settings.</li>
+          <li>The component could be added to any actor without additional setup, enabling reuse beyond the original design.</li>
+          <li>The health event rewind restored player state consistently, avoiding desync between animation/motion reversal and gameplay effects.</li>
+          <li>World state and enemy behavior continued in forward time while the player rewound, preserving clarity and spatial awareness in combat.</li>
+        </ul>
+
+        <h2>If I Had More Time</h2>
+        <ul>
+          <li>Extend Event Timeline beyond health to include ammunition, cooldowns, and status flags using the same reversible event pattern.</li>
+          <li>Generalize Animation Rewind for montage-based actions (e.g., firing, rolling) so the animation layer matches the reversed motion more precisely.</li>
+        </ul>
+
+        <aside class="project-cta" aria-label="Project links">
+          <dl>
+            <div><dt>Download build:</dt><dd><a href="https://futuregames.itch.io/time-to-breach" target="_blank" rel="noopener">On itch.io</a></dd></div>
+            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/TimeToBreach" target="_blank" rel="noopener">Source on GitHub</a></dd></div>
+          </dl>
+        </aside>
+      </article>
+    </div>
+
+    <nav class="container pager" aria-label="More projects">
+      <a href="../voxel-generator/"><span>← Previous</span><strong>Voxel Generator</strong></a>
+      <a class="pager__next" href="../thrall/"><span>Next →</span><strong>Thrall</strong></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span data-year>2026</span> Ossian Däckfors · Gameplay Programmer</p>
+      <nav aria-label="Footer">
+        <a href="mailto:ossian.dackfors@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">LinkedIn</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
