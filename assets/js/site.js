@@ -1,4 +1,4 @@
-// ossian.games — progressive enhancement. Every page reads fine without this file.
+// ossiandackfors.com — progressive enhancement. Every page reads fine without this file.
 
 (function () {
   "use strict";

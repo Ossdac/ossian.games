@@ -1,4 +1,4 @@
-# ossian.games
+# ossiandackfors.com
 
 Portfolio of Ossian Däckfors, gameplay programmer. Plain static HTML/CSS/JS with no build
 step, no framework and no dependencies. Every file in this folder is exactly what gets served,
@@ -57,46 +57,29 @@ Inside a project's `.prose`: `h2` is a numbered section in the table of contents
 subsection in the table of contents, and `h4` is a minor heading that stays out of it. Code goes in
 `<figure class="code" data-lang="C++" data-name="...">` and must escape `<`, `>` and `&`.
 
-## Publishing on GitHub Pages
+## Publishing
 
-1. Create a repository (for example `Ossdac/ossian.games`, or `Ossdac/Ossdac.github.io`).
-2. Push this folder to it:
-   ```bash
-   git init
-   ```
-   ```bash
-   git add .
-   ```
-   ```bash
-   git commit -m "Portfolio site"
-   ```
-   ```bash
-   git branch -M main
-   ```
-   ```bash
-   git remote add origin https://github.com/Ossdac/ossian.games.git
-   ```
-   ```bash
-   git push -u origin main
-   ```
-3. In the repository, go to **Settings → Pages**. Set **Source** to *Deploy from a branch*,
-   **Branch** to `main` / `(root)`, and save.
-4. In the same page, set **Custom domain** to `ossian.games`. The `CNAME` file already holds it.
+The repo is `Ossdac/ossian.games`, published with GitHub Pages from `main` / `(root)`
+(**Settings → Pages**). Commit and push, and the site updates about a minute later.
 
-## Moving the domain off Google Sites
+## Domains
 
-At the domain registrar's DNS settings:
+- **ossiandackfors.com** is the real address. The `CNAME` file holds it, and it must match
+  **Custom domain** under Settings → Pages.
+- **ossian.games** only redirects here. A second two-file repo does the redirect
+  (`Ossdac/ossian.games-redirect`, local folder `Documents\ossian.games-redirect`). It forwards
+  every path, so old links like `ossian.games/thrall` still land on the right page. If
+  ossian.games is ever allowed to expire, delete that repo; nothing in this one changes.
 
-1. Remove the Google Sites mapping for `ossian.games` / `www`. Also remove the custom URL in
-   Google Sites under *Settings → Custom domains*.
-2. Add these records for the apex `ossian.games`:
-   - `A` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `AAAA` → `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
-3. Add `CNAME` `www` → `ossdac.github.io`.
-4. Wait for DNS to propagate, then tick **Enforce HTTPS** in Settings → Pages.
+DNS at Hover is the same for both domains (the MX record for Hover email is left alone):
 
-The old Google Sites URLs (`/time-to-breach`, `/thrall`, `/scapegoat`, `/voxel-generator`,
-`/contacts`, `/home`) all keep working.
+- `A` `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- `AAAA` `@` → `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+- `CNAME` `www` → `ossdac.github.io`
+
+After a DNS change, tick **Enforce HTTPS** under Settings → Pages once GitHub has issued the
+certificate. The old Google Sites paths (`/time-to-breach`, `/thrall`, `/scapegoat`,
+`/voxel-generator`, `/contacts`, `/home`) all keep working.
 
 ## Moving to another host later
 
