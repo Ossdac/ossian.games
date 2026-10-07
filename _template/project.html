@@ -100,20 +100,43 @@
         <p>TODO</p>
 
         <h2>Solution</h2>
-        <p>TODO</p>
+        <p class="lead">TODO one or two sentences on the overall design.</p>
+        <!-- Optional: the main pieces as a row of steps. Two to five steps read best. -->
+        <ol class="flow" aria-label="TODO pipeline">
+          <li><span class="flow__k">TODO step</span><span class="flow__v">TODO what it does</span></li>
+          <li><span class="flow__k">TODO step</span><span class="flow__v">TODO what it does</span></li>
+          <li><span class="flow__k">TODO step</span><span class="flow__v">TODO what it does</span></li>
+        </ol>
         <h3>TODO subsystem</h3>
         <ul>
           <li>TODO</li>
         </ul>
         <p class="takeaway">TODO a one-line summary worth highlighting.</p>
 
-        <!-- Full-width screenshot. Drop fig--wide and add fig--pad for small or tall images. -->
+        <!-- Full-width screenshot. Drop fig--wide and add fig--pad for small or tall images.
+             Compress first: pwsh tools/compress-image.ps1 path/to/shot.png (writes a .jpg next to it). -->
         <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/TODO-slug/screenshot.jpg" alt="TODO" width="1920" height="1080" loading="lazy"></div>
+          <div class="fig__frame"><img src="../assets/img/TODO-slug/screenshot.jpg" alt="TODO" width="1600" height="900" loading="lazy"></div>
           <figcaption>TODO caption</figcaption>
         </figure>
 
-        <!-- Code: escape < > & as &lt; &gt; &amp;. Highlighting and the copy button are added by site.js. -->
+        <!-- Two images side by side (stacks on phones):
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/TODO-slug/before.jpg" alt="TODO" width="800" height="600" loading="lazy">
+            <img src="../assets/img/TODO-slug/after.jpg" alt="TODO" width="800" height="600" loading="lazy">
+          </div>
+          <figcaption>TODO caption</figcaption>
+        </figure> -->
+
+        <!-- A short looping clip of the system working, e.g. exported from OBS as MP4 (H.264), a few seconds, no audio:
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><video src="../assets/video/TODO-slug/clip.mp4" poster="../assets/img/TODO-slug/clip-poster.jpg" width="1280" height="720" autoplay muted loop playsinline aria-label="TODO what the clip shows"></video></div>
+          <figcaption>TODO caption</figcaption>
+        </figure> -->
+
+        <!-- Code: escape < > & as &lt; &gt; &amp;. Highlighting and the copy button are added by site.js.
+             data-lang can be C++, C# or Python. Say in the caption if the snippet is condensed. -->
         <figure class="code" data-lang="C++" data-name="TODO::Function">
 <pre><code>void TODO()
 {
@@ -124,6 +147,11 @@
         <h2>Results</h2>
         <ul>
           <li>TODO</li>
+        </ul>
+
+        <h2>What I’d Change</h2>
+        <ul>
+          <li><strong>TODO short title.</strong> TODO what you'd do differently and why.</li>
         </ul>
 
         <aside class="project-cta" aria-label="Project links">

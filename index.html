@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ossian Däckfors — Gameplay Programmer</title>
-  <meta name="description" content="Portfolio of Ossian Däckfors, a gameplay programmer focused on gameplay systems, real-time simulation, and engine-level tools in C++ (Unreal) and C# (Unity).">
+  <meta name="description" content="Portfolio of Ossian Däckfors, gameplay programmer: a time rewind system, a projectile system, save and progression systems and a voxel generator, built in C++ with Unreal and C# with Unity.">
   <link rel="canonical" href="https://ossiandackfors.com/">
   <meta name="theme-color" content="#0a0c0f">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ossian Däckfors">
   <meta property="og:title" content="Ossian Däckfors — Gameplay Programmer">
-  <meta property="og:description" content="Gameplay systems, real-time simulation, and engine-level tools in C++ (Unreal) and C# (Unity).">
+  <meta property="og:description" content="Gameplay systems in C++/Unreal and C#/Unity: time rewind, projectiles, progression, saves and voxel tools.">
   <meta property="og:url" content="https://ossiandackfors.com/">
-  <meta property="og:image" content="https://ossiandackfors.com/assets/img/thrall/closing.png">
+  <meta property="og:image" content="https://ossiandackfors.com/assets/img/thrall/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -43,7 +43,7 @@
           <span class="status"><span class="status__dot" aria-hidden="true"></span>Open to junior gameplay programming roles</span>
           <h1 class="hero__title">Ossian<br>Däckfors</h1>
           <p class="hero__role">Gameplay Programmer</p>
-          <p class="hero__lede">Game programmer focused on gameplay systems, real-time simulation, and engine-level tools. I build systems that are modular, data-driven, and easy for designers to iterate on.</p>
+          <p class="hero__lede">I build the systems a team builds on: projectiles, time rewind, progression and saves. I make them data-driven, so designers can tune them without waiting on code. I work in C++ with Unreal and C# with Unity.</p>
           <div class="btn-row">
             <a class="btn btn--primary" href="#projects">View projects
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></a>
@@ -97,38 +97,20 @@
         <div class="project-grid">
           <article class="card">
             <div class="card__media">
-              <img src="assets/img/voxel-generator/card.png" alt="Voxel terrain generated from Perlin noise, with rolling green hills" width="660" height="662" loading="lazy" style="object-position: center 70%">
+              <img src="assets/img/time-to-breach/card.jpg" alt="Top-down view of a Time to Breach fight among crates on a neon-lit floor" width="964" height="964" loading="lazy">
               <span class="card__index">01</span>
-            </div>
-            <div class="card__body">
-              <p class="card__type">Voxel World/Asset Generation</p>
-              <h3 class="card__title"><a href="voxel-generator/">Voxel Generator</a>
-                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
-              <p class="card__role">Procedural terrain generation with chunk-based streaming</p>
-              <ul class="chips" aria-label="Project facts">
-                <li class="chip">Unity</li>
-                <li class="chip">C#</li>
-                <li class="chip">Solo project</li>
-                <li class="chip">4-6 weeks</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card__media">
-              <img src="assets/img/time-to-breach/card.png" alt="Top-down view of Time to Breach combat in a neon-lit sci-fi arena" width="964" height="964" loading="lazy">
-              <span class="card__index">02</span>
             </div>
             <div class="card__body">
               <p class="card__type">CRPG</p>
               <h3 class="card__title"><a href="time-to-breach/">Time to Breach</a>
                 <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
               <p class="card__role">Role: <strong>Time Rewind System</strong></p>
+              <p class="card__desc">The player rewinds their own last seconds while enemies keep fighting. A snapshot ring buffer for motion, and an undo timeline that gives back damage taken.</p>
               <ul class="chips" aria-label="Project facts">
                 <li class="chip">Unreal</li>
                 <li class="chip">C++, Python</li>
                 <li class="chip">8 people</li>
-                <li class="chip">4 Weeks</li>
+                <li class="chip">4 weeks</li>
               </ul>
             </div>
           </article>
@@ -136,13 +118,14 @@
           <article class="card">
             <div class="card__media">
               <img src="assets/img/thrall/card.jpg" alt="Thrall key art: a possessed knight glowing green in front of a church at night" width="1448" height="1448" loading="lazy" style="object-position: center 60%">
-              <span class="card__index">03</span>
+              <span class="card__index">02</span>
             </div>
             <div class="card__body">
-              <p class="card__type">Doom Shooter Action Game</p>
+              <p class="card__type">First-person action</p>
               <h3 class="card__title"><a href="thrall/">Thrall</a>
                 <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
               <p class="card__role">Role: <strong>Projectile System</strong></p>
+              <p class="card__desc">One launcher for the player and the AI, pooled projectiles with penetration and delayed gravity, and hit effects designers swap in Blueprint.</p>
               <ul class="chips" aria-label="Project facts">
                 <li class="chip">Unreal</li>
                 <li class="chip">C++</li>
@@ -154,19 +137,40 @@
 
           <article class="card">
             <div class="card__media">
-              <img src="assets/img/scapegoat/card.png" alt="Scapegoat key art: a chained, blood-powered sword among ruined pillars" width="1448" height="1448" loading="lazy">
-              <span class="card__index">04</span>
+              <img src="assets/img/scapegoat/card.jpg" alt="Scapegoat key art: a chained, blood-powered sword among ruined pillars" width="1200" height="1200" loading="lazy">
+              <span class="card__index">03</span>
             </div>
             <div class="card__body">
-              <p class="card__type">Hack and Slash Action Game</p>
+              <p class="card__type">Hack-and-slash action</p>
               <h3 class="card__title"><a href="scapegoat/">Scapegoat</a>
                 <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
               <p class="card__role">Role: <strong>Save &amp; Progression Systems</strong></p>
+              <p class="card__desc">A skill tree authored in a custom Unity editor window, and a save system other programmers extend through one interface.</p>
               <ul class="chips" aria-label="Project facts">
                 <li class="chip">Unity</li>
                 <li class="chip">C#</li>
                 <li class="chip">14 people</li>
                 <li class="chip">4 weeks</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card__media">
+              <img src="assets/img/voxel-generator/card.jpg" alt="Voxel terrain generated from Perlin noise, with rolling green hills" width="660" height="662" loading="lazy" style="object-position: center 70%">
+              <span class="card__index">04</span>
+            </div>
+            <div class="card__body">
+              <p class="card__type">Procedural generation tool</p>
+              <h3 class="card__title"><a href="voxel-generator/">Voxel Generator</a>
+                <svg class="card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></h3>
+              <p class="card__role">Solo project: <strong>Voxel Meshing &amp; Voxelizer</strong></p>
+              <p class="card__desc">Chunked, face-culled voxel meshes from noise, height maps or any 3D model, saved as prefabs.</p>
+              <ul class="chips" aria-label="Project facts">
+                <li class="chip">Unity</li>
+                <li class="chip">C#</li>
+                <li class="chip">Solo</li>
+                <li class="chip">4–6 weeks</li>
               </ul>
             </div>
           </article>
@@ -185,19 +189,19 @@
 
         <div class="about">
           <div class="about__text">
-            <p>I’m Ossian Däckfors, a game programmer focused on gameplay systems, real-time simulation, and engine-level tools. I study Game Programming at Futuregames, working mainly in C++ (Unreal) and C# (Unity).</p>
-            <p>I build systems that are modular, data-driven, and easy for designers to iterate on. My work centers on making technical features that feel good to use and integrate cleanly with the rest of production.</p>
-            <p>Before Futuregames I studied mathematics and information science, worked in logistics and hospitality, and volunteered in wildlife rescue in South Africa—experiences that taught adaptability and structured problem solving, both useful in game development.</p>
-            <p>I’m currently looking for a junior position in gameplay programming, but I’m also open to tools or generalist roles where strong technical communication and system design are valuable.</p>
+            <p>I’m a gameplay programmer in Stockholm, working mainly in C++ with Unreal and C# with Unity. I’m studying gameplay programming at Futuregames, after a B.Sc. in Computer Game Development at Stockholm University.</p>
+            <p>Most of what I build is the layer other people build on: a projectile system designers extend in Blueprint, a rewind component any actor can carry, a save system other programmers join through one interface. I care about clear boundaries between systems, and about tools that let designers iterate without waiting on code.</p>
+            <p>Before games I studied mathematics and information systems, worked in logistics and hospitality, and volunteered in wildlife rescue in South Africa.</p>
+            <p>I’m looking for a junior gameplay programming role, and I’m also open to tools and generalist positions.</p>
           </div>
 
           <div>
             <div class="aside-box">
-              <h3>Selected Projects</h3>
-              <ul class="selected">
-                <li><a href="thrall/"><strong>Thrall</strong><span>Modular projectile system built in Unreal (C++ / pooled + data-driven)</span></a></li>
-                <li><a href="time-to-breach/"><strong>Time to Breach</strong><span>Player-only rewind component with state ring buffer and event reversal</span></a></li>
-                <li><a href="voxel-generator/"><strong>Voxel Generator</strong><span>Procedural terrain generation with chunk-based streaming</span></a></li>
+              <h3>Education</h3>
+              <ul class="edu">
+                <li><strong>Futuregames</strong><span>Advanced Gameplay Programming · 2024–present</span></li>
+                <li><strong>Stockholm University</strong><span>B.Sc. Computer Game Development · 2020–2023</span></li>
+                <li><strong>Lund University</strong><span>Information Systems Design · 2017–2019</span></li>
               </ul>
             </div>
             <div class="aside-box">
@@ -208,6 +212,7 @@
                 <li class="chip chip--accent">C#</li>
                 <li class="chip">Unity</li>
                 <li class="chip">Python</li>
+                <li class="chip">Git</li>
               </ul>
             </div>
           </div>

@@ -130,32 +130,42 @@
   const KEYWORDS = new Set(("void float int bool double char long short unsigned if else return const constexpr for foreach in " +
     "var new public private protected internal static class struct enum switch case break default continue while do " +
     "true false null nullptr this auto out ref using namespace override virtual string delete typeof sizeof").split(" "));
-  const TYPES = new Set("Dictionary SerializableDictionary GameData ISave SkillTypes Vector2Int Vector3Int Vector3 List Stack".split(" "));
+  const PY_KEYWORDS = new Set(("def return if elif else for in while import from as try except finally with not and or is " +
+    "None True False pass break continue class lambda").split(" "));
+  const TYPES = new Set(("Dictionary SerializableDictionary GameData ISave SkillTypes SkillNode BlockType Direction MeshData ChunkData " +
+    "Vector2Int Vector3Int Vector3 List Stack").split(" "));
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const TOKEN = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])')|(\b\d+(?:\.\d+)?f?\b)|([A-Za-z_]\w*)|([{}()[\];,.<>:=+\-*/&|!?%^~]+)/g;
+  const TOKEN_PY = /(#[^\n]*)|([rf]?"(?:\\.|[^"\\\n])*"|[rf]?'(?:\\.|[^'\\\n])*')|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|([{}()[\];,.<>:=+\-*/&|!?%^~]+)/g;
 
-  const highlight = (src) => {
+  const highlight = (src, lang) => {
+    const py = lang === "Python";
+    const re = py ? TOKEN_PY : TOKEN;
+    const keywords = py ? PY_KEYWORDS : KEYWORDS;
     let out = "", last = 0, m;
-    TOKEN.lastIndex = 0;
-    while ((m = TOKEN.exec(src))) {
+    re.lastIndex = 0;
+    while ((m = re.exec(src))) {
       out += esc(src.slice(last, m.index));
       const [tok, comment, str, num, ident, punct] = m;
       if (comment) out += `<span class="tok-c">${esc(tok)}</span>`;
       else if (str) out += `<span class="tok-s">${esc(tok)}</span>`;
       else if (num) out += `<span class="tok-n">${tok}</span>`;
       else if (ident) {
-        const next = src.slice(TOKEN.lastIndex).match(/^\s*(\S)/);
-        if (KEYWORDS.has(tok)) out += `<span class="tok-k">${tok}</span>`;
+        const next = src.slice(re.lastIndex).match(/^\s*(\S)/);
+        if (keywords.has(tok)) out += `<span class="tok-k">${tok}</span>`;
         else if (next && next[1] === "(") out += `<span class="tok-f">${tok}</span>`;
         else if (TYPES.has(tok) || /^[FUAETI][A-Z][a-z]/.test(tok)) out += `<span class="tok-t">${tok}</span>`;
         else out += tok;
       } else if (punct) out += `<span class="tok-p">${esc(tok)}</span>`;
-      last = TOKEN.lastIndex;
+      last = re.lastIndex;
     }
     return out + esc(src.slice(last));
   };
 
-  $$("pre code").forEach((code) => { code.innerHTML = highlight(code.textContent); });
+  $$("pre code").forEach((code) => {
+    const fig = code.closest("figure.code");
+    code.innerHTML = highlight(code.textContent, fig ? fig.dataset.lang : "");
+  });
 
   $$("figure.code").forEach((fig) => {
     const pre = $("pre", fig);

@@ -1,0 +1,202 @@
+<!doctype html>
+<!--
+  Source for assets/Ossian_Dackfors_Resume.pdf. Edit this file, then rebuild the PDF:
+    pwsh resume/build.ps1
+  It's laid out as one A4 page. After editing, open the PDF and check nothing spilled onto a second page.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ossian Däckfors — Resume</title>
+  <meta name="robots" content="noindex">
+  <style>
+    @font-face {
+      font-family: "Inter";
+      src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+      font-weight: 400 800;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("../assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+      font-weight: 400 700;
+      font-style: normal;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --ink: #1b1e22;
+      --ink-2: #434a53;
+      --muted: #6b7480;
+      --rule: #e3e6ea;
+      --accent: #a35f00;
+      --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+      --font-mono: "JetBrains Mono", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: var(--font-sans);
+      font-size: 9.6pt;
+      line-height: 1.45;
+      color: var(--ink);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page { width: 210mm; height: 297mm; padding: 13mm 16mm 11mm; overflow: hidden; }
+    @media screen {
+      body { background: #e8eaed; }
+      .page { margin: 24px auto; background: #fff; box-shadow: 0 4px 28px rgba(0, 0, 0, 0.14); }
+    }
+
+    /* Header */
+    .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+    .head h1 { margin: 0; font-size: 25pt; font-weight: 800; letter-spacing: -0.025em; line-height: 1.05; }
+    .head .title { margin-top: 3px; font-family: var(--font-mono); font-size: 10.5pt; color: var(--accent); }
+    .contact { margin: 0; padding: 0; list-style: none; text-align: right; font-size: 8.6pt; line-height: 1.5; color: var(--ink-2); }
+    .contact span + span::before { content: "·"; margin: 0 6px; color: var(--muted); }
+
+    /* Sections */
+    section { margin-top: 13px; }
+    .head + section { margin-top: 16px; }
+    h2 {
+      margin: 0 0 5px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--font-mono);
+      font-size: 8.3pt;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    p { margin: 0; }
+    p, li { text-wrap: pretty; }
+    .profile { color: var(--ink-2); }
+
+    .skills { display: grid; grid-template-columns: 26mm 1fr; gap: 1px 8px; margin: 0; }
+    .skills dt { font-weight: 600; }
+    .skills dd { margin: 0; color: var(--ink-2); }
+
+    .item { margin-top: 9px; break-inside: avoid; }
+    .item:first-of-type { margin-top: 0; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .name { font-weight: 700; font-size: 10.2pt; }
+    .name .role { font-weight: 500; color: var(--ink-2); }
+    .name .role::before { content: "— "; color: var(--muted); }
+    .date { font-family: var(--font-mono); font-size: 8.3pt; color: var(--muted); white-space: nowrap; }
+    .meta { margin-top: 1px; font-size: 8.7pt; color: var(--muted); }
+    .item ul { margin: 3px 0 0; padding-left: 13px; }
+    .item li { margin-top: 1.5px; color: var(--ink-2); }
+    .item li::marker { color: var(--accent); }
+
+    .lines .row + .row { margin-top: 2.5px; }
+    .lines .what { color: var(--ink-2); }
+    .lines .what strong { color: var(--ink); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <div>
+        <h1>Ossian Däckfors</h1>
+        <p class="title">Gameplay Programmer</p>
+      </div>
+      <ul class="contact">
+        <li><span><a href="mailto:ossian.dackfors@gmail.com">ossian.dackfors@gmail.com</a></span><span>Stockholm, Sweden</span></li>
+        <li><span><a href="https://ossiandackfors.com/">ossiandackfors.com</a></span><span><a href="https://github.com/Ossdac">github.com/Ossdac</a></span></li>
+        <li><a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120">linkedin.com/in/ossian-däckfors-481280120</a></li>
+      </ul>
+    </header>
+
+    <section>
+      <h2>Profile</h2>
+      <p class="profile">Gameplay programmer working in C++ with Unreal Engine and C# with Unity. I build the systems a team builds on (projectiles, time rewind, progression, saves) and make them data-driven, so designers can tune them without waiting on code. Studying Advanced Gameplay Programming at Futuregames, after a B.Sc. in Computer Game Development.</p>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <dl class="skills">
+        <dt>Programming</dt><dd>C++, C#, Python</dd>
+        <dt>Engines</dt><dd>Unreal Engine 5 (C++, Blueprint), Unity (C#, editor tooling)</dd>
+        <dt>Also</dt><dd>Git, Unreal Python scripting, object pooling, debugging, technical writing</dd>
+        <dt>Languages</dt><dd>Swedish (native), English (fluent, C2)</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Game Projects</h2>
+
+      <div class="item">
+        <div class="row">
+          <span class="name">Time to Breach <span class="role">Time rewind system</span></span>
+          <span class="date">2025</span>
+        </div>
+        <p class="meta">Unreal Engine 5 · C++, Python · team of 8 · 4 weeks</p>
+        <ul>
+          <li>Built a reusable rewind component: 30&nbsp;Hz snapshots in a fixed-size ring buffer (10&nbsp;s of history in about 60&nbsp;KB), played back with interpolation while enemies keep fighting.</li>
+          <li>Added an undo timeline for discrete state: systems record a closure that reverses their change; health uses it to give back damage taken.</li>
+          <li>Wrote an Unreal Python tool that batch-creates reversed copies of every animation and montage in a folder.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <span class="name">Thrall <span class="role">Projectile system</span></span>
+          <span class="date">2024</span>
+        </div>
+        <p class="meta">Unreal Engine 5 · C++ · team of 13 · 7 weeks</p>
+        <ul>
+          <li>Designed a data-driven projectile system (launcher component, projectile actor, swappable hit effects); designers made new projectiles in Blueprint without C++ changes.</li>
+          <li>One launcher for player and AI; possessing an enemy swaps in a stronger player version of its projectile.</li>
+          <li>Round-robin object pools: nothing spawns mid-fight, and spent bolts stay stuck in walls until reused.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <span class="name">Scapegoat <span class="role">Save &amp; progression systems</span></span>
+          <span class="date">2024</span>
+        </div>
+        <p class="meta">Unity · C# · team of 14 · 4 weeks</p>
+        <ul>
+          <li>Built a skill tree on ScriptableObjects, with a custom editor window for laying out skills and prerequisites.</li>
+          <li>Built an interface-based save system (JSON, optional obfuscation); another programmer added portal unlocks without touching the core.</li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <span class="name">Voxel Generator <span class="role">Solo tool</span></span>
+          <span class="date">2023</span>
+        </div>
+        <p class="meta">Unity · C# · solo · 4–6 weeks</p>
+        <ul>
+          <li>Chunked voxel meshing with face culling across chunk borders, fed by Perlin noise, height maps or a model voxelizer that uses a reverse 3D flood fill to make models solid. Results export as prefabs.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="lines">
+      <h2>Education</h2>
+      <div class="row"><span class="what"><strong>Futuregames</strong>, Stockholm — Advanced Gameplay Programming</span><span class="date">2024 – present</span></div>
+      <div class="row"><span class="what"><strong>Stockholm University</strong> — B.Sc. Computer Game Development</span><span class="date">2020 – 2023</span></div>
+      <div class="row"><span class="what"><strong>Lund University</strong> — Information Systems Design</span><span class="date">2017 – 2019</span></div>
+      <div class="row"><span class="what"><strong>Danderyds gymnasium</strong> — Mathematics specialisation, with the Mittag-Leffler Institute</span><span class="date">2012 – 2015</span></div>
+    </section>
+
+    <section class="lines">
+      <h2>Other Experience</h2>
+      <div class="row"><span class="what"><strong>Skeppsbro Bageri</strong> — Café service associate, running a mobile café day to day</span><span class="date">2020 – present</span></div>
+      <div class="row"><span class="what"><strong>Malmö Harbor</strong> — Car driver, vehicle logistics under tight safety and time constraints</span><span class="date">2019 – 2020</span></div>
+      <div class="row"><span class="what"><strong>Wildlife rescue, South Africa</strong> — Volunteer: animal care and construction in an international team</span><span class="date">2016</span></div>
+    </section>
+
+  </main>
+</body>
+</html>

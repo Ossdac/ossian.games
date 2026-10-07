@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thrall — Ossian Däckfors</title>
-  <meta name="description" content="Thrall: a first-person possession action game. A modular, data-driven projectile system in Unreal C++ with pooled projectiles and interchangeable hit effects.">
+  <meta name="description" content="Thrall: a first-person action game built on possession. A data-driven projectile system in Unreal C++: one launcher for player and AI, pooled projectiles with penetration and delayed gravity, and swappable hit effects.">
   <link rel="canonical" href="https://ossiandackfors.com/thrall/">
   <meta name="theme-color" content="#0a0c0f">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ossian Däckfors">
   <meta property="og:title" content="Thrall — Projectile System">
-  <meta property="og:description" content="A modular, data-driven projectile system in Unreal C++: pooled projectiles, gravity delay, penetration and interchangeable hit effects.">
+  <meta property="og:description" content="A data-driven projectile system in Unreal C++: a launcher shared by player and AI, round-robin pooling, penetration, delayed gravity and swappable hit effects.">
   <meta property="og:url" content="https://ossiandackfors.com/thrall/">
-  <meta property="og:image" content="https://ossiandackfors.com/assets/img/thrall/closing.png">
+  <meta property="og:image" content="https://ossiandackfors.com/assets/img/thrall/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -42,10 +42,10 @@
         <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
         <div class="project-hero__grid">
           <div>
-            <span class="eyebrow">Project 03 · Unreal · C++</span>
+            <span class="eyebrow">Project 02 · Unreal · C++</span>
             <h1>Thrall</h1>
             <p class="project-hero__role">Role: Projectile System</p>
-            <p class="project-hero__lede">Thrall is a first-person action game built around possession-based combat. The player begins as a ghost and can possess any enemy they come across. Once possessed, the player gains that enemy’s attack abilities, but with increased power due to the ghost’s presence. If the currently possessed host dies, the player dies with them—so combat revolves around swapping hosts before your current body is destroyed.</p>
+            <p class="project-hero__lede">Thrall is a first-person action game built on possession. You start as a ghost and can take over any enemy, gaining its attacks, made stronger by your presence. If your host dies, you die with it, so fights are about jumping to a new body in time. I built the projectile system: how projectiles are loaded, fired, fly, hit and get reused, for the player and the AI alike.</p>
             <div class="btn-row">
               <a class="btn btn--primary" href="https://futuregames.itch.io/thrall" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Play on itch.io</a>
@@ -56,7 +56,7 @@
           <div class="project-hero__media">
             <div class="video" data-yt="cQyiZSHRfBM" data-title="Thrall gameplay video">
               <button type="button" aria-label="Play the Thrall gameplay video (loads YouTube)">
-                <img src="../assets/img/thrall/closing.png" alt="" width="1896" height="1046">
+                <img src="../assets/img/thrall/closing.jpg" alt="" width="1600" height="883">
                 <span class="video__play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
                 <span class="video__note">Gameplay video · plays from YouTube</span>
               </button>
@@ -71,11 +71,11 @@
       <h2 class="sr-only" id="overview-title">Project Overview</h2>
       <div class="container">
         <dl class="spec">
-          <div><dt>Project Type</dt><dd>Doom Shooter Action Game</dd></div>
+          <div><dt>Project Type</dt><dd>First-person action</dd></div>
           <div><dt>Role</dt><dd>Projectile System</dd></div>
           <div><dt>Team Size</dt><dd>13 people</dd></div>
           <div><dt>Duration</dt><dd>7 weeks</dd></div>
-          <div><dt>Engine</dt><dd>Unreal</dd></div>
+          <div><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
           <div><dt>Language</dt><dd>C++</dd></div>
         </dl>
       </div>
@@ -86,171 +86,232 @@
 
       <article class="prose">
         <h2>Problem &amp; Goal</h2>
-        <p>The game required a flexible projectile system that could support different projectile behaviors without writing new code for each variation. Designers needed to be able to:</p>
+        <p>The game needed lots of projectile variations, with different speeds, arcs, piercing and impacts, for both the AI and the player. Possession adds a twist: when the player takes over an enemy, that enemy’s weapon has to keep working under player control, and hit harder.</p>
+        <p>The goal was to write the core once in C++ and let designers make every variation in Blueprint:</p>
         <ul>
-          <li>Create new projectiles,</li>
-          <li>Adjust their movement and collision behavior,</li>
-          <li>Change impact effects,</li>
-          <li>And tune them rapidly for game feel.</li>
-        </ul>
-        <p>The goal was to build a modular, data-driven architecture where core logic is implemented once in C++, and all gameplay-specific variation happens in Blueprint or through effect subclasses. The system needed to remain efficient under many active projectiles and work for both player and AI controlled units.</p>
-
-        <figure class="fig">
-          <div class="fig__frame"><img src="../assets/img/thrall/gameplay.jpg" alt="Thrall key art: a possessed knight glowing green in front of a church at night" width="1448" height="1519" loading="lazy"></div>
-        </figure>
-
-        <h2>Solution</h2>
-        <p>The projectile system is built from several focused C++ classes, each handling one part of a projectile’s behavior. This keeps the logic maintainable and allows designers to create new projectile variations without writing code.</p>
-
-        <h3>ASCR_Projectile</h3>
-        <ul>
-          <li>Controls movement and collision.</li>
-          <li>Supports gravity delay (projectile flies straight first, then arcs).</li>
-          <li>Handles penetration rules (how many targets it can pass through, and speed loss per hit).</li>
-          <li>Activates trail and visual effects.</li>
+          <li>Create new projectile types without new code.</li>
+          <li>Tune speed, arc and piercing live in the editor.</li>
+          <li>Swap what happens on impact.</li>
+          <li>Keep lots of projectiles in the world without spawning anything mid-fight.</li>
         </ul>
 
-        <h3>USCR_ProjectileEffectBase</h3>
-        <ul>
-          <li>Defines what happens on hit.</li>
-          <li>Serves as a base class for interchangeable effect behaviors (<code>USCR_DirectHitEffect</code> and <code>USCR_AreaEffect</code>).</li>
-        </ul>
-
-        <h3>USCR_DirectHitEffect</h3>
-        <ul>
-          <li>Applies single-target damage.</li>
-          <li>Can optionally trigger status effects (e.g. stun/poison—even if not used in final build).</li>
-        </ul>
-
-        <h3>USCR_AreaEffect</h3>
-        <ul>
-          <li>Applies damage in a radius around the impact.</li>
-          <li>Damage falloff is designer-tunable (linear or curve-based).</li>
-          <li>Fully implemented but unused due to project scope.</li>
-          <li>Can also optionally trigger status effects (e.g. stun/poison—even if not used in final build).</li>
-        </ul>
-
-        <h3>USCR_ProjectileLauncherComponent</h3>
-        <ul>
-          <li>Allows any actor (player or AI) to fire projectiles.</li>
-          <li>Handles reload timing and projectile spawn points.</li>
-          <li>Performs vertical aim correction for AI.</li>
-        </ul>
-
-        <h3>Modified Object Pool</h3>
-        <ul>
-          <li>Uses Round-Robin retrieval to keep more projectiles active in the world.</li>
-          <li>Avoids unnecessary spawn/despawn cycles and maintains chaotic projectile density.</li>
-        </ul>
-
-        <p class="takeaway">The result is a data-driven workflow:<br>Designers create new projectile types by adjusting Blueprint parameters and assigning different effect classes—no C++ changes required.</p>
+        <h2>Architecture</h2>
+        <p class="lead">Four pieces, each with one job. The launcher decides when to fire and where to aim, the pool decides which actor gets reused, the projectile decides how it flies and what it hits, and the effect decides what a hit does.</p>
+        <ol class="flow" aria-label="Projectile pipeline">
+          <li><span class="flow__k">Launcher</span><span class="flow__v">Reload timing, aim, player or AI</span></li>
+          <li><span class="flow__k">Pool</span><span class="flow__v">Hands out the next projectile</span></li>
+          <li><span class="flow__k">Projectile</span><span class="flow__v">Flight, gravity, penetration</span></li>
+          <li><span class="flow__k">Effect</span><span class="flow__v">Damage and status on hit</span></li>
+        </ol>
+        <dl class="defs">
+          <div><dt>USCR_ProjectileLauncherComponent</dt><dd>An attack component any character can carry. It holds two projectile classes: the AI version, and the stronger version used while the player possesses that character.</dd></div>
+          <div><dt>ASCR_Projectile</dt><dd>Movement and collision through <code>UProjectileMovementComponent</code>, plus delayed gravity, penetration, an optional lifetime and a Niagara trail.</dd></div>
+          <div><dt>USCR_ProjectileEffectBase</dt><dd>An abstract object with one <code>ApplyEffect</code> event. <code>DirectHitEffect</code> damages what was hit; <code>AreaEffect</code> damages everything in a radius. Both can also apply a status effect.</dd></div>
+          <div><dt>ASCR_ObjectPool</dt><dd>Spawns one projectile class when the level starts and hands its projectiles out in round-robin order.</dd></div>
+        </dl>
+        <p class="takeaway">A new projectile is a new Blueprint and a choice of effect class.<br>No C++ changes.</p>
 
         <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/thrall/crossbow-archer.png" alt="First-person view of a crossbow aiming at an archer who is reloading" width="1891" height="1019" loading="lazy"></div>
-          <figcaption>Crossbow aiming at an archer reloading</figcaption>
+          <div class="fig__frame"><img src="../assets/img/thrall/crossbow-archer.jpg" alt="First-person view of a crossbow aiming at an archer who is reloading" width="1600" height="862" loading="lazy"></div>
+          <figcaption>Aiming at an archer while it reloads.</figcaption>
         </figure>
 
-        <h2>Technical Details</h2>
-        <p>The projectile system works as a chain of responsibility between three layers:</p>
-
-        <h3>1) Launching (USCR_ProjectileLauncherComponent)</h3>
-        <ul>
-          <li>Retrieves a projectile from the pool.</li>
-          <li>Places it at the correct spawn point with physics disabled.</li>
-          <li>Waits for input release (player) or trigger event (AI).</li>
-          <li>On fire:
-            <ul>
-              <li>Detaches projectile.</li>
-              <li>Enables movement.</li>
-              <li>Computes AimVector.</li>
-              <li>Calls <code>LaunchProjectile(AimVector)</code>.</li>
-            </ul>
-          </li>
-          <li>Starts reload timer immediately (independent of projectile lifetime).</li>
-        </ul>
-        <p class="takeaway">Launcher controls when projectiles exist and who fires them.<br>It does not control how they fly.</p>
-
-        <h3>2) Flight &amp; Collision (ASCR_Projectile)</h3>
-        <ul>
-          <li>Sets internal velocity using the aim vector and initial speed.</li>
-          <li>Optionally delays gravity to allow a straight-first → arc-later trajectory.</li>
-          <li>Handles penetration logic (speed reduction + max hit count).</li>
-          <li>Detects hits via collision components.</li>
-          <li>On hit, forwards control to the effect class.</li>
-        </ul>
-        <p class="takeaway">Projectile controls movement and hit detection.</p>
-
-        <h3>3) On-Hit Effects (USCR_ProjectileEffectBase + subclasses)</h3>
-        <ul>
-          <li><strong>DirectHitEffect</strong>: applies single-target damage.</li>
-          <li><strong>AreaEffect</strong>: applies radial damage using designer-controlled falloff curves.</li>
-          <li>Additional effects can be added by inheriting from the base class.</li>
-        </ul>
-        <p class="takeaway">Effects decide what happens when something is hit.</p>
-
-        <h3>4) Object Pool (Modified)</h3>
-        <ul>
-          <li>Uses a Round-Robin retrieval strategy.</li>
-          <li>Projectiles stay in the world until needed again.</li>
-          <li>Reduces spawn/despawn churn and maintains projectile density.</li>
-        </ul>
-        <p class="takeaway">Pooling controls performance and world presence, not gameplay.</p>
-
-        <h3>Launching (Key Method)</h3>
+        <h2>How a Shot Works</h2>
+        <h3>Loading and firing</h3>
+        <p>After each shot the launcher waits out its reload time, then takes the next projectile from the pool and attaches it to the weapon’s spawn point with collision off. That loaded bolt is the one you see on the crossbow.</p>
+        <p>On fire, it detaches the projectile, turns collision and movement on and works out the aim: the spawn point’s forward vector for the player, a line straight to the player for the AI. Then it hands over to the projectile:</p>
         <figure class="code" data-lang="C++" data-name="ASCR_Projectile::LaunchProjectile">
 <pre><code>void ASCR_Projectile::LaunchProjectile(FVector AimVector)
 {
-    ProjectileMovement-&gt;StopMovementImmediately();
-    ProjectileMovement-&gt;Velocity = AimVector * InitialSpeed;
-    ProjectileMovement-&gt;UpdateComponentVelocity();
+    if (ProjectileMovement)
+    {
+        // Reset any existing movement
+        ProjectileMovement-&gt;StopMovementImmediately();
+        ProjectileMovement-&gt;Velocity = FVector::ZeroVector;
 
-    // Start gravity after a delay to allow straight flight first
+        // Set initial velocity
+        ProjectileMovement-&gt;Velocity = AimVector * InitialSpeed;
+        ProjectileMovement-&gt;UpdateComponentVelocity();
+    }
+
+    // Reset any existing timers
+    GetWorldTimerManager().ClearTimer(GravityTimerHandle);
+    GetWorld()-&gt;GetTimerManager().ClearTimer(LifetimeTimerHandle);
+
+    // Set up new timers
     if (InitialGravityDelay &gt; 0.f)
-        GetWorldTimerManager().SetTimer(GravityTimerHandle, this, &amp;ASCR_Projectile::EnableGravity, InitialGravityDelay);
+    {
+        GetWorldTimerManager().SetTimer(GravityTimerHandle, this,
+                                        &amp;ASCR_Projectile::EnableGravity,
+                                        InitialGravityDelay, false);
+    }
     else
+    {
+        // If no delay, enable gravity immediately
         ProjectileMovement-&gt;ProjectileGravityScale = CustomGravityScale;
+    }
+
+    if (bIsTimedProjectile)
+    {
+        GetWorld()-&gt;GetTimerManager().SetTimer(LifetimeTimerHandle, this,
+                                               &amp;ASCR_Projectile::DestroyDueToTimeout,
+                                               ProjectileLifetime, false);
+    }
 
     ActivateTrailEffect();
 }</code></pre>
+          <figcaption>From SCR_Projectile.cpp, with an on-screen debug message removed.</figcaption>
         </figure>
-        <p>The projectile calculates its own flight behavior. The launcher only decides when to fire and in which direction.</p>
+
+        <h3>Flight</h3>
+        <p>Velocity is the aim direction times <code>InitialSpeed</code>. Gravity stays off for <code>InitialGravityDelay</code> seconds and then switches to <code>CustomGravityScale</code>, so bolts fly flat and accurate up close and drop at range. Timed projectiles expire after a set lifetime and can fire their effect when they do, which suits grenade-like projectiles.</p>
+
+        <h3>Hits and penetration</h3>
+        <p>Projectiles use overlaps instead of blocking hits, so they can pass through enemies. Each hit costs <code>PenetrationSpeedLoss</code> of speed. A projectile stops when it drops below <code>MinPenetrationSpeed</code> or reaches <code>MaxPenetration</code> hits, and the first pierce can switch gravity on, so a bolt that went through someone starts to drop. A stopped projectile attaches to whatever it hit and stays there. If that actor is destroyed, the projectile goes back to the pool.</p>
+        <figure class="code" data-lang="C++" data-name="ASCR_Projectile::OnOverlapBegin">
+<pre><code>void ASCR_Projectile::OnOverlapBegin(
+    UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+    const FHitResult&amp; SweepResult)
+{
+    if (!OtherActor || OtherActor == this || !OtherComp) return;
+
+    if (USCR_Possession_Component* U_P_C =
+            OtherActor-&gt;FindComponentByClass&lt;USCR_Possession_Component&gt;())
+    {
+        bool bIsPlayer = U_P_C-&gt;bIsPlayer;
+        if ((bIsPlayer &amp;&amp; bIgnorePlayer) || (!bIsPlayer &amp;&amp; bIgnoreEnemy))
+        {
+            return; // Ignore this actor
+        }
+    }
+
+    float ProjectileSpeed = ProjectileMovement-&gt;Velocity.Size();
+    if (ProjectileSpeed &lt;= MinPenetrationSpeed)
+    {
+        SetPhysicsEnabled(false);
+        return;
+    }
+
+    StuckToActor = OtherActor;
+    StuckToComponent = OtherComp;
+
+    if (CurrentPenetrationCount &lt;= MaxPenetration)
+    {
+        if (AutoGravityOnPenetration &amp;&amp; CurrentPenetrationCount == 0)
+        {
+            EnableGravity();
+        }
+        CurrentPenetrationCount++;
+        float NewSpeed = ProjectileSpeed - PenetrationSpeedLoss;
+        if (NewSpeed &lt;= MinPenetrationSpeed)
+        {
+            EndOfProjectile();
+        }
+        else
+        {
+            ProjectileMovement-&gt;Velocity =
+                ProjectileMovement-&gt;Velocity.GetSafeNormal() * NewSpeed;
+        }
+    }
+    if (CurrentPenetrationCount &gt;= MaxPenetration)
+    {
+        EndOfProjectile();
+    }
+
+    if (ProjectileEffectClass)
+    {
+        USCR_ProjectileEffectBase* Effect =
+            NewObject&lt;USCR_ProjectileEffectBase&gt;(this, ProjectileEffectClass);
+        if (Effect)
+        {
+            Effect-&gt;ApplyEffect(OtherActor, SweepResult, GetInstigator());
+        }
+    }
+}</code></pre>
+          <figcaption>The hit handler, from SCR_Projectile.cpp with on-screen debug messages removed.</figcaption>
+        </figure>
+
+        <h3>Effects</h3>
+        <p>On every hit the projectile creates its <code>ProjectileEffectClass</code> and calls <code>ApplyEffect</code>. That’s a BlueprintNativeEvent, so an effect can be written in C++ or in Blueprint. <code>DirectHitEffect</code> damages the actor that was hit. <code>AreaEffect</code> sweeps a sphere and scales damage with distance (no falloff, linear or exponential), with its own damage value for the actor actually hit. Each effect has flags for whether it can damage the player and enemies, and either one can apply a status effect. The area effect was built but cut from the final game for scope.</p>
+
+        <h3>Possession</h3>
+        <p>Every launcher holds two projectile classes, one for the AI and one for when the player possesses that character. When possession changes, the launcher sends its loaded projectile back to the pool and loads one from the other pool. The player’s version of an enemy weapon can be faster or hit harder with no special cases in the projectile code.</p>
+
+        <h2>Pooling</h2>
+        <p>Each projectile class has a pool actor that spawns its projectiles when the level starts and registers itself with the game mode. Launchers find their pools by projectile class, so a new projectile type needs no extra wiring.</p>
+        <p>The pool hands projectiles out in strict rotation instead of searching for a free one. A bolt stuck in a wall stays there until its turn comes round again, so a fight leaves the arena littered with spent bolts, and the cost stays flat: nothing is spawned or destroyed in combat. A pool only grows if it’s empty.</p>
+        <figure class="code" data-lang="C++" data-name="ASCR_ObjectPool::GetPooledActorRoundRobin">
+<pre><code>AActor* ASCR_ObjectPool::GetPooledActorRoundRobin()
+{
+    // Double-check empty pool
+    if (PooledActors.Num() == 0)
+    {
+        TopUpPool();
+        if (PooledActors.Num() == 0)
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to create any pooled actors!"));
+            return nullptr;
+        }
+    }
+
+    CurrentPoolIndex %= PooledActors.Num();
+
+    // Get component
+    USCR_ActivatableComponent* Comp = PooledActors[CurrentPoolIndex++];
+
+    if (!Comp)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Null component in pool!"));
+        return nullptr;
+    }
+
+    Comp-&gt;Enable();
+
+    return Comp-&gt;GetOwner();
+}</code></pre>
+          <figcaption>The next projectile in the rotation is reused whether or not it’s still out in the world.</figcaption>
+        </figure>
 
         <h2>Designer Workflow</h2>
-        <p>The system was built so that designers could create and tune projectiles entirely in Blueprint without needing new C++ code. Each gameplay variation comes from adjusting exposed properties and selecting which effect class the projectile uses.</p>
-
-        <h3>Creating a New Projectile</h3>
+        <p>Designers build and tune projectiles entirely in Blueprint:</p>
         <ol>
-          <li>Duplicate an existing projectile Blueprint derived from <code>ASCR_Projectile</code>.</li>
-          <li>Adjust movement parameters, such as initial speed, gravity delay, and penetration count.</li>
-          <li>Assign visuals, including mesh and trail VFX.</li>
-          <li>Choose an effect type (DirectHit or AreaEffect) and configure damage and falloff.</li>
-          <li>Place the projectile into the Launcher component on any enemy or the player.</li>
+          <li>Create a Blueprint from <code>ASCR_Projectile</code>, or duplicate an existing one.</li>
+          <li>Set the speed, gravity delay and scale, penetration count and speed loss, and an optional lifetime.</li>
+          <li>Assign the mesh and the trail VFX.</li>
+          <li>Pick an effect class and set its damage, radius and falloff.</li>
+          <li>Give a launcher the projectile class, in its AI slot, player slot or both, and make sure the level has a pool for it.</li>
         </ol>
-        <p>Most projectile tuning (speed, arc behavior, number of pierces, and visual expression) could be done live in-editor with immediate feedback, which made balancing combat feel fast and designer-driven.</p>
-
+        <p>Speed, arc and piercing can all be tuned in the editor with immediate feedback, which kept combat balancing in the designers’ hands.</p>
         <figure class="fig fig--pad">
           <div class="fig__frame"><img src="../assets/img/thrall/projectile-settings.png" alt="Unreal Details panel listing the projectile's exposed settings" width="535" height="568" loading="lazy"></div>
-          <figcaption>Setting menu for the Projectile with all its options</figcaption>
+          <figcaption>The projectile’s settings in the Details panel.</figcaption>
         </figure>
 
         <h2>Results</h2>
         <ul>
-          <li>Designers were able to create and tune new projectile variations without requesting new code, reducing programmer bottleneck during combat iteration.</li>
-          <li>The gravity-delay flight model allowed projectiles to feel accurate at short range while still arcing at distance.</li>
-          <li>The Round-Robin object pool let many projectiles remain active simultaneously without performance spikes or allocation churn.</li>
-          <li>AI and player shared the same launcher logic, which kept behavior consistent and prevented duplicated systems.</li>
-          <li>The system remained modular, meaning additional effect types (e.g., status effects, ricochets, homing) could be added by inheriting from the base effect class.</li>
+          <li>Designers created and tuned projectile variants without asking for code changes, so combat iteration didn’t wait on programmers.</li>
+          <li>Delayed gravity made bolts feel accurate up close while still arcing at range.</li>
+          <li>The player and the AI fire through the same launcher, so possession needed no separate player weapon system.</li>
+          <li>Nothing is spawned or destroyed mid-fight: every projectile comes from a pool filled when the level loads.</li>
+          <li>New on-hit behaviour is a new effect subclass, in C++ or Blueprint, with no changes to the projectile.</li>
+        </ul>
+
+        <h2>What I’d Change</h2>
+        <ul>
+          <li><strong>Stop allocating an effect per hit.</strong> The projectile creates a new effect object with <code>NewObject</code> on every hit, but the effects keep no per-hit state. Calling them on the class default object would do the same job without the allocation.</li>
+          <li><strong>Recycle the oldest projectile only when no free one is left.</strong> Strict rotation will take a bolt that’s still in flight if the pool is smaller than fire rate × flight time, so every pool has to be sized for the worst case.</li>
         </ul>
 
         <aside class="project-cta" aria-label="Project links">
           <dl>
             <div><dt>Download build:</dt><dd><a href="https://futuregames.itch.io/thrall" target="_blank" rel="noopener">On itch.io</a></dd></div>
-            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/Thrall" target="_blank" rel="noopener">Source on GitHub</a></dd></div>
+            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/Thrall" target="_blank" rel="noopener">Source on GitHub</a> · the projectile code lives in <code>Source/Team8_GP3/Character/Attacks/Range</code></dd></div>
           </dl>
         </aside>
 
-        <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/thrall/closing.png" alt="Thrall gameplay: a crossbow bolt bursting an enemy in a burning medieval town square" width="1896" height="1046" loading="lazy"></div>
+        <figure class="fig">
+          <div class="fig__frame"><img src="../assets/img/thrall/card.jpg" alt="Thrall key art: a possessed knight glowing green in front of a church at night" width="1448" height="1448" loading="lazy"></div>
         </figure>
       </article>
     </div>

@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Voxel Generator — Ossian Däckfors</title>
-  <meta name="description" content="Voxel Generator: a standalone Unity tool for voxel assets. Chunked meshing, Perlin terrain, model voxelization with reverse flood fill, prefab export and 2D/3D Game of Life.">
+  <meta name="description" content="Voxel Generator: a solo Unity tool that turns Perlin noise, height maps, hand-placed layouts or any 3D model into chunked, face-culled voxel meshes and saves them as prefabs.">
   <link rel="canonical" href="https://ossiandackfors.com/voxel-generator/">
   <meta name="theme-color" content="#0a0c0f">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ossian Däckfors">
-  <meta property="og:title" content="Voxel Generator — Voxel World/Asset Generation">
-  <meta property="og:description" content="A complete voxel pipeline in Unity/C#: from mesh import to optimized, chunked rendering, in cubic and dimension-agnostic versions.">
+  <meta property="og:title" content="Voxel Generator — Solo Unity Tool">
+  <meta property="og:description" content="Chunked, face-culled voxel meshes from noise, height maps or any 3D model, with a reverse flood fill that makes voxelized models solid.">
   <meta property="og:url" content="https://ossiandackfors.com/voxel-generator/">
-  <meta property="og:image" content="https://ossiandackfors.com/assets/img/voxel-generator/card.png">
+  <meta property="og:image" content="https://ossiandackfors.com/assets/img/voxel-generator/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -42,11 +42,11 @@
         <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
         <div class="project-hero__grid">
           <div>
-            <span class="eyebrow">Project 01 · Unity · C#</span>
+            <span class="eyebrow">Project 04 · Unity · C#</span>
             <h1>Voxel Generator</h1>
-            <p class="project-hero__role">Solo project · Voxel World/Asset Generation</p>
-            <p class="project-hero__lede">A standalone tool for making voxel assets. The system generates voxel-based environments using both procedural noise and predefined data. It supports 2D/3D arrays, variable block dimensions, and optimized mesh rendering, with tools for voxelizing 3D models and exporting results as prefabs. For making it possible to generate bigger structure the model is split into chunks.</p>
-            <div class="btn-row" aria-label="GitHub Links">
+            <p class="project-hero__role">Solo project · Voxel meshing &amp; model voxelizer</p>
+            <p class="project-hero__lede">A Unity tool for making voxel assets. It turns Perlin noise, height maps, hand-placed layouts or any 3D model into chunked voxel meshes, and saves the result as a prefab. I built it twice: a fast version with cubic voxels, and a version where voxels can have a different size on each axis.</p>
+            <div class="btn-row" aria-label="GitHub links">
               <a class="btn btn--primary" href="https://github.com/Ossdac/VoxelGenerator_Cubic" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Cubic</a>
               <a class="btn" href="https://github.com/Ossdac/VoxelGenerator_DimensionAgnostic" target="_blank" rel="noopener">
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="project-hero__media project-hero__media--contain">
-            <img src="../assets/img/voxel-generator/hero.png" alt="A voxelized dragon model rendered in chunks" width="521" height="787">
+            <img src="../assets/img/voxel-generator/hero.jpg" alt="A voxelized dragon model rendered in chunks" width="521" height="787">
           </div>
         </div>
       </div>
@@ -64,9 +64,9 @@
       <h2 class="sr-only" id="overview-title">Project Overview</h2>
       <div class="container">
         <dl class="spec" data-cols="5">
-          <div><dt>Project Type</dt><dd>Voxel World/Asset Generation</dd></div>
+          <div><dt>Project Type</dt><dd>Procedural generation tool</dd></div>
           <div><dt>Team Size</dt><dd>Solo project</dd></div>
-          <div><dt>Duration</dt><dd>4-6 weeks</dd></div>
+          <div><dt>Duration</dt><dd>4–6 weeks</dd></div>
           <div><dt>Engine</dt><dd>Unity</dd></div>
           <div><dt>Language</dt><dd>C#</dd></div>
         </dl>
@@ -77,347 +77,194 @@
       <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
 
       <article class="prose">
-        <h2>Technical System Overview</h2>
-        <p>The voxel generator exists in two parallel implementations.</p>
+        <h2>Overview</h2>
+        <p class="lead">Every input goes through the same pipeline, so a noise landscape, a maze built from cubes and a voxelized dragon all end up as the same kind of chunk.</p>
+        <ol class="flow" aria-label="Voxel pipeline">
+          <li><span class="flow__k">Input</span><span class="flow__v">Noise, arrays, placed cubes or a model</span></li>
+          <li><span class="flow__k">Chunks</span><span class="flow__v">Flat arrays of block types</span></li>
+          <li><span class="flow__k">Mesh</span><span class="flow__v">Visible faces only, atlas UVs</span></li>
+          <li><span class="flow__k">Prefab</span><span class="flow__v">Meshes saved as assets</span></li>
+        </ol>
+
+        <h3>Two versions</h3>
         <div class="compare">
           <div>
             <h5>Cubic</h5>
-            <p><strong>The Cubic Version</strong> uses fixed 1×1×1 blocks and integer math for maximum speed.</p>
+            <p>Voxels are 1×1×1 and positions are whole numbers. Chunks sit side by side as columns of a fixed height, which suits height-map terrain.</p>
           </div>
           <div>
             <h5>Dimension-Agnostic</h5>
-            <p><strong>The Dimension-Agnostic Version</strong> introduces per-axis block scaling, letting voxels stretch or compress along X, Y, and Z to represent non-uniform shapes.</p>
+            <p>Each axis has its own chunk size and voxel size, and chunks stack vertically too. Worlds are fully 3D, with caves, overhangs and enclosed spaces, and voxels can stretch to match a model’s proportions.</p>
           </div>
         </div>
-        <p>The latter is slightly slower but more flexible, ideal for model voxelization and mixed-resolution structures. Both share the same chunked data model and mesh pipeline.</p>
+        <p>Both share the same chunk layout and mesh pipeline. The second is slightly slower and a lot more flexible.</p>
 
-        <h3>Key Achievements</h3>
-        <ul>
-          <li>Built complete voxel pipeline from mesh import to optimized rendering</li>
-          <li>Implemented two interchangeable voxel systems: cubic and dimension-agnostic</li>
-          <li><strong>Created 3D flood-fill system</strong> for solid model generation</li>
-          <li>Developed <strong>Conway's Game of Life</strong> in 2D/3D with custom rule sets</li>
-          <li>Engineered chunk-based system supporting large-scale environments</li>
-        </ul>
+        <h2>Chunks and Meshing</h2>
+        <p>A chunk stores its voxels as a flat <code>BlockType</code> array and converts between index and coordinates with <code>x + sizeX·y + sizeX·sizeY·z</code>, so iterating a chunk is one loop instead of three. The block types are <code>Nothing</code> (outside the world), <code>Air</code>, <code>Wall</code>, and <code>Ground</code> for the top layer, which gets its own texture.</p>
+        <p>Meshing only builds faces that can be seen. For each solid voxel, the mesher checks its six neighbours and adds a quad only on the sides that face air. When a neighbour lies outside the chunk, the lookup goes through the <code>World</code> to the chunk next door, so the faces where two chunks meet are culled too.</p>
+        <figure class="code" data-lang="C#" data-name="BlockHelper.GetMeshData">
+<pre><code>public static MeshData GetMeshData(ChunkData chunk, int x, int y, int z,
+                                   MeshData meshData, BlockType blockType)
+{
+    if (blockType == BlockType.Nothing || blockType == BlockType.Air)
+        return meshData;
 
-        <h3>Technical Highlights</h3>
-        <ul>
-          <li><strong>Intelligent Mesh Generation</strong>: Separate collision/visual meshes with UV caching for performance</li>
-          <li><strong>Model Voxelization</strong>: Physics-based conversion of any 3D model with solid/hollow options</li>
-          <li><strong>Procedural Systems</strong>: Multiple generation methods (noise, Game of Life, heightmaps)</li>
-          <li><strong>Flexible Geometry:</strong> Dimension-agnostic support for non-cubic voxel scaling</li>
-          <li><strong>Asset Pipeline</strong>: Prefab export system for reusing generated structures</li>
-        </ul>
+    foreach (Direction direction in directions)
+    {
+        var neighbourBlockCoordinates =
+            new Vector3Int(x, y, z) + direction.GetVector();
+        var neighbourBlockType =
+            Chunk.GetBlockFromChunkCoordinates(chunk, neighbourBlockCoordinates);
 
-        <h3>Notable Features</h3>
-        <ul>
-          <li>Support for 2D/3D boolean, integer, and float arrays as input</li>
-          <li>Real-time visualization of evolving <strong>Game of Life</strong> simulations</li>
-          <li>Variable block dimensions (non-cubic voxels)</li>
-          <li>Optimized neighbor checking and face culling</li>
-          <li>Editor tools for designers to create voxel structures visually</li>
-        </ul>
+        if (neighbourBlockType == BlockType.Air ||
+            neighbourBlockType == BlockType.Nothing &amp;&amp;
+            (renderNothing || direction.Equals(Direction.up)) &amp;&amp;
+            (renderDown || !direction.Equals(Direction.down)))
+        {
+            meshData = GetFaceDataIn(direction, x, y, z, meshData, blockType, chunk);
+        }
+    }
 
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/overview.png" alt="A tall voxel structure generated by the tool" width="145" height="405" loading="lazy" style="width: 145px"></div>
+    return meshData;
+}</code></pre>
+          <figcaption>Face culling for one voxel, from the dimension-agnostic version. Faces toward the edge of the world are skipped by default, except the top.</figcaption>
+        </figure>
+        <p>Textures come from an atlas. A ScriptableObject maps each block type to one tile for its top and one for its sides, and the four UVs for each tile are computed once and cached. Each chunk also builds its own collision mesh lists. Today they match the render mesh; they’re kept separate so blocks like water or glass could later be drawn without colliders.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/chunk-mesh.png" alt="A single chunk with its mesh highlighted" width="598" height="440" loading="lazy">
+            <img src="../assets/img/voxel-generator/chunk-gizmo.png" alt="The same chunk with the bounding gizmo of its full volume" width="614" height="488" loading="lazy">
+          </div>
+          <figcaption>One chunk’s mesh, and the same chunk with its full volume drawn as a gizmo.</figcaption>
+        </figure>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/chunk-blocktypes.jpg" alt="A chunk textured with different block types for top faces, top-layer sides and lower sides" width="400" height="961" loading="lazy">
+            <img src="../assets/img/voxel-generator/chunk-non-cubic.png" alt="A chunk built from stretched, non-cubic voxels" width="535" height="844" loading="lazy">
+          </div>
+          <figcaption>Separate textures for top faces, the top layer’s sides and everything below; and a chunk of non-cubic voxels.</figcaption>
         </figure>
 
-        <h2>System Structure</h2>
-
-        <h3>ChunkData</h3>
-        <p>The <code>ChunkData</code> class defines the core data structure for each voxel chunk.<br>Each chunk stores an array of <code>BlockType</code> values representing a 3D grid of voxels, along with information about its dimensions and position in the world.</p>
-        <p>In the <strong>Cubic Version</strong>, chunks are defined by a single horizontal size (<code>chunkSize</code>) and a fixed vertical size (<code>chunkHeight</code>). Every voxel is assumed to be 1×1×1 in world units.</p>
-        <p>The <strong>Dimension-Agnostic Version</strong> generalizes this concept by introducing two new properties:</p>
-        <ul>
-          <li><strong>Vector3Int chunkSize</strong> – defines how many voxels exist along each axis.</li>
-          <li><strong>Vector3 blockSize</strong> – defines the real-world size of each voxel on the X, Y, and Z axes.</li>
-        </ul>
-        <p>This allows non-uniform voxel scaling, enabling flattened, elongated, or otherwise stretched blocks.<br>The world generator uses these parameters to position and stack chunks precisely in 3D space, making full volumetric landscapes possible rather than heightmap-like surfaces.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/chunk-plain.png" alt="A single voxel chunk" width="555" height="669" loading="lazy"></div>
-          <figcaption>One Chunk, not highlighted</figcaption>
+        <h2>Generation</h2>
+        <h3>Perlin noise</h3>
+        <p>The default world samples 2D Perlin noise in world coordinates, so neighbouring chunks line up without seams. Each column is <code>Ground</code> at the surface, <code>Wall</code> below and <code>Air</code> above, and <code>noiseScale</code> sets how broad the hills are. In the 3D version, the height is measured against the whole stack of chunks rather than a single one.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/landscape-cubic.png" alt="Cubic voxel landscape generated from Perlin noise" width="367" height="797" loading="lazy">
+            <img src="../assets/img/voxel-generator/landscape-agnostic.png" alt="The same landscape built from stretched voxels" width="396" height="754" loading="lazy">
+          </div>
+          <figcaption>The same noise (peaks up to 50 units, noiseScale 0.06) with cubic voxels, and with voxels sized (0.4, 1, 2).</figcaption>
         </figure>
 
-        <h3>MeshData</h3>
-        <p>The <code>MeshData</code> class stores all mesh information for a chunk, including vertex, triangle, and UV data.<br>It also keeps a separate set of vertex and triangle lists for collision meshes.<br>This structure provides a foundation for future expansion into multi-material or transparent block systems (such as water or glass) that may not require colliders.</p>
-        <p>Both the cubic and dimension-agnostic versions are the same</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/chunk-mesh.png" alt="A single chunk with its mesh highlighted" width="598" height="440" loading="lazy"></div>
-          <figcaption>One Chunk, highlighted only visualizing the mesh</figcaption>
-        </figure>
+        <h3>Premade data</h3>
+        <p>Overloads of <code>GenerateWorld</code> take 2D or 3D bool arrays (solid or empty), 2D int arrays (column heights) and 2D float arrays (normalised height maps). The input is cut into chunk-sized pieces, padded with empty cells at the edges, and meshed like everything else.</p>
 
-        <h3>ChunkRenderer</h3>
-        <p><code>ChunkRenderer</code> is responsible for turning the generated MeshData into a visible Unity mesh.<br>It manages the MeshFilter, MeshRenderer, and MeshCollider components and handles both visual and physical geometry.</p>
-        <p>During rendering, the class clears any existing data, assigns new vertex and triangle arrays, recalculates normals, and rebuilds the collider mesh. An optional editor-only gizmo system visualizes chunk boundaries for debugging and scene layout.</p>
-        <p>In the <strong>Cubic Version</strong>, the gizmo always draws a cube with integer dimensions matching <code>chunkSize</code> and <code>chunkHeight</code>.<br>In the <strong>Dimension-Agnostic Version</strong>, gizmos use both <code>chunkSize</code> and <code>blockSize</code>, accurately representing non-cubic chunks and maintaining visual parity with their real-world scale.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/chunk-gizmo.png" alt="A chunk with its mesh and the bounding gizmo of the full chunk volume" width="614" height="488" loading="lazy"></div>
-          <figcaption>One Chunk, highlighted with gizmo on visualizing the mesh as well as the larger volume of the entire chunk area</figcaption>
-        </figure>
-
-        <h3>Chunk</h3>
-        <p>The <code>Chunk</code> class manages all navigation and data access within the voxel world.<br>It provides methods to locate and modify specific voxels, determine whether a coordinate lies within a chunk’s boundaries, and perform operations across all voxels using an externally supplied action.</p>
-        <p>The <code>LoopThroughTheBlocks()</code> method is central to this system.<br>It iterates through every element of the chunk’s one-dimensional blocks array and uses <code>GetPositionFromIndex()</code> to convert the linear index into 3D coordinates before executing the provided action. This coordinate conversion ensures that each voxel in the 3D grid is accessed in order without requiring nested loops.</p>
-        <p>In the <strong>Cubic Version</strong>, this conversion and range checking are handled using simple integer dimensions: a single <code>chunkSize</code> for the X and Z axes and a fixed <code>chunkHeight</code> for Y.</p>
-        <p>The <strong>Dimension-Agnostic Version</strong> replaces these with a <code>Vector3Int chunkSize</code>, allowing each axis to have an independent resolution. Boundary checks and indexing logic were updated accordingly, making the chunk iteration and data access fully adaptable to different voxel aspect ratios.</p>
-        <p>When voxel lookups exceed the current chunk’s boundaries, the class defers to the world’s reference, fetching data from adjacent chunks.<br>This system creates a seamless, continuous voxel space across the entire world without overlaps or duplication.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/chunk-non-cubic.png" alt="A chunk built from stretched, non-cubic voxels" width="535" height="844" loading="lazy"></div>
-          <figcaption>Chunk with non-cubic Voxels</figcaption>
-        </figure>
-
-        <h3>BlockType</h3>
-        <p><code>BlockType</code> is a simple enumeration used to define voxel categories within the world:</p>
-        <ul>
-          <li><code>Nothing</code> represents areas outside world bounds.</li>
-          <li><code>Air</code> indicates empty space.</li>
-          <li><code>Wall</code> refers to filled voxels below the surface.</li>
-          <li><code>Ground</code> designates the uppermost, visible voxels.</li>
-        </ul>
-        <p>The minimal structure helps distinguish visible from hidden blocks, allowing the mesh generation process to skip non-visible geometry and optimize rendering.</p>
-
-        <h3>BlockData</h3>
-        <p>Texture mapping for each voxel type is managed by the <code>BlockDataSO</code> ScriptableObject. It assigns texture coordinates based on both block type and face orientation, using <code>TextureData</code> entries that store separate values for the top (up) and sides of each voxel.</p>
-        <p>In this implementation, only the upper has a unique texture and all other directions are grouped together under sides. However, the design supports expansion to unique textures for all six directions if needed.</p>
-        <p>At runtime, a <code>BlockDataManager</code> script loads this data into a static dictionary, ensuring that every block type has fast, direct access to the correct texture information during mesh generation and rendering.</p>
-
-        <h3>BlockHelper</h3>
-        <p>The <code>BlockHelper</code> class generates the visible geometry for each voxel, determining which faces should be rendered, assigning their textures, and constructing the corresponding mesh data. Its main task is to evaluate each voxel’s neighbors, skipping those that are fully surrounded, and building only the faces that remain visible.</p>
-        <p>The process starts in <code>GetMeshData()</code>, which checks the current block’s type and inspects all six neighboring directions. If a block’s neighbor is empty or outside the world, the corresponding face is added to the mesh via <code>GetFaceDataIn()</code>. This ensures that interior voxels never contribute unnecessary geometry.</p>
-        <p>Each visible face is generated in <code>GetFaceVertices()</code>, which positions four corner vertices and passes them to the MeshData structure.</p>
-        <p>In the <strong>Cubic Version</strong>, vertex positions are hardcoded using ±0.5 offsets along each axis, producing perfectly cubic blocks.</p>
-        <p>In the <strong>Dimension-Agnostic Version</strong>, the same logic dynamically scales according to the block’s actual dimensions, stored in <code>ChunkData.blockSize</code>.<br>This allows non-uniform voxels—flattened, stretched, or rectangular blocks—to be rendered with correct proportions, without altering the rest of the rendering pipeline.</p>
-        <p><strong>Texture mapping</strong> is handled by the <code>FaceUVs()</code> method. Each face’s UVs are derived from texture positions defined in the BlockDataManager, referencing coordinates in a shared texture atlas. To improve performance, a <strong>UV caching system</strong> stores computed UV arrays in a dictionary keyed by their texture position. Once a UV layout has been generated, it is reused for all identical faces across subsequent chunks. This optimization eliminates redundant calculations and noticeably speeds up mesh generation in large or frequently regenerated worlds.</p>
-        <p class="takeaway">Together, these improvements make the voxel renderer both <strong>dimension-flexible</strong> and <strong>computationally efficient</strong>, capable of generating diverse block geometries at scale.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/chunk-blocktypes.png" alt="A chunk textured with different block types for top, top-layer sides and lower sides" width="400" height="961" loading="lazy"></div>
-          <figcaption>Chunk using Different BlockTypes and to have different textures of upward facing surfaces, top layer side facing surfaces and the rest of the side facing surfaces</figcaption>
-        </figure>
-
-        <h2>World</h2>
-        <p>The <code>World</code> class serves as the central system responsible for building and organizing voxel environments. It coordinates how chunks are created, filled with voxel data, and ultimately rendered. While originally designed for Perlin noise–based terrain generation, the class has evolved into a flexible tool capable of constructing voxel structures from both procedural and pre-defined data.</p>
-
-        <h3>Standard Generation</h3>
-        <p>In its standard form, the World class creates a procedurally generated landscape using Perlin noise. The generation process is built around two key methods: <code>GenerateWorld</code> and <code>GenerateVoxels</code>, with <code>RenderChunk</code> handling the final mesh assembly. The system was later expanded to support custom input arrays, but its foundation lies here.</p>
-
-        <h4>GenerateWorld</h4>
-        <p>The <code>GenerateWorld</code> method serves as the entry point for voxel world creation. It begins by calling <code>ClearWorld</code>, which removes existing chunks and resets the lookup dictionaries.<br>Afterward, the method iterates through the world grid, creating and populating each chunk before rendering it.</p>
-        <p>In the <strong>Cubic Version</strong>, iteration occurs across the X and Z axes, while height is implicitly managed within each chunk. This produces a two-dimensional array of surface-aligned chunks, suitable for heightmap-style terrain.<br>Each <code>ChunkData</code> instance is placed at <code>(x * chunkSize, 0, z * chunkSize)</code> and filled via <code>GenerateVoxels</code>, which applies Perlin noise to determine surface height and material type (Air, Ground, or Wall).<br>Once all chunks are processed, the method loops through the collection to render them sequentially, ensuring synchronization between generated data and mesh output.</p>
-        <p>In the <strong>Dimension-Agnostic Version</strong>, the structure extends into full 3D space. The method now iterates across the <strong>X, Y, and Z axes</strong>, creating a complete volumetric grid of chunks.<br>Each chunk’s position is defined as <code>x * chunkSize.x, y * chunkSize.y, z * chunkSize.z</code>, enabling <strong>stacked vertical layers</strong> and <strong>multi-level environments</strong>.<br>This allows the generator to build complex formations such as caves, floating islands, and enclosed volumes—features not possible in the earlier 2D layout.<br>The rendering stage also scales each chunk’s position by <code>blockSize</code> to preserve accurate spacing when non-uniform voxel dimensions are used. Together, these improvements transform the generator from a terrain-focused system into a true <strong>volumetric voxel framework</strong>.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/landscape-cubic.png" alt="Cubic voxel landscape generated from Perlin noise" width="367" height="797" loading="lazy"></div>
-          <figcaption>Cubic landscape with peaks up to a height of 50 units and noiseScale = 0.06</figcaption>
-        </figure>
-
-        <h4>GenerateVoxels</h4>
-        <p>The <code>GenerateVoxels</code> method defines the internal structure of each chunk by determining which voxels should be filled and which should remain empty. It is responsible for translating Perlin noise into material distributions inside each chunk, with the <code>noiseScale</code> parameter controlling how stretched or compressed the resulting terrain patterns appear. Smaller values of noiseScale create wide, gradual terrain formations, while larger values produce sharper, more rapidly changing features.</p>
-        <p>In the <strong>Cubic Version</strong>, the method loops through all X–Z coordinates in the chunk, using Perlin noise to determine a <strong>ground height</strong> value between 0 and <code>chunkHeight</code>.<br>For each column:</p>
-        <ul>
-          <li>Voxels <strong>above</strong> the ground level become Air,</li>
-          <li>The <strong>topmost</strong> voxel is set to Ground,</li>
-          <li>Voxels <strong>below</strong> become Wall.</li>
-        </ul>
-        <p>Because height is uniform across all chunks, the noise function uses <code>worldPosition.x + x, worldPosition.z + z</code> to ensure seamless transitions between neighboring chunks.<br>This produces continuous, terrain-like landscapes with minimal visible seams.</p>
-        <p>In the <strong>Dimension-Agnostic Version</strong>, <code>GenerateVoxels</code> adapts to per-axis chunk and block dimensions. The total world height is calculated as <code>chunkSize.y × mapSizeInChunks.y</code>, ensuring vertical noise variation spans the entire world rather than a single chunk.<br>Each voxel’s global Y coordinate is derived from its chunk offset, meaning that higher chunks sample noise across the same X–Z pattern but compare it against their true Y range.<br>The voxel material logic remains identical—Air above, Ground at surface level, Wall below—maintaining consistency while expanding the generator into a three-dimensional domain.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/landscape-agnostic.png" alt="Dimension-agnostic voxel landscape with stretched voxels" width="396" height="754" loading="lazy"></div>
-          <figcaption>Dimension-Agnostic landscape of same height and noiseScale, but a voxel size of ( 0.4, 1, 2 )</figcaption>
-        </figure>
-
-        <h3>Generation from Premade Data</h3>
-        <p>To allow for more specialized world layouts, the World class includes additional <code>GenerateWorld</code> overloads that build voxel environments directly from existing data.<br>Supported formats include <strong>2D/3D boolean arrays</strong>, <strong>2D float arrays</strong>, and <strong>2D integer arrays</strong>, allowing for simple solid maps, heightmaps, and discrete elevation fields.</p>
-        <p>The overall process remains consistent across all input types: clear the world, calculate required chunks, extract the relevant data section using <code>ExtractChunkArray</code>, generate voxels, and render the results.<br>This makes it possible to import external voxel datasets or combine pre-generated structures with procedural content using the same generation pipeline.</p>
-
-        <h4>GenerateWorld (Overloads)</h4>
-        <p>Each overload begins by calling <code>ClearWorld</code>, removing existing chunks and resetting lookup tables. The method then calculates how many chunks are needed along each axis based on the size of the input array and the configured chunk dimensions.</p>
-        <p>In the <strong>Cubic Version</strong>, iteration occurs over the X–Z plane, creating chunks positioned at <code>x * chunkSize, 0, z * chunkSize</code>. Height remains defined within the chunk itself, making this layout ideal for 2D maps or top-down height-based terrain.</p>
-        <p>The <strong>Dimension-Agnostic Version</strong> generalizes the same logic across all three axes, calculating chunk positions as <code>x * chunkSize.x, y * chunkSize.y, z * chunkSize.z</code>.<br>This enables the world to be fully volumetric, with multiple stacked layers or enclosed spaces defined directly from 3D datasets.<br>Additionally, <code>blockSize</code> ensures each chunk’s placement scales accurately in world space, maintaining consistent voxel alignment even with non-uniform voxel dimensions.</p>
-        <p>Once all chunks are populated, both versions render them sequentially, guaranteeing synchronization between the data structure and mesh representation.</p>
-
-        <h4>ExtractChunkArray</h4>
-        <p><code>ExtractChunkArray</code> isolates the section of input data corresponding to a specific chunk. It takes the full array, the indices of the current chunk, and the array’s total dimensions. From these, it computes the starting coordinates and copies the relevant values into a smaller, chunk-sized array.</p>
-        <p>If a chunk extends beyond the source array bounds—common near edges or with uneven world dimensions—missing cells are filled with defaults (<code>false</code> for boolean arrays, <code>0</code> for numerical types). This ensures consistent chunk sizes and prevents errors during voxel generation.</p>
-        <p>In the <strong>Cubic Version</strong>, extraction operates in two dimensions (X–Z) or 3D for pre-voxelized data.<br>The <strong>Dimension-Agnostic Version</strong> extends this to all three axes uniformly, allowing full volumetric data segmentation with no format-specific handling.</p>
-
-        <h4>GenerateVoxels (Overloads)</h4>
-        <p>Each <code>GenerateVoxels</code> overload interprets the extracted array and assigns voxel types accordingly:</p>
-        <ul>
-          <li><strong>2D Boolean arrays</strong>: true = Wall, false = Air.</li>
-          <li><strong>3D Boolean arrays</strong>: Extend this logic to volumetric solids.</li>
-          <li><strong>Float arrays</strong>: Represent normalized heightmaps; voxel type is determined by comparing the Y position to the height value.</li>
-          <li><strong>Integer arrays</strong>: Represent discrete height levels, producing layered or stepped structures.</li>
-        </ul>
-        <p>In the <strong>Cubic Version</strong>, voxel placement is handled within each chunk’s local Y range, suitable for surface-based terrain.<br>In the <strong>Dimension-Agnostic Version</strong>, Y offsets are computed globally, ensuring heightmaps and volume data align correctly across stacked chunks.<br>All variants rely on <code>Chunk.SetBlock</code> for voxel assignment, maintaining compatibility with the same mesh generation pipeline used for procedural terrain.</p>
-
-        <h3>RenderChunk</h3>
-        <p>After voxel data has been generated—whether through <strong>Standard Generation</strong> or <strong>Premade Data</strong>—the <code>RenderChunk</code> method converts it into a visible mesh.<br>It instantiates a chunk prefab at its calculated world-space position, then retrieves the <code>ChunkRenderer</code> component, initializes it with the corresponding <code>ChunkData</code>, and builds the mesh via <code>Chunk.GetChunkMeshData</code>. Once complete, the mesh is passed to <code>ChunkRenderer.RenderMesh</code>, producing the final rendered geometry.</p>
-        <p>In the <strong>Cubic Version</strong>, chunk placement uses raw world coordinates.<br>The <strong>Dimension-Agnostic Version</strong> multiplies chunk positions by <code>blockSize</code> before instantiation, ensuring proper scaling and alignment when voxel dimensions differ along each axis.</p>
-        <p>Since all generation methods—procedural or data-driven—feed into the same rendering pipeline, the system remains unified and consistent, allowing seamless transitions between different world construction approaches.</p>
-
-        <h2>Model Conversion</h2>
-        <p>In addition to procedural generation, a series of tools were developed to convert existing geometry into voxel data compatible with the World system. These tools serve as a bridge between traditional level design and voxel-based rendering, enabling designer-built scenes or imported meshes to be transformed into efficient, chunk-based voxel structures.</p>
-
-        <h3>2D Array Conversion — LabyrinthReader</h3>
-        <p>The <code>LabyrinthReader</code> is the first implementation of this concept, designed to convert manually placed cubes in the Unity editor into a <strong>2D boolean array</strong>. It was originally used for maze-like environments, where designers could freely place uniform cubes to define walkable or solid regions.</p>
-        <p>When executed, the script gathers all child transforms under its parent to determine the spatial boundaries of the constructed layout.<br>By using the scale of a single cube as a reference, it calculates the minimum and maximum <strong>X</strong> and <strong>Z</strong> coordinates, defining the overall bounds of the array. This ensures the conversion works correctly regardless of where the layout is positioned in world space.</p>
-        <p>The <code>GenerateCubePosition2DArray()</code> method then iterates through each cube’s position, converting it into array indices based on its relative offset from the minimum bounds and the cube’s scale.<br>Each occupied cell is marked as true, producing a compact boolean grid representing the model’s footprint.</p>
-        <p>Once complete, this array is passed directly to <code>World.GenerateWorld(bool[,])</code>, which processes it into voxel chunks for optimized rendering.</p>
-        <p>The LabyrinthReader provides an intuitive workflow for designing 2D structures visually while ensuring they can be converted into clean, performance-efficient voxel data.<br>It also served as the foundation for later, fully 3D voxelization systems capable of converting complex meshes into volumetric voxel data.</p>
+        <h3>Cubes to maze</h3>
+        <p><code>LabyrinthReader</code> turns cubes placed by hand in the editor into a 2D bool array. It finds the bounds of the cubes, maps each cube’s position to a grid cell using the cube’s scale as the cell size, and hands the grid to the World. A designer can block out a maze with ordinary cubes and get one voxel mesh back, built from chunks with every hidden face removed.</p>
         <figure class="fig fig--row">
           <div class="fig__frame">
             <img src="../assets/img/voxel-generator/labyrinth-before-after.png" alt="Hand-placed labyrinth cubes next to the converted voxel labyrinth" width="1394" height="543" loading="lazy">
             <img src="../assets/img/voxel-generator/labyrinth-above-below.png" alt="The converted labyrinth seen from below" width="1403" height="532" loading="lazy">
           </div>
-          <figcaption>Labyrinth before and after conversion from both above and below</figcaption>
-        </figure>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/labyrinth-chunk.png" alt="One labyrinth chunk seen from above and below" width="918" height="256" loading="lazy"></div>
-          <figcaption>Same individual labyrinth chunk from above and below</figcaption>
+          <figcaption>A hand-placed labyrinth before and after conversion, from above and below.</figcaption>
         </figure>
 
-        <h3>3D Array Conversion — Voxelizer</h3>
-        <p>The <code>Voxelizer</code> script converts any 3D model into a voxel-based representation compatible with the World system. It analyzes the model’s geometry and translates its occupied volume into a 3D boolean array, where each element defines whether a voxel is solid or empty.</p>
-        <p>This enables traditional meshes to be transformed into fully interactive voxel environments suitable for architectural, decorative, or gameplay use.</p>
-
-        <h4>Start</h4>
-        <p>The conversion begins in the <code>Start()</code> method. When a valid target object is assigned, the script instantiates a temporary copy of it for scanning. The object is passed to <code>VoxelizeObject</code>, which performs the voxelization and generates the 3D boolean grid.</p>
-        <p>Once the grid is built, the behavior depends on the <strong>solid</strong> setting:</p>
-        <ul>
-          <li><strong>Solid Mode (true):</strong> A 3D flood-fill is performed using <code>FillSpaces.Bool3D</code>, filling enclosed internal spaces to produce a completely solid structure. This ensures correct rendering and supports interaction, such as digging or deformation.</li>
-          <li><strong>Non-Solid Mode (false):</strong> The fill step is skipped, leaving internal cavities empty. This reduces computation time but increases the number of visible internal faces.</li>
-        </ul>
-        <p>After generation, the temporary copy of the model is destroyed, leaving only the voxelized structure rendered through the World system.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-original.png" alt="The original dragon mesh" width="666" height="776" loading="lazy"></div>
-          <figcaption>A model of a dragon before conversion</figcaption>
-        </figure>
-
-        <h4>VoxelizeObject</h4>
-        <p><code>VoxelizeObject</code> acts as the main control method for the conversion process.</p>
-        <p>It begins by computing the model’s total spatial bounds via <code>CalculateBounds</code>, ensuring every visible mesh in the hierarchy is included.</p>
-        <p>It then determines the voxel grid’s resolution using <code>CalculateArrayDimensions</code>, allocates the 3D array, and calls <code>FillVoxelGrid</code> to populate it with occupancy data.</p>
-
-        <h4>CalculateBounds</h4>
-        <p>VoxelizeObject acts as the main control method for the conversion process. It begins by computing the model’s total spatial bounds via CalculateBounds, ensuring every visible mesh in the hierarchy is included. It then determines the voxel grid’s resolution using CalculateArrayDimensions, allocates the 3D array, and calls FillVoxelGrid to populate it with occupancy data.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-10-percent.png" alt="Low-resolution voxel dragon" width="428" height="407" loading="lazy"></div>
-          <figcaption>Dragon voxelized to 10% the original size at 8x14x20</figcaption>
-        </figure>
-
-        <h4>CalculateArrayDimensions</h4>
-        <p>Once bounds are known, <code>CalculateArrayDimensions</code> determines how many voxels to create along each axis.<br>The two implementations differ in flexibility:</p>
-        <div class="compare">
-          <div>
-            <h5>Cubic Version</h5>
-            <p>Uses the model’s longest side to normalize voxel resolution. Each axis is scaled relative to that dimension, producing a uniformly cubic grid. The optional <code>autoSize</code> setting can automatically match the grid size to real-world object dimensions.</p>
+        <h2>Model Voxelizer</h2>
+        <p>The voxelizer turns any model with colliders into a 3D bool array. It takes the combined bounds of the model’s renderers and picks a grid size: a fixed size, one voxel per world unit with an optional scale factor, or matched to the World’s voxel size. Then it runs one <code>Physics.CheckBox</code> per cell. The dragon below, at its original scale, is 79 × 133 × 199 cells: about 2.1 million box queries.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/dragon-original.jpg" alt="The original dragon mesh" width="666" height="776" loading="lazy">
+            <img src="../assets/img/voxel-generator/dragon-full-scale.jpg" alt="High-resolution voxel dragon at the original scale" width="713" height="877" loading="lazy">
           </div>
-          <div>
-            <h5>Dimension-Agnostic Version</h5>
-            <p>Provides full per-axis control through several configuration options:</p>
-            <ul>
-              <li><strong>autoSize</strong> – Automatically sets grid resolution based on the object’s physical bounds.</li>
-              <li><strong>scale</strong> and <strong>scaleFactor</strong> – Adjust voxel density when auto-sizing is active, scaling resolution up for finer detail or down for coarser sampling.</li>
-              <li><strong>matchBlockSize</strong> – Adjusts the voxel grid’s real-world proportions to match the block size defined in the World system. This ensures that, even with non-uniform voxel dimensions, the overall scale of the model remains consistent across all three axes.</li>
-            </ul>
+          <figcaption>The source model, and the voxelized dragon at its original scale (79 × 133 × 199).</figcaption>
+        </figure>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/dragon-10-percent.png" alt="Low-resolution voxel dragon" width="428" height="407" loading="lazy">
+            <img src="../assets/img/voxel-generator/dragon-non-cubic.jpg" alt="Voxel dragon built from non-cubic voxels" width="579" height="769" loading="lazy">
           </div>
-        </div>
-        <p>In practice, the agnostic version’s configuration allows any imported model to align precisely with non-uniform voxel scales or custom-resolution environments.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-full-scale.png" alt="High-resolution voxel dragon at the original scale" width="713" height="877" loading="lazy"></div>
-          <figcaption>Voxelized dragon matching the original scale at 79x133x199</figcaption>
+          <figcaption>At 10% scale (8 × 14 × 20), and at full scale with non-cubic voxels.</figcaption>
         </figure>
 
-        <h4>FillVoxelGrid</h4>
-        <p>This method populates the 3D boolean array by scanning the model volume using physics-based checks.<br>For each voxel cell, a <code>Physics.CheckBox</code> query is performed at the voxel’s center using its half-size as a radius.<br>If the check intersects the model’s geometry, that cell is marked as occupied (<code>true</code>); otherwise, it remains empty (<code>false</code>).</p>
-        <p>The <strong>Cubic Version</strong> uses uniform voxel sizes, ideal for consistent block-based geometry.<br>The <strong>Dimension-Agnostic Version</strong> dynamically computes per-axis voxel dimensions from the model’s bounds, allowing accurate sampling even when voxel proportions differ along X, Y, and Z.</p>
-        <p>This process outputs a complete 3D boolean grid that can be passed directly to <code>World.GenerateWorld(bool[,,])</code>, where it is chunked, meshed, and rendered using the same optimized pipeline as procedural terrain.</p>
+        <h3>Making it solid</h3>
+        <p>Mesh colliders are surfaces, so the box queries only find the model’s shell. The result is hollow, and the mesher would build faces on the inside walls too. <code>FillSpaces</code> fixes that with a reverse flood fill: it floods the empty space from every cell on the six outer faces of the grid and marks everything it can reach. Any empty cell left unmarked is enclosed by the model, so it gets filled.</p>
+        <p>Seeding from every boundary cell, not just one corner, matters because a model that touches the edges of its bounding box can split the outside air into separate regions. Cells that are already marked are never pushed again, so after the first big fill most seeds cost almost nothing. The fill uses an explicit stack, because recursion would overflow on a grid with millions of cells.</p>
+        <figure class="code" data-lang="C#" data-name="FillSpaces.ReverseFloodFill">
+<pre><code>private static void ReverseFloodFill(int x, int y, int z,
+    bool[,,] spaces, bool[,,] doNotFill)
+{
+    if (spaces[x, y, z] &amp;&amp; !doNotFill[x, y, z])
+    {
+        return;
+    }
+    Stack&lt;(int x, int y, int z)&gt; stack = new Stack&lt;(int, int, int)&gt;();
+    stack.Push((x, y, z));
+    doNotFill[x, y, z] = true;
 
-        <h3>FillSpaces</h3>
-        <p>The <code>FillSpaces</code> class performs a reverse 3D flood fill — meaning it fills every enclosed space that the normal flood fill cannot reach. The goal is to solidify any internal cavities inside a voxelized model, creating a fully filled structure. This is particularly useful when generating assets in solid mode, allowing for destructible interiors, more coherent structures, and fewer wasted rendered faces.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-non-cubic.png" alt="Voxel dragon built from non-cubic voxels" width="579" height="769" loading="lazy"></div>
-          <figcaption>Voxelized dragon matching the original scale, but with non-cubic voxels</figcaption>
+    while (stack.Count &gt; 0)
+    {
+        (x, y, z) = stack.Pop();
+
+        TryPush(x - 1, y, z, spaces, doNotFill, stack);
+        TryPush(x + 1, y, z, spaces, doNotFill, stack);
+        TryPush(x, y - 1, z, spaces, doNotFill, stack);
+        TryPush(x, y + 1, z, spaces, doNotFill, stack);
+        TryPush(x, y, z - 1, spaces, doNotFill, stack);
+        TryPush(x, y, z + 1, spaces, doNotFill, stack);
+    }
+}
+
+private static void TryPush(int x, int y, int z,
+    bool[,,] spaces, bool[,,] doNotFill, Stack&lt;(int, int, int)&gt; stack)
+{
+    if (x &gt;= 0 &amp;&amp; x &lt; spaces.GetLength(0) &amp;&amp;
+        y &gt;= 0 &amp;&amp; y &lt; spaces.GetLength(1) &amp;&amp;
+        z &gt;= 0 &amp;&amp; z &lt; spaces.GetLength(2) &amp;&amp;
+        !spaces[x, y, z] &amp;&amp; !doNotFill[x, y, z])
+    {
+        stack.Push((x, y, z));
+        doNotFill[x, y, z] = true;
+    }
+}</code></pre>
+          <figcaption>The flood fill from FillSpaces.cs. A final pass fills every empty cell the flood never marked.</figcaption>
+        </figure>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/voxel-generator/dragon-inside-hollow.png" alt="Inside a hollow voxel dragon, with faces built on every inner wall" width="934" height="1354" loading="lazy">
+            <img src="../assets/img/voxel-generator/dragon-inside-filled.png" alt="Inside a filled voxel dragon, where the interior produces no faces" width="933" height="1365" loading="lazy">
+          </div>
+          <figcaption>Inside the dragon, enlarged four times. Hollow, every inner wall gets faces; filled, the interior builds none and the camera sees straight out.</figcaption>
         </figure>
 
-        <h4>Bool3D</h4>
-        <p>The process begins by scanning only the outer faces of the voxel grid rather than looping through every position in the array. From these faces, a flood fill is performed to mark all voxels that are connected to the exterior — essentially mapping every open, reachable area.</p>
-        <p>In most cases, the very first call to <code>ReverseFloodFill</code> handles nearly the entire workload by reaching every open space connected to the boundary. The subsequent passes mainly act as a safeguard against extremely rare cases — for example, small pockets of air that might be completely landlocked within other filled regions.</p>
-        <p class="takeaway">This reverse approach ensures that only unreachable areas are filled.</p>
-
-        <h4>ReverseFloodFill</h4>
-        <p>The <code>ReverseFloodFill</code> method handles the main flood fill logic using an explicit <code>Stack&lt;(int x, int y, int z)&gt;</code> to avoid recursion-based stack overflows. It starts at a given coordinate, checks whether that position is within bounds and not already filled or marked, and then pushes it onto the stack.</p>
-        <p>A while loop runs as long as there are entries in the stack, repeatedly popping one coordinate, checking all six of its neighbors, and using <code>TryPush</code> to add any unvisited air spaces back onto the stack. Each visited voxel is recorded in the <code>doNotFill</code> array to prevent duplicate pushes and infinite loops.</p>
+        <h3>Saving as a prefab</h3>
+        <p><code>SaveToPrefab</code> turns a generated world into a normal asset. It saves each chunk’s mesh as a <code>.asset</code> file, skipping empty chunks, removes the generator component and saves the chunks, parented under one object, as a prefab.</p>
         <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-inside-hollow.png" alt="Cut-away of a hollow voxel dragon showing interior faces" width="934" height="1354" loading="lazy"></div>
-          <figcaption>Inside of a dragon 4 times enlarged without filling it up.</figcaption>
+          <div class="fig__frame"><img src="../assets/img/voxel-generator/prefab-fragments.jpg" alt="A saved voxel prefab and some of its mesh fragments in the Unity project window" width="705" height="1021" loading="lazy"></div>
+          <figcaption>A saved prefab and some of its per-chunk meshes.</figcaption>
         </figure>
 
-        <h4>Final Fill Pass</h4>
-        <p>Once the exterior-connected flood fill is complete, the system performs one final loop over the entire 3D array. Every cell that remains unmarked in <code>doNotFill</code> and empty (<code>false</code>) in the original data is now filled (<code>true</code>), ensuring all interior cavities are solid. The result is returned for mesh generation — producing a voxelized object that is both visually and structurally solid.</p>
-
-        <h3>Final Product</h3>
-        <p>After all systems come together, the result is a fully functional voxelization pipeline capable of converting any 3D model into a voxel-based version — both filled and unfilled, and at arbitrary scales.</p>
-        <p>From the outside, filled and unfilled models appear identical, but internally their structures differ. The filled version has its interior fully solidified using the reverse flood fill system, allowing for destructible geometry and optimized rendering. The unfilled version retains its hollow center, producing more lightweight meshes that can be generated faster when interior data isn’t needed.</p>
-        <p>The system also supports scaling, enabling voxelized versions of models ranging from a fraction of the original size to many times larger. This makes it possible to prototype small-scale structures or produce massive voxel environments with consistent geometry.</p>
-        <p>In later demonstrations, various dragon models were voxelized across a range of scales and block aspect ratios — from highly detailed miniatures to exaggerated forms with stretched voxel proportions.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/dragon-inside-filled.png" alt="Cut-away of a filled voxel dragon with a solid interior" width="933" height="1365" loading="lazy"></div>
-          <figcaption>Inside of dragon filled is so not to render sides not visible from the outside</figcaption>
-        </figure>
-
-        <h3>Saving Models</h3>
-        <p>To make the generated voxel assets reusable, I created the <code>SaveToPrefab</code> tool — an editor-only utility designed to convert dynamically generated chunks into persistent prefab assets.</p>
-
-        <h4>CreatePrefab</h4>
-        <p>The core method, <code>CreatePrefab</code>, starts by initializing an empty parent GameObject that will represent the final prefab. It defines save paths based on user input, ensuring that both the prefab directory and a subfolder for individual mesh parts exist. It then iterates through all chunk GameObjects in the scene, collecting their MeshFilter components. Any chunk without geometry — identified by an empty vertex array — is skipped to prevent the creation of empty assets.</p>
-        <p>Each valid mesh is saved as a separate <code>.asset</code> file, ensuring that its data persists after exiting Play Mode. The script then removes the <code>ChunkRenderer</code> component from each chunk and parents the cleaned chunk under the prefab object. Once all parts are assembled, the prefab is saved to disk using Unity’s <code>PrefabUtility.SaveAsPrefabAsset</code>.</p>
-        <p>Finally, the temporary objects in the scene are destroyed, leaving behind a clean, organized prefab ready for reuse in any project or pipeline step.</p>
-        <p>This workflow bridges the gap between procedural generation and traditional asset creation — allowing any generated voxel structure, from small test objects to entire voxelized environments, to be preserved as a standard Unity asset.</p>
-        <figure class="fig fig--pad">
-          <div class="fig__frame"><img src="../assets/img/voxel-generator/prefab-fragments.png" alt="A saved voxel prefab and some of its mesh fragments in the Unity project window" width="705" height="1021" loading="lazy"></div>
-          <figcaption>Saved Prefab with some of its individual mesh fragments</figcaption>
-        </figure>
-
-        <h2>Conway’s Game of Life</h2>
-        <p>To explore generative systems beyond noise and model-based voxelization, I implemented a family of Conway’s Game of Life simulations adapted for both 2D and 3D voxel environments. These versions use the same World pipeline as the other generation systems, allowing them to directly produce optimized voxel meshes in real time.</p>
-        <p>Conway’s Game of Life is originally a simple life simulation where each cell in a 2D grid is either dead or alive. The original rules dictate that a living cell with more than three or fewer than two living neighbors dies, while a dead cell with exactly three neighbors comes to life. The result demonstrates how complexity can emerge from simple rules.</p>
-        <p>In my implementation, I both tweaked these rules—allowing custom ranges—and expanded the concept into three dimensions.</p>
-
-        <h3>Structure</h3>
-
-        <h4>Base Class</h4>
-        <p>Each variant extends an abstract <code>GameOfLife</code> base class that handles initialization, update timing, and communication with the World generator. The class defines shared parameters such as grid size, neighbor birth and death thresholds, and saturation (the probability of initial live cells). Different subclasses then override the pattern initialization and update logic to produce distinct behaviors.</p>
-        <p>It stores configurable ranges for birth and death conditions using <code>Vector2Int</code>, interpreted as inclusive minimum and maximum thresholds. During each cycle, the simulation checks every cell’s surrounding neighbors and applies the following rules:</p>
+        <h2>Game of Life</h2>
+        <p>To try generation from simulation, I built versions of Conway’s Game of Life that render through the same pipeline, one voxel per cell. The rules take ranges: a dead cell comes alive if its number of live neighbours is inside the birth range, and a live cell dies if its count is at or below the death range’s minimum or at or above its maximum. Birth 3–3 with death 1–4 is classic Conway. Each generation is written into a second grid and the two are swapped, so a step never reads cells it has already updated.</p>
         <ul>
-          <li><strong>Birth:</strong> A dead cell becomes alive if the number of live neighbors falls within the birth range.</li>
-          <li><strong>Death:</strong> A live cell dies if the neighbor count falls outside the death range.</li>
+          <li><strong>2D:</strong> the classic rules, with each live cell drawn as a column of voxels.</li>
+          <li><strong>Perlin:</strong> live cells take their height from a moving noise field, so the pattern ripples.</li>
+          <li><strong>Survivor:</strong> cells have a strength instead of being alive or dead. Meeting the birth rule adds one, meeting the death rule takes one away, and with the right ranges, pillars grow, collapse and grow back.</li>
+          <li><strong>3D:</strong> 26 neighbours per cell, seeded across the whole volume, the top or bottom layer, or a diagonal plane.</li>
         </ul>
-        <p>The <code>PerformUpdate()</code> method manages the simulation step, calling <code>CustomUpdateState()</code> in the active subclass before rendering the result through the World class. This modular setup allows each Game of Life version to control how states are represented and updated while keeping the rendering process consistent.</p>
+        <p>One 3D setup stands out: birth at exactly four neighbours, and death at any count. No cell survives more than one generation, yet new births keep the pattern moving and spreading until it reaches the edges of the cube.</p>
 
-        <h4>2D Game of Life</h4>
-        <p>The <code>GameOfLife2D</code> variant operates on a two-dimensional boolean array. It alternates between two states (<code>stateA</code> and <code>stateB</code>) to prevent overwriting data mid-update, producing smooth generational transitions. The update logic follows classic Conway rules, with each cell checking its eight immediate neighbors. After every cycle, the resulting state is passed to <code>world.GenerateWorld()</code>, instantly visualizing the pattern as a voxel grid.</p>
-
-        <h4>Perlin Game of Life</h4>
-        <p>The <code>GameOfLifePerlin</code> class functions identically to the 2D version but uses float arrays instead of booleans. Any value greater than zero represents a living cell, and living cells take on their height from a moving Perlin noise pattern. This creates a dynamic wave effect that ripples across living cells, blending organic noise behavior with the deterministic structure of the Game of Life.</p>
-
-        <h4>Survivor Game of Life</h4>
-        <p>The <code>GameOfLifeSurvivor</code> class modifies the standard rules to introduce a variable strength system instead of binary life and death. Here, the grid is represented by a two-dimensional int array, where each cell’s value indicates its current strength.</p>
-        <p>If a cell meets the birth requirement, its value increases by one; if it meets the death requirement, it decreases by one. If neither condition is met, the value remains unchanged, just as in the traditional Game of Life.</p>
-        <p>This behavior creates a dynamic equilibrium where cells can strengthen, weaken, or hold steady depending on their surroundings. With the right range settings, the simulation produces clusters of pillar-like structures that appear to grow, collapse, and regrow in cycles — creating a sense of competing formations across the grid.</p>
-
-        <h4>3D Game of Life</h4>
-        <p>The <code>GameOfLife3D</code> version expands the concept into three dimensions, simulating organic shapes that grow, collapse, and merge over time. Like the 2D version, it alternates between two boolean grids to ensure consistency between updates.</p>
-        <p>To give creators more control, several initialization options define how the simulation begins:</p>
+        <h2>What I’d Change</h2>
         <ul>
-          <li><strong>bottomFill / topFill:</strong> Randomly populates only the lowest or highest layer of voxels.</li>
-          <li><strong>diagonalsFill:</strong> Seeds voxels along a diagonal pattern through the grid.</li>
-          <li><strong>totalFill (default):</strong> Populates the entire volume randomly based on the saturation value.</li>
+          <li><strong>Greedy meshing.</strong> Every visible face is its own quad. Merging touching faces of the same type into larger rectangles would cut the vertex count of flat terrain to a fraction.</li>
+          <li><strong>Reuse chunk objects.</strong> Each Game of Life step calls <code>GenerateWorld</code>, which destroys and re-instantiates every chunk. Only chunks whose cells changed need a new mesh.</li>
+          <li><strong>Batch the voxelizer’s queries.</strong> Two million <code>Physics.CheckBox</code> calls run one at a time on the main thread. Unity’s <code>OverlapBoxCommand</code> can run them as a batched job.</li>
+          <li><strong>Stream chunks.</strong> Everything is generated up front. Generating and unloading chunks around the camera would allow worlds of any size.</li>
+          <li><strong>Merge the two versions.</strong> The cubic version is the general one with a voxel size of 1, and keeping two copies meant fixing everything twice.</li>
         </ul>
-        <p>Each step checks all 26 neighboring cells, applying the same birth and death rules as the 2D version. I’ve been able to generate stable, self-sustaining organisms that maintain their form over time, but finding parameter combinations that are also visually interesting has been more challenging. One particularly fascinating setup uses a birth range of exactly four and a death range covering all possible values. This creates a system where individual cells survive for only a single cycle, yet constant new births cause the pattern itself to keep evolving and expanding. The result is a flowing, ever-changing structure that grows outward until it eventually reaches the boundaries of the cube — a glimpse of what could become an endlessly developing organism in an unbounded space.</p>
 
         <aside class="project-cta" aria-label="Project links">
           <dl>
-            <div><dt>GitHub Links:</dt><dd><a href="https://github.com/Ossdac/VoxelGenerator_Cubic" target="_blank" rel="noopener">Cubic</a> · <a href="https://github.com/Ossdac/VoxelGenerator_DimensionAgnostic" target="_blank" rel="noopener">Dimension-Agnostic</a></dd></div>
+            <div><dt>GitHub:</dt><dd><a href="https://github.com/Ossdac/VoxelGenerator_Cubic" target="_blank" rel="noopener">Cubic</a> · <a href="https://github.com/Ossdac/VoxelGenerator_DimensionAgnostic" target="_blank" rel="noopener">Dimension-Agnostic</a></dd></div>
           </dl>
         </aside>
       </article>
