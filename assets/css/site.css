@@ -529,6 +529,7 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
 
 .card__role { color: var(--text-2); font-size: 16px; }
 .card__role strong { color: var(--accent); font-weight: 600; }
+.card__desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
 
 .card .chips { margin-top: auto; padding-top: 6px; }
 
@@ -562,14 +563,10 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   margin-bottom: 18px;
 }
 
-.selected { list-style: none; margin: 0; padding: 0; }
-.selected li + li { border-top: 1px solid var(--line); }
-.selected a { display: block; padding: 14px 0; }
-.selected li:first-child a { padding-top: 0; }
-.selected li:last-child a { padding-bottom: 0; }
-.selected strong { display: block; font-size: 17px; transition: color 0.15s; }
-.selected span { display: block; margin-top: 2px; font-size: 15px; color: var(--muted); line-height: 1.5; }
-.selected a:hover strong { color: var(--accent); }
+.edu { list-style: none; margin: 0; padding: 0; }
+.edu li + li { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.edu strong { display: block; font-size: 16px; }
+.edu span { display: block; margin-top: 2px; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
 
 /* ---------- Contact ---------- */
 
@@ -703,6 +700,7 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   top: calc(var(--header-h) + 32px);
   align-self: start;
   max-height: calc(100vh - var(--header-h) - 64px);
+  overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -723,6 +721,7 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   font-size: 13.5px;
   line-height: 1.4;
   color: var(--muted);
+  overflow-wrap: anywhere;
   transition: color 0.15s, border-color 0.15s;
 }
 .toc a:hover { color: var(--text); }
@@ -833,6 +832,34 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
 .compare h5 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .compare p + p, .compare p + ul, .compare ul + p { margin-top: 10px; }
 
+/* Flow: a row of steps joined by arrows (stacks vertically on phones) */
+.prose ol.flow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 28px;
+}
+.prose ol.flow > li {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.prose ol.flow > li + li { margin-top: 0; }
+.prose ol.flow > li::before { content: none; }
+.prose ol.flow > li + li::after {
+  content: "→";
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+.flow__k { display: block; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--text); }
+.flow__v { display: block; margin-top: 4px; font-size: 14px; line-height: 1.45; color: var(--muted); }
+
 /* ---------- Figures ---------- */
 
 .fig { margin: 36px 0; }
@@ -864,6 +891,10 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
 .fig--pad img { border-radius: 4px; }
 .fig--row .fig__frame { flex-direction: column; padding: 16px; }
 .fig--row img { border-radius: 4px; }
+.fig--pair .fig__frame { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; padding: 16px; }
+.fig--pair img { border-radius: 4px; max-height: 520px; }
+/* Looping clips: <video autoplay muted loop playsinline> inside .fig__frame */
+.fig video { display: block; width: 100%; height: auto; }
 .fig figcaption {
   display: flex;
   gap: 10px;
@@ -1080,6 +1111,9 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   .spec-wrap .spec { border-left: 0; border-right: 0; }
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .compare { grid-template-columns: minmax(0, 1fr); }
+  .prose ol.flow { grid-auto-flow: row; gap: 26px; }
+  .prose ol.flow > li + li::after { content: "↓"; left: 50%; top: -24px; transform: translateX(-50%); }
+  .fig--pair .fig__frame { grid-template-columns: minmax(0, 1fr); }
   .pager { grid-template-columns: minmax(0, 1fr); }
   .pager .pager__next { text-align: left; }
   .project-cta { padding: 24px; }

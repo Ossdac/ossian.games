@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Scapegoat — Ossian Däckfors</title>
-  <meta name="description" content="Scapegoat: a hack-and-slash game in Unity. A data-driven skill tree with a custom editor window, and a modular ISave-based save/load architecture in C#.">
+  <meta name="description" content="Scapegoat: a hack-and-slash game built around a blood-powered sword. A data-driven skill tree with a custom Unity editor window, and a save system other programmers extend through one interface.">
   <link rel="canonical" href="https://ossiandackfors.com/scapegoat/">
   <meta name="theme-color" content="#0a0c0f">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ossian Däckfors">
   <meta property="og:title" content="Scapegoat — Save &amp; Progression Systems">
-  <meta property="og:description" content="A data-driven skill tree with a custom Unity editor, and a modular save/load architecture any feature can opt into.">
+  <meta property="og:description" content="A ScriptableObject skill tree with a custom Unity editor window, and a save system other programmers extend through one interface.">
   <meta property="og:url" content="https://ossiandackfors.com/scapegoat/">
-  <meta property="og:image" content="https://ossiandackfors.com/assets/img/scapegoat/closing.png">
+  <meta property="og:image" content="https://ossiandackfors.com/assets/img/scapegoat/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -42,10 +42,10 @@
         <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
         <div class="project-hero__grid">
           <div>
-            <span class="eyebrow">Project 04 · Unity · C#</span>
+            <span class="eyebrow">Project 03 · Unity · C#</span>
             <h1>Scapegoat</h1>
             <p class="project-hero__role">Role: Save &amp; Progression Systems</p>
-            <p class="project-hero__lede">Scapegoat is a fast-paced hack-and-slash game built around a blood-powered sword that allows the player to sacrifice health for stronger attacks. I designed and implemented the game’s Save System and Player Upgrade System (Skill Tree).</p>
+            <p class="project-hero__lede">Scapegoat is a fast hack-and-slash game built around a blood-powered sword that lets you trade health for stronger attacks. I built its progression and persistence: the skill tree, including the editor tool the designers used to author it, and the save system.</p>
             <div class="btn-row">
               <a class="btn btn--primary" href="https://futuregames.itch.io/scapegoat" target="_blank" rel="noopener">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Play on itch.io</a>
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div class="project-hero__media">
-            <img src="../assets/img/scapegoat/hero.png" alt="Scapegoat key art: a chained sword with a living eye, standing among ruined pillars under a red sky" width="1448" height="2048" style="object-position: center 30%">
+            <img src="../assets/img/scapegoat/hero.jpg" alt="Scapegoat key art: a chained sword with a living eye, standing among ruined pillars under a red sky" width="1100" height="1556" style="object-position: center 30%">
           </div>
         </div>
       </div>
@@ -64,10 +64,10 @@
       <h2 class="sr-only" id="overview-title">Project Overview</h2>
       <div class="container">
         <dl class="spec">
-          <div><dt>Project Type</dt><dd>Hack and Slash Action Game</dd></div>
+          <div><dt>Project Type</dt><dd>Hack-and-slash action</dd></div>
           <div><dt>Role</dt><dd>Save &amp; Progression Systems</dd></div>
           <div><dt>Team Size</dt><dd>14 people</dd></div>
-          <div><dt>Duration</dt><dd>4 Weeks</dd></div>
+          <div><dt>Duration</dt><dd>4 weeks</dd></div>
           <div><dt>Engine</dt><dd>Unity</dd></div>
           <div><dt>Language</dt><dd>C#</dd></div>
         </dl>
@@ -78,209 +78,115 @@
       <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
 
       <article class="prose">
-        <h2>Upgrade / Skill Tree</h2>
-        <p class="lead"><strong>Goal.</strong> Data-driven progression that designers can author without code changes. All stat modifiers are resolved in one aggregation pass for clarity and balance tuning.</p>
+        <h2>Skill Tree</h2>
+        <p class="lead"><strong>Goal.</strong> Progression the designers can author and rebalance without code changes, with every stat bonus resolved in one place.</p>
 
-        <h3>Design Summary</h3>
+        <h3>Data</h3>
+        <p>Each skill is a <code>SkillNode</code> ScriptableObject: name, description, icon, the stat it improves and by how much per level, a cost per level, a GUID, and its position in the editor. The length of the cost array is the number of levels, so adding a level means adding a price.</p>
+        <p>Nodes can also carry prerequisites and a trade-off (a penalty paired with the bonus). Both can be authored in the editor, but the final game didn’t use them, so they aren’t enforced at runtime.</p>
+
+        <h3>Editor tool</h3>
+        <p>Designers build the tree in a custom editor window, under <strong>Tools ▸ Skill Tree Editor</strong>:</p>
         <ul>
-          <li><strong>SkillNode (ScriptableObject)</strong>: Name, description, icon, stat type, per-level percentage, cost array, GUID, editor position.</li>
-          <li><strong>Custom Editor Window</strong>: Create nodes, rename assets, drag to position, connect prerequisites, edit costs and properties.</li>
-          <li><strong>Runtime UI (SkillButton)</strong>: Shows name, cost, level; disables when unaffordable or maxed; applies upgrade on click.</li>
-          <li><strong>Player Stats Integration</strong>: One method recalculates all stats by aggregating unlocked node modifiers.</li>
+          <li><strong>Add Skill Node</strong> creates the asset and its GUID in one click.</li>
+          <li>Drag nodes to lay out the tree. Right-drag from one node to another to make it a prerequisite; connections are drawn as arrows, and clicking a connection’s handle removes it.</li>
+          <li>Selecting a node edits it in place, and renaming a skill renames its asset file too.</li>
+          <li>The prerequisite-points slider only allows reachable values. Its minimum and maximum come from walking the prerequisite graph, with cycle detection.</li>
+          <li>Deleting a node asks first, then removes it from every other node’s prerequisites.</li>
         </ul>
-
-        <h3>Data Model</h3>
-        <ul>
-          <li><code>SkillNode.skillCost : int[]</code></li>
-          <li><code>SkillNode.currentLevel : int</code></li>
-          <li><code>SkillNode.skillTypePositive : enum</code></li>
-          <li><code>SkillNode.percentageIncrease : float</code></li>
-          <li><code>SkillNode.SkillID : string (GUID)</code></li>
-          <li>Optional authoring fields kept even if gating is disabled: <code>prerequisites</code>, <code>requiredPrerequisitePoints</code>.</li>
-        </ul>
-
         <figure class="fig fig--pad">
           <div class="fig__frame"><img src="../assets/img/scapegoat/skill-tree-editor.png" alt="Custom Unity editor window showing connected skill nodes" width="1036" height="929" loading="lazy"></div>
-          <figcaption>Editing window for the skill tree, allowing for setting up effects, tradeoffs and relationships between skills. (Not the actual skills from the game)</figcaption>
+          <figcaption>The skill tree editor window, with placeholder skills rather than the game’s own.</figcaption>
         </figure>
 
-        <h3>Authoring Workflow</h3>
-        <ol>
-          <li>Create a new SkillNode asset in the editor.</li>
-          <li>Fill in display fields and costs. Costs define the number of levels.</li>
-          <li>Optionally connect prerequisites in the editor for visual planning.</li>
-          <li>Designers place nodes visually; code reads them by GUID at runtime.</li>
-        </ol>
-
-        <h3>Runtime Flow</h3>
-        <ul>
-          <li>UI reads SkillNode data and renders button state.</li>
-          <li>On click: deduct cost, increment <code>currentLevel</code>, request stat recompute.</li>
-          <li><code>ApplyUpgrades()</code> scans all nodes, sums per-type modifiers, writes final values to the player, and updates bars.</li>
-        </ul>
-
+        <h3>Buying upgrades</h3>
+        <p>In the hub, a pentagram opens the upgrade menu. Each <code>SkillButton</code> reads its node and shows the next level’s cost (or “Max Level”) and the current level. A button can only be pressed when the player can afford it and it isn’t maxed. Buying deducts blood currency through an event, raises the level, recalculates the player’s stats and refreshes every button, since a purchase changes what the player can afford everywhere.</p>
         <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/scapegoat/hub-world.png" alt="Wide view of the Scapegoat hub world with portals and a pentagram" width="1920" height="743" loading="lazy"></div>
-          <figcaption>Hub-World from where the arenas are reached through the portals and upgrades reached from the pentagram.</figcaption>
+          <div class="fig__frame"><img src="../assets/img/scapegoat/hub-world.jpg" alt="Wide view of the Scapegoat hub world with portals and a pentagram" width="1600" height="619" loading="lazy"></div>
+          <figcaption>The hub. Portals lead to the arenas; the pentagram opens the upgrade menu.</figcaption>
         </figure>
-
-        <h3>Key Snippet</h3>
-        <figure class="code" data-lang="C#" data-name="Aggregate and apply modifiers">
-<pre><code>// aggregate modifiers
-foreach (var n in _skillNodes)
-    if (n.currentLevel &gt; 0)
-        upgrades[n.skillTypePositive] =
-            upgrades.GetValueOrDefault(n.skillTypePositive, 0f)
-            + n.percentageIncrease * n.currentLevel;
-
-// apply
-switch (type)
-{
-    case SkillTypes.MaximumHealth:
-        _maxHealth = _baseMaxHealth * (1 + upgrades[type]);
-        _currentHealth = _maxHealth;
-        break;
-    case SkillTypes.AttackDamage:
-        _attackModifier = _baseAttackModifier + upgrades[type];
-        break;
-    // other stats similar
-}</code></pre>
-        </figure>
-
-        <h3>UI Behavior</h3>
-        <ul>
-          <li>Button text shows <code>Cost: &lt;current&gt;</code> or <code>Max Level</code>.</li>
-          <li>Interactable only when player currency ≥ current cost and not maxed.</li>
-          <li>After purchase, UI refreshes all buttons to reflect new affordability and caps.</li>
-        </ul>
-
         <figure class="fig fig--wide">
           <div class="fig__frame"><img src="../assets/img/scapegoat/upgrade-menu.jpg" alt="The upgrade menu in the final build" width="1920" height="975" loading="lazy"></div>
-          <figcaption>Upgrade menu in final build, with the aspect the designers had time to implement in the time span</figcaption>
+          <figcaption>The upgrade menu in the final build, with the skills the designers had time to add.</figcaption>
         </figure>
 
-        <h3>Extensibility</h3>
-        <ul>
-          <li>Add a new stat: extend the enum and the switch in <code>ApplyUpgrades()</code>.</li>
-          <li>Add a new skill: create a SkillNode asset and set fields. No code changes.</li>
-          <li>Save/load already covered via GUID-keyed entries in GameData.</li>
-        </ul>
-
-        <h3>Edge Cases Handled</h3>
-        <ul>
-          <li>Costs exhausted → level locks at max and displays “Max Level”.</li>
-          <li>Missing designer data defaults to safe values.</li>
-          <li>Aggregation order is irrelevant; all modifiers are additive in one pass.</li>
-        </ul>
-
-        <h3>What Was Implemented</h3>
-        <ul>
-          <li>SkillNode ScriptableObject definition and GUID generation.</li>
-          <li>Custom Skill Tree Editor window and node linking UX.</li>
-          <li>SkillButton runtime logic and currency gating.</li>
-          <li>Player stat aggregation in <code>ApplyUpgrades()</code> with immediate HUD updates.</li>
-        </ul>
-
-        <h3>Player Stats Integration</h3>
-        <p><code>ApplyUpgrades()</code> is the single aggregation point. It scans all SkillNodes, sums per-type modifiers, then writes final values to the player. Complexity is O(n) in node count and order-independent.</p>
-        <figure class="code" data-lang="C#" data-name="ApplyUpgrades()">
+        <h3>Applying stats</h3>
+        <p><code>ApplyUpgrades()</code> is the only place upgrades turn into stats. It sums every unlocked node’s bonus per stat type in one pass, then writes each total to the player. The bonuses are added, so the order of the nodes doesn’t matter. A new stat is one enum value and one switch case; a new skill is just a new asset.</p>
+        <figure class="code" data-lang="C#" data-name="m_PlayerStats.ApplyUpgrades()">
 <pre><code>public void ApplyUpgrades()
 {
-    var upgrades = new Dictionary&lt;SkillTypes, float&gt;();
-    foreach (var node in _skillNodes)
+    Dictionary&lt;SkillTypes, float&gt; upgrades = new Dictionary&lt;SkillTypes, float&gt;();
+    foreach (SkillNode node in _skillNodes)
+    {
         if (node.currentLevel &gt; 0)
+        {
             upgrades[node.skillTypePositive] =
                 upgrades.GetValueOrDefault(node.skillTypePositive, 0f)
                 + node.percentageIncrease * node.currentLevel;
+        }
+    }
 
-    foreach (var type in upgrades.Keys)
+    foreach (SkillTypes type in upgrades.Keys)
     {
         switch (type)
         {
             case SkillTypes.AttackDamage:
-                _attackModifier = _baseAttackModifier + upgrades[type]; break;
+                _attackModifier = _baseAttackModifier + upgrades[type];
+                break;
             case SkillTypes.MaximumHealth:
                 _maxHealth = _baseMaxHealth * (1 + upgrades[type]);
-                _currentHealth = _maxHealth; break;
+                _currentHealth = _maxHealth;
+                break;
             case SkillTypes.BloodlettingRegenerationRate:
-                _bloodlettingRegenerationRate = _baseBloodlettingRegenerationRate + upgrades[type]; break;
+                _bloodlettingRegenerationRate =
+                    _baseBloodlettingRegenerationRate + upgrades[type];
+                break;
             case SkillTypes.HealthCostOfUsingTheSword:
-                _healthCostOfUsingTheSword = _baseHealthCostOfUsingTheSword - upgrades[type]; break;
+                _healthCostOfUsingTheSword =
+                    _baseHealthCostOfUsingTheSword - upgrades[type];
+                break;
             case SkillTypes.BloodlettingGainPerAttack:
-                _bloodlettingGainPerAttack = _baseBloodlettingGainPerAttack + upgrades[type]; break;
+                _bloodlettingGainPerAttack =
+                    _baseBloodlettingGainPerAttack + upgrades[type];
+                break;
         }
     }
 }</code></pre>
+          <figcaption>From m_PlayerStats.cs, with the disabled trade-off line removed.</figcaption>
         </figure>
-        <p>Notes:</p>
-        <ul>
-          <li>New stats require adding one enum value and one switch case.</li>
-          <li>Negative modifiers are trivial to re-enable if design needs trade-offs.</li>
-        </ul>
 
         <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/scapegoat/active-combat.png" alt="Scapegoat combat: the player surrounded by enemies" width="1920" height="1080" loading="lazy"></div>
-          <figcaption>Active combat</figcaption>
+          <div class="fig__frame"><img src="../assets/img/scapegoat/active-combat.jpg" alt="Scapegoat combat: the player surrounded by enemies" width="1600" height="900" loading="lazy"></div>
+          <figcaption>Combat in an arena.</figcaption>
         </figure>
 
-        <h2>Save/Load Architecture</h2>
-        <p class="lead"><strong>Goal.</strong> Create a persistence system that any feature could use without requiring changes to the core code. Saves needed to be human-readable for debugging, but still allowed a simple obfuscation pass if desired.</p>
+        <h2>Save System</h2>
+        <p class="lead"><strong>Goal.</strong> Persistence that any feature can join without touching the save code, with save files you can read while debugging.</p>
 
-        <h2>Key Contributions</h2>
-        <h3>Player Upgrade / Skill Tree System</h3>
-        <ul>
-          <li>Built a skill-tree progression system using ScriptableObjects to define skill nodes and stat modifications.</li>
-          <li>Developed a custom Unity Editor tool to visually create, position, and connect skill nodes.</li>
-          <li>Integrated upgrades with the player’s stat calculation to dynamically adjust health, damage, regeneration, and resource costs.</li>
-        </ul>
+        <h3>Design</h3>
+        <p>Anything that needs saving implements one interface:</p>
+        <figure class="code" data-lang="C#" data-name="ISave">
+<pre><code>public interface ISave
+{
+    void LoadData(GameData data);
 
-        <h3>Save System</h3>
-        <ul>
-          <li>Created a modular save/load architecture using an ISave interface so new systems can be added without modifying the SaveManager.</li>
-          <li>Implemented a FileDataHandler to serialize GameData into JSON, with optional XOR-based encryption.</li>
-          <li>Ensured persistence of currency, skill progress, and other player-related data across sessions.</li>
-        </ul>
-
-        <h3>Design Summary</h3>
-        <ul>
-          <li><strong>ISave interface:</strong> Any component that implements <code>LoadData(GameData)</code> and <code>SaveData(ref GameData)</code> is automatically included in the save/load process. This allows features to opt-in without modifying any central system.</li>
-          <li><strong>SaveManager.</strong> Singleton that, at startup it finds all ISave components in the scene (active and inactive) and coordinates Save, Load, and NewGame. It acts as the single entry point for all persistence.</li>
-          <li><strong>FileDataHandler.</strong> Serializes the GameData object into JSON and writes it to disk, with an optional XOR-based encryption step. Creates directories if needed and handles read/write safety.</li>
-          <li><strong>GameData.</strong> A flat data container. Uses SerializableDictionary for storing state keyed by unique IDs, such as skill levels or world progress flags.</li>
-        </ul>
-
-        <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/scapegoat/start-menu.jpg" alt="Scapegoat start menu with an option to continue from a save" width="1920" height="1080" loading="lazy"></div>
-          <figcaption>Start menu before starting the game with option to start from where you left off</figcaption>
+    void SaveData(ref GameData data);
+}</code></pre>
         </figure>
+        <dl class="defs">
+          <div><dt>SaveManager</dt><dd>A singleton that finds every <code>ISave</code> component in the scene at startup, inactive ones included. It’s the single entry point for New Game, Save and Load.</dd></div>
+          <div><dt>FileDataHandler</dt><dd>Writes <code>GameData</code> as JSON to <code>persistentDataPath/&lt;profile&gt;/saveData.json</code>, creating folders as needed. An optional XOR pass obfuscates the file; with it off, saves are plain JSON you can read and edit while debugging.</dd></div>
+          <div><dt>GameData</dt><dd>A flat container: the blood currency, plus serializable dictionaries keyed by ID for skill levels and unlocked portals.</dd></div>
+        </dl>
 
         <h3>Flow</h3>
-        <ul>
-          <li><strong>Load</strong><br>The SaveManager asks FileDataHandler to read <code>saveData.json</code>.
-            <ul>
-              <li>If no save exists, it generates a new GameData, saves once, then loads it.</li>
-              <li>After loading, it distributes the data back into all ISave components.</li>
-            </ul>
-          </li>
-          <li><strong>Save</strong><br>The SaveManager asks every ISave component to write its state into GameData, then FileDataHandler serializes the result to disk.</li>
-        </ul>
-
-        <h3>Extensibility in Practice</h3>
-        <p>The system was designed so others could add persistent features without modifying any of my code. This worked in production: another programmer later added portal unlock state by simply implementing ISave and storing values in GameData. No changes to SaveManager or the file layer were required.</p>
-
-        <h3>Data Stored</h3>
-        <ul>
-          <li><code>bloodExperience</code> — player currency</li>
-          <li><code>skillTree</code> (string → int) — saved level of each skill, keyed by unique GUID</li>
-          <li><code>portalsUnlocked</code> (string → bool) — world state added later by another team member</li>
-        </ul>
-
-        <h3>Key Snippet</h3>
         <figure class="code" data-lang="C#" data-name="SaveManager">
 <pre><code>public void SaveGame()
 {
-    foreach (ISave s in _saveComponents)
-        s.SaveData(ref _gameData);
+    foreach (ISave saveComponent in _saveComponents)
+    {
+        saveComponent.SaveData(ref _gameData);
+    }
 
     _fileDataHandler.Save(_gameData, selectedProfileID);
 }
@@ -288,57 +194,86 @@ switch (type)
 public void LoadGame()
 {
     _gameData = _fileDataHandler.Load(selectedProfileID);
-    if (_gameData == null) { NewGame(); return; }
+    // if no saved game data, create new game data
+    if (_gameData == null)
+    {
+        NewGame();
+        return;
+    }
 
-    foreach (ISave s in _saveComponents)
-        s.LoadData(_gameData);
+    // Load data into save components
+    foreach (ISave saveComponent in _saveComponents)
+    {
+        saveComponent.LoadData(_gameData);
+    }
 }</code></pre>
+          <figcaption>From SaveManager.cs, with debug logging removed.</figcaption>
+        </figure>
+        <p>If there’s no save yet, <code>NewGame()</code> creates fresh data, saves it once and loads it back, so every component starts from the same defaults.</p>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/scapegoat/start-menu.jpg" alt="Scapegoat start menu with an option to continue from a save" width="1920" height="1080" loading="lazy"></div>
+          <figcaption>With a save on disk, the start menu offers to continue where you left off.</figcaption>
         </figure>
 
-        <h3>Why It Scales</h3>
-        <ul>
-          <li>New features only need to implement ISave and store data in GameData.</li>
-          <li>No changes required to SaveManager as the project grows.</li>
-          <li>JSON files can be inspected quickly during development.</li>
-          <li>Optional encryption is available if tampering is a concern.</li>
-        </ul>
-
-        <h3>Skill Tree Persistence</h3>
-        <p>Skill levels are saved by GUID and restored on load, then <code>ApplyUpgrades()</code> recalculates stats.</p>
-        <figure class="code" data-lang="C#" data-name="SkillTree : ISave">
+        <h3>Skill levels in the save</h3>
+        <p>Skill levels are stored by each node’s GUID, not its name or file, so designers can rename and reorganise skills without breaking existing saves. After loading, <code>ApplyUpgrades()</code> rebuilds the stats from the restored levels.</p>
+        <figure class="code" data-lang="C#" data-name="m_PlayerStats : ISave">
 <pre><code>public void LoadData(GameData data)
 {
     LoadAllSkillNodes();
-    _skillNodes.ForEach(n =&gt; n.currentLevel = 0);
-
-    foreach (var n in _skillNodes)
-        if (data.skillTree.TryGetValue(n.SkillID, out int lvl))
-            n.currentLevel = lvl;
-
+    _skillNodes.ForEach(node =&gt; node.currentLevel = 0);
+    foreach (SkillNode node in _skillNodes)
+    {
+        if (data.skillTree.TryGetValue(node.SkillID, out int level))
+        {
+            node.currentLevel = level;
+        }
+    }
     ApplyUpgrades();
 }
 
 public void SaveData(ref GameData data)
 {
-    bool newGame = data.skillTree == null || data.skillTree.Count == 0;
+    bool newGame = (data.skillTree == null || data.skillTree.Count == 0);
     data.skillTree = new SerializableDictionary&lt;string, int&gt;();
-
-    if (_skillNodes.Count == 0) LoadAllSkillNodes();
-
-    foreach (var n in _skillNodes)
-        data.skillTree.Add(n.SkillID, newGame ? 0 : n.currentLevel);
+    if (_skillNodes.Count == 0)
+        LoadAllSkillNodes();
+    foreach (SkillNode node in _skillNodes)
+    {
+        data.skillTree.Add(node.SkillID, newGame ? 0 : node.currentLevel);
+    }
 }</code></pre>
+          <figcaption>Condensed from m_PlayerStats.cs: the new-game and normal branches of SaveData are merged into one loop.</figcaption>
         </figure>
+
+        <h3>In production</h3>
+        <p>The interface held up when someone else used it. Another programmer added portal unlocks by implementing <code>ISave</code> and adding one dictionary to <code>GameData</code>. Neither the SaveManager nor the file layer had to change.</p>
+
+        <h2>Results</h2>
+        <ul>
+          <li>The designers authored the skills themselves in the editor window, without code changes.</li>
+          <li>Every stat bonus resolves in one function, so balancing questions have one place to look.</li>
+          <li>Saves survive renamed or moved skill assets, because levels are keyed by GUID.</li>
+          <li>Persistence was extended by another programmer without any changes to my code.</li>
+        </ul>
+
+        <h2>What I’d Change</h2>
+        <ul>
+          <li><strong>Keep runtime state off the ScriptableObjects.</strong> Skill levels live on the <code>SkillNode</code> assets. Loading resets them, so builds behave, but in the editor, upgrades bought in Play mode stick to the asset. I’d keep levels in a dictionary keyed by GUID and treat the nodes as read-only definitions.</li>
+          <li><strong>Reset stats to base inside <code>ApplyUpgrades()</code>.</strong> It only writes stats that have upgrades, so it relies on <code>Start()</code> having reset the rest first.</li>
+          <li><strong>Let components register themselves.</strong> The SaveManager finds <code>ISave</code> components once, at startup. Registering in <code>OnEnable</code> and unregistering in <code>OnDisable</code> would also cover objects from scenes loaded later.</li>
+          <li><strong>Save atomically.</strong> Writing to a temporary file and then swapping it in means a crash mid-save can’t corrupt the only save file.</li>
+        </ul>
 
         <aside class="project-cta" aria-label="Project links">
           <dl>
             <div><dt>Download build:</dt><dd><a href="https://futuregames.itch.io/scapegoat" target="_blank" rel="noopener">On itch.io</a></dd></div>
-            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/Scapegoat" target="_blank" rel="noopener">Source on GitHub</a></dd></div>
+            <div><dt>View repository:</dt><dd><a href="https://github.com/Ossdac/Scapegoat" target="_blank" rel="noopener">Source on GitHub</a> · the skill tree and save code are in <code>Assets/m_Programmers/m_Scripts</code> (<code>m_SkillTree</code>, <code>m_SaveSystem</code>, <code>m_PlayerScripts/m_PlayerStats.cs</code>) and <code>Assets/Editor/SkillTreeEditor.cs</code></dd></div>
           </dl>
         </aside>
 
         <figure class="fig fig--wide">
-          <div class="fig__frame"><img src="../assets/img/scapegoat/closing.png" alt="Scapegoat: a blood-soaked sword swing cutting through a crowd of hooded enemies" width="1920" height="1080" loading="lazy"></div>
+          <div class="fig__frame"><img src="../assets/img/scapegoat/closing.jpg" alt="Scapegoat: a blood-soaked sword swing cutting through a crowd of hooded enemies" width="1600" height="900" loading="lazy"></div>
         </figure>
       </article>
     </div>
