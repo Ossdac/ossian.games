@@ -8,9 +8,10 @@ so it runs on GitHub Pages, Netlify, Cloudflare Pages, or any web server without
 
 ```
 index.html                  Home: hero, projects, about, contact (#projects, #about, #contact)
-time-to-breach/index.html   One folder per project, so URLs are /time-to-breach/ etc.
-thrall/index.html           Projects are ordered newest first: Time to Breach, Thrall,
-scapegoat/index.html        Scapegoat, Voxel Generator
+raftcraft/index.html        One folder per project, so URLs are /raftcraft/ etc.
+time-to-breach/index.html   Projects are ordered newest first: Raftcraft, Time to Breach,
+thrall/index.html           Thrall, Scapegoat, Voxel Generator
+scapegoat/index.html
 voxel-generator/index.html
 contacts/index.html         Redirects the old /contacts URL to /#contact
 home/index.html             Redirects the old Google Sites /home URL to /
@@ -60,7 +61,10 @@ subsection in the table of contents, and `h4` is a minor heading that stays out 
 `<figure class="code" data-lang="C++" data-name="...">` (`C++`, `C#` or `Python`) and must escape
 `<`, `>` and `&`. Keep code lines under about 86 characters so they fit the code box without
 scrolling. The template also shows the other building blocks: `ol.flow` (a row of steps),
-`fig--pair` (two images side by side) and a looping video clip.
+`fig--pair` (two images side by side) and a looping video clip. For a chart, copy the
+`fig viz` figure in `raftcraft/index.html`: a legend, an inline SVG (use the `--series-1`…`--series-4`
+colours in that order; they're checked for colour-blind separation) and the same numbers in a
+`<details>` table.
 
 Every page ends with Results and What I'd Change. Keep claims to things the code actually does.
 

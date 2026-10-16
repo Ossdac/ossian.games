@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raftcraft — Ossian Däckfors</title>
+  <meta name="description" content="Raftcraft: a co-op physics game where goblins build a raft from whatever they find, coming to Steam in Q4 2026 from The Gang Studio. I wrote its first four build systems, then the multiplayer and persistence layer: late join, host migration, Steam Cloud saves, Steam stats and cosmetic unlocks.">
+  <link rel="canonical" href="https://ossiandackfors.com/raftcraft/">
+  <meta name="theme-color" content="#0a0c0f">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ossian Däckfors">
+  <meta property="og:title" content="Raftcraft — Multiplayer &amp; Persistence Systems">
+  <meta property="og:description" content="A co-op Steam game in production, built in Unreal C++: four build systems, then late join, host migration, Steam Cloud saves and stats.">
+  <meta property="og:url" content="https://ossiandackfors.com/raftcraft/">
+  <meta property="og:image" content="https://ossiandackfors.com/assets/img/raftcraft/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../" aria-label="Ossian Däckfors, home"><span class="brand__mark">OD</span><span class="brand__name">Ossian Däckfors</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../#projects">Projects</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a class="nav__resume" href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="../#projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>All projects</a>
+        <div class="project-hero__grid">
+          <div>
+            <span class="eyebrow">Project 01 · Unreal · C++</span>
+            <h1>Raftcraft</h1>
+            <p class="project-hero__role">Role: Multiplayer &amp; Persistence Systems</p>
+            <p class="project-hero__lede">Raftcraft is a 4-player co-op physics game from The Gang Studio: a party of goblins builds a raft out of planks, pallets and whatever else they find, and has to get it, and the keystone at its centre, through a run of streamed levels. It’s in production with a core team of six plus external help, and comes out on Steam in Q4 2026. I started on the build system. When the team moved to a teammate’s version, I took over the layer the co-op runs on: resets and late join, host migration, saves on Steam Cloud, Steam stats and unlocks, and the profiling tools we’re shipping with.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="https://store.steampowered.com/app/5209580/Raftcraft/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59l-.9 7.64A2.5 2.5 0 0 0 4.27 19c.84 0 1.6-.47 1.98-1.21L7.5 15h9l1.25 2.79A2.24 2.24 0 0 0 19.73 19a2.5 2.5 0 0 0 2.47-2.77l-.9-7.64A4 4 0 0 0 17.32 5z"/></svg>Wishlist on Steam</a>
+              <span class="status"><span class="status__dot" aria-hidden="true"></span>In production · out Q4 2026</span>
+            </div>
+          </div>
+          <div class="project-hero__media">
+            <img src="../assets/img/raftcraft/hero.jpg" alt="Raftcraft gameplay: three goblins, one in a pointed hat and one in a crested helmet, on a raft of wooden pallets drifting down a blue river through a pink forest" width="1100" height="619">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-wrap" aria-labelledby="overview-title">
+      <h2 class="sr-only" id="overview-title">Project Overview</h2>
+      <div class="container">
+        <dl class="spec">
+          <div><dt>Project Type</dt><dd>Co-op physics game</dd></div>
+          <div><dt>Role</dt><dd>Multiplayer &amp; persistence</dd></div>
+          <div><dt>Team Size</dt><dd>6 core, 7 external</dd></div>
+          <div><dt>Duration</dt><dd>May 2026 – ongoing</dd></div>
+          <div><dt>Engine</dt><dd>Unreal Engine 5.8</dd></div>
+          <div><dt>Language</dt><dd>C++, Blueprint</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-label="On this page"><p class="toc__title">On this page</p></nav>
+
+      <article class="prose">
+        <h2>Problem &amp; Goal</h2>
+        <p>Raftcraft runs peer-to-peer over Steam. One player’s machine is the server, there is no dedicated server to fall back on, and everything that matters (the raft, the run, the party’s money) is physics and game state on that machine. Almost all of my work on the project comes from that:</p>
+        <ul>
+          <li>A raft is dozens of simulated parts welded into one body, and every client has to agree on its shape.</li>
+          <li>Players drop in and out. Someone joining late arrives in a streamed level that already exists, next to a raft that’s already built.</li>
+          <li>If the host quits, the session shouldn’t end. Another player has to take over with the raft intact.</li>
+          <li>Progress lives for three lengths of time (this run, this session, forever), and designers need to choose per variable without writing save code.</li>
+          <li>It goes on sale, so saves have to survive Steam Cloud, corrupt files and the same player on two machines.</li>
+        </ul>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/raft-volcano.jpg" alt="Goblins on a raft of red-painted planks heading towards an erupting volcano, with lava bombs falling around them" width="1600" height="900" loading="lazy"></div>
+          <figcaption>A Lava run: the party, its raft and the keystone, with a volcano erupting ahead. All of it is physics state on one player’s machine.</figcaption>
+        </figure>
+
+        <h2>How the Project Changed</h2>
+        <p class="lead">I’ve been on it since the repository’s first week in May. The game, the team’s build system and my role all changed along the way, and not everything I built is in the game that ships.</p>
+        <figure class="fig viz">
+          <div class="fig__frame viz__frame">
+            <ul class="viz__legend" aria-label="Legend">
+              <li><span class="viz__swatch viz__s1" aria-hidden="true"></span>Build &amp; spawn systems <span class="viz__count">83</span></li>
+              <li><span class="viz__swatch viz__s2" aria-hidden="true"></span>Multiplayer &amp; run flow <span class="viz__count">115</span></li>
+              <li><span class="viz__swatch viz__s3" aria-hidden="true"></span>Saves, stats &amp; unlocks <span class="viz__count">56</span></li>
+              <li><span class="viz__swatch viz__s4" aria-hidden="true"></span>Tools, performance &amp; shipping <span class="viz__count">76</span></li>
+            </ul>
+            <div class="viz__scroll"><svg class="viz__svg" viewBox="0 0 720 262" role="img" aria-label="Stacked bar chart of my 330 non-merge commits per week from May to October 2026, by system area. Build systems dominate May to July; multiplayer and saves take over from August; tools and performance work grows in October."><line class="viz__grid viz__base" x1="30" x2="714" y1="236" y2="236"/><text class="viz__tick" x="24" y="239.5" text-anchor="end">0</text><line class="viz__grid" x1="30" x2="714" y1="196.4" y2="196.4"/><text class="viz__tick" x="24" y="199.9" text-anchor="end">10</text><line class="viz__grid" x1="30" x2="714" y1="156.8" y2="156.8"/><text class="viz__tick" x="24" y="160.3" text-anchor="end">20</text><line class="viz__grid" x1="30" x2="714" y1="117.2" y2="117.2"/><text class="viz__tick" x="24" y="120.7" text-anchor="end">30</text><line class="viz__grid" x1="30" x2="714" y1="77.6" y2="77.6"/><text class="viz__tick" x="24" y="81.1" text-anchor="end">40</text><line class="viz__grid" x1="30" x2="714" y1="38" y2="38"/><text class="viz__tick" x="24" y="41.5" text-anchor="end">50</text><rect class="viz__band" x="309.8" y="38" width="62.2" height="198"/><text class="viz__note" x="340.9" y="137" text-anchor="middle">break</text><line class="viz__marker" x1="232.1" x2="232.1" y1="8" y2="236"/><text class="viz__note" x="238.1" y="18" text-anchor="start">Team switches build system</text><line class="viz__marker" x1="574.1" x2="574.1" y1="22" y2="236"/><text class="viz__note" x="568.1" y="32" text-anchor="end">My build code archived</text><path class="viz__s1" d="M35.5 236V236Q35.5 232 39.5 232H51.5Q55.5 232 55.5 236V236Z"/><rect class="viz__hit" x="30" y="38" width="31.1" height="198"><title>Week of 18 May: 1 commits (1 build)</title></rect><rect class="viz__s1" x="66.6" y="200.4" width="20" height="35.6"/><path class="viz__s4" d="M66.6 198.4V198.4Q66.6 196.4 68.6 196.4H84.6Q86.6 196.4 86.6 198.4V198.4Z"/><rect class="viz__hit" x="61.1" y="38" width="31.1" height="198"><title>Week of 25 May: 10 commits (9 build, 1 tools)</title></rect><path class="viz__s1" d="M97.7 236V168.7Q97.7 164.7 101.7 164.7H113.7Q117.7 164.7 117.7 168.7V236Z"/><rect class="viz__hit" x="92.2" y="38" width="31.1" height="198"><title>Week of 1 Jun: 18 commits (18 build)</title></rect><path class="viz__s1" d="M128.8 236V220.2Q128.8 216.2 132.8 216.2H144.8Q148.8 216.2 148.8 220.2V236Z"/><rect class="viz__hit" x="123.3" y="38" width="31.1" height="198"><title>Week of 8 Jun: 5 commits (5 build)</title></rect><rect class="viz__s1" x="159.9" y="228.1" width="20" height="7.9"/><path class="viz__s4" d="M159.9 226.1V226.1Q159.9 224.1 161.9 224.1H177.9Q179.9 224.1 179.9 226.1V226.1Z"/><rect class="viz__hit" x="154.4" y="38" width="31.1" height="198"><title>Week of 15 Jun: 3 commits (2 build, 1 tools)</title></rect><path class="viz__s1" d="M191 236V232.1Q191 228.1 195 228.1H207Q211 228.1 211 232.1V236Z"/><rect class="viz__hit" x="185.5" y="38" width="31.1" height="198"><title>Week of 22 Jun: 2 commits (2 build)</title></rect><rect class="viz__s1" x="222.1" y="148.9" width="20" height="87.1"/><path class="viz__s4" d="M222.1 146.9V145Q222.1 141 226.1 141H238.1Q242.1 141 242.1 145V146.9Z"/><rect class="viz__hit" x="216.5" y="38" width="31.1" height="198"><title>Week of 29 Jun: 24 commits (22 build, 2 tools)</title></rect><rect class="viz__s1" x="253.2" y="200.4" width="20" height="35.6"/><rect class="viz__s2" x="253.2" y="192.4" width="20" height="5.9"/><path class="viz__s4" d="M253.2 190.5V164.8Q253.2 160.8 257.2 160.8H269.2Q273.2 160.8 273.2 164.8V190.5Z"/><rect class="viz__hit" x="247.6" y="38" width="31.1" height="198"><title>Week of 6 Jul: 19 commits (9 build, 2 multiplayer, 8 tools)</title></rect><path class="viz__s4" d="M284.3 236V236Q284.3 232 288.3 232H300.3Q304.3 232 304.3 236V236Z"/><rect class="viz__hit" x="278.7" y="38" width="31.1" height="198"><title>Week of 13 Jul: 1 commits (1 tools)</title></rect><rect class="viz__hit" x="309.8" y="38" width="31.1" height="198"><title>Week of 20 Jul: no commits</title></rect><rect class="viz__hit" x="340.9" y="38" width="31.1" height="198"><title>Week of 27 Jul: no commits</title></rect><rect class="viz__s2" x="377.5" y="212.2" width="20" height="23.8"/><path class="viz__s4" d="M377.5 210.3V210.3Q377.5 208.3 379.5 208.3H395.5Q397.5 208.3 397.5 210.3V210.3Z"/><rect class="viz__hit" x="372" y="38" width="31.1" height="198"><title>Week of 3 Aug: 7 commits (6 multiplayer, 1 tools)</title></rect><rect class="viz__s1" x="408.6" y="196.4" width="20" height="39.6"/><rect class="viz__s2" x="408.6" y="176.6" width="20" height="17.8"/><rect class="viz__s3" x="408.6" y="168.7" width="20" height="5.9"/><path class="viz__s4" d="M408.6 166.7V145Q408.6 141 412.6 141H424.6Q428.6 141 428.6 145V166.7Z"/><rect class="viz__hit" x="403.1" y="38" width="31.1" height="198"><title>Week of 10 Aug: 24 commits (10 build, 5 multiplayer, 2 saves/stats, 7 tools)</title></rect><rect class="viz__s2" x="439.7" y="228.1" width="20" height="7.9"/><path class="viz__s3" d="M439.7 226.1V164.8Q439.7 160.8 443.7 160.8H455.7Q459.7 160.8 459.7 164.8V226.1Z"/><rect class="viz__hit" x="434.2" y="38" width="31.1" height="198"><title>Week of 17 Aug: 19 commits (2 multiplayer, 17 saves/stats)</title></rect><rect class="viz__s1" x="470.8" y="232" width="20" height="4"/><rect class="viz__s2" x="470.8" y="176.6" width="20" height="53.4"/><path class="viz__s3" d="M470.8 174.6V164.8Q470.8 160.8 474.8 160.8H486.8Q490.8 160.8 490.8 164.8V174.6Z"/><rect class="viz__hit" x="465.3" y="38" width="31.1" height="198"><title>Week of 24 Aug: 19 commits (1 build, 14 multiplayer, 4 saves/stats)</title></rect><rect class="viz__s2" x="501.9" y="61.8" width="20" height="174.2"/><path class="viz__s4" d="M501.9 59.8V53.9Q501.9 49.9 505.9 49.9H517.9Q521.9 49.9 521.9 53.9V59.8Z"/><rect class="viz__hit" x="496.4" y="38" width="31.1" height="198"><title>Week of 31 Aug: 47 commits (44 multiplayer, 3 tools)</title></rect><rect class="viz__s1" x="533" y="232" width="20" height="4"/><rect class="viz__s2" x="533" y="168.7" width="20" height="61.4"/><rect class="viz__s3" x="533" y="164.7" width="20" height="2"/><path class="viz__s4" d="M533 162.7V121.2Q533 117.2 537 117.2H549Q553 117.2 553 121.2V162.7Z"/><rect class="viz__hit" x="527.5" y="38" width="31.1" height="198"><title>Week of 7 Sep: 30 commits (1 build, 16 multiplayer, 1 saves/stats, 12 tools)</title></rect><rect class="viz__s1" x="564.1" y="232" width="20" height="4"/><rect class="viz__s2" x="564.1" y="172.6" width="20" height="57.4"/><rect class="viz__s3" x="564.1" y="137" width="20" height="33.6"/><path class="viz__s4" d="M564.1 135V125.2Q564.1 121.2 568.1 121.2H580.1Q584.1 121.2 584.1 125.2V135Z"/><rect class="viz__hit" x="558.5" y="38" width="31.1" height="198"><title>Week of 14 Sep: 29 commits (1 build, 15 multiplayer, 9 saves/stats, 4 tools)</title></rect><path class="viz__s3" d="M595.2 236V224.2Q595.2 220.2 599.2 220.2H611.2Q615.2 220.2 615.2 224.2V236Z"/><rect class="viz__hit" x="589.6" y="38" width="31.1" height="198"><title>Week of 21 Sep: 4 commits (4 saves/stats)</title></rect><rect class="viz__s2" x="626.3" y="216.2" width="20" height="19.8"/><rect class="viz__s3" x="626.3" y="168.7" width="20" height="45.5"/><path class="viz__s4" d="M626.3 166.7V145Q626.3 141 630.3 141H642.3Q646.3 141 646.3 145V166.7Z"/><rect class="viz__hit" x="620.7" y="38" width="31.1" height="198"><title>Week of 28 Sep: 24 commits (5 multiplayer, 12 saves/stats, 7 tools)</title></rect><rect class="viz__s1" x="657.4" y="228.1" width="20" height="7.9"/><rect class="viz__s2" x="657.4" y="204.3" width="20" height="21.8"/><rect class="viz__s3" x="657.4" y="184.5" width="20" height="17.8"/><path class="viz__s4" d="M657.4 182.5V133.1Q657.4 129.1 661.4 129.1H673.4Q677.4 129.1 677.4 133.1V182.5Z"/><rect class="viz__hit" x="651.8" y="38" width="31.1" height="198"><title>Week of 5 Oct: 27 commits (2 build, 6 multiplayer, 5 saves/stats, 14 tools)</title></rect><rect class="viz__s3" x="688.5" y="228.1" width="20" height="7.9"/><path class="viz__s4" d="M688.5 226.1V172.7Q688.5 168.7 692.5 168.7H704.5Q708.5 168.7 708.5 172.7V226.1Z"/><rect class="viz__hit" x="682.9" y="38" width="31.1" height="198"><title>Week of 12 Oct: 17 commits (2 saves/stats, 15 tools)</title></rect><text class="viz__tick" x="32" y="254">May</text><text class="viz__tick" x="94.2" y="254">Jun</text><text class="viz__tick" x="249.6" y="254">Jul</text><text class="viz__tick" x="374" y="254">Aug</text><text class="viz__tick" x="529.5" y="254">Sep</text><text class="viz__tick" x="653.8" y="254">Oct</text></svg></div>
+            <details class="viz__table">
+              <summary>Show the data</summary>
+              <table>
+                <thead><tr><th>Week of</th><th>Build &amp; spawn systems</th><th>Multiplayer &amp; run flow</th><th>Saves, stats &amp; unlocks</th><th>Tools, performance &amp; shipping</th></tr></thead>
+                <tbody>
+                <tr><td>18 May</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>25 May</td><td>9</td><td>0</td><td>0</td><td>1</td></tr>
+                <tr><td>1 Jun</td><td>18</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>8 Jun</td><td>5</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>15 Jun</td><td>2</td><td>0</td><td>0</td><td>1</td></tr>
+                <tr><td>22 Jun</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>29 Jun</td><td>22</td><td>0</td><td>0</td><td>2</td></tr>
+                <tr><td>6 Jul</td><td>9</td><td>2</td><td>0</td><td>8</td></tr>
+                <tr><td>13 Jul</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+                <tr><td>20 Jul</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>27 Jul</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td>3 Aug</td><td>0</td><td>6</td><td>0</td><td>1</td></tr>
+                <tr><td>10 Aug</td><td>10</td><td>5</td><td>2</td><td>7</td></tr>
+                <tr><td>17 Aug</td><td>0</td><td>2</td><td>17</td><td>0</td></tr>
+                <tr><td>24 Aug</td><td>1</td><td>14</td><td>4</td><td>0</td></tr>
+                <tr><td>31 Aug</td><td>0</td><td>44</td><td>0</td><td>3</td></tr>
+                <tr><td>7 Sep</td><td>1</td><td>16</td><td>1</td><td>12</td></tr>
+                <tr><td>14 Sep</td><td>1</td><td>15</td><td>9</td><td>4</td></tr>
+                <tr><td>21 Sep</td><td>0</td><td>0</td><td>4</td><td>0</td></tr>
+                <tr><td>28 Sep</td><td>0</td><td>5</td><td>12</td><td>7</td></tr>
+                <tr><td>5 Oct</td><td>2</td><td>6</td><td>5</td><td>14</td></tr>
+                <tr><td>12 Oct</td><td>0</td><td>0</td><td>2</td><td>15</td></tr>
+                </tbody>
+              </table>
+            </details>
+          </div>
+          <figcaption>My 330 non-merge commits per week, sorted by the files each one touched. Commits, not hours: the late-August spike is many small Blueprint commits during the host-migration work. Hover a week for its numbers.</figcaption>
+        </figure>
+        <ul>
+          <li><strong>May–June: carts and a build system.</strong> The project started as a physics cart game; the earliest code in the repository is four attempts at a vehicle. My first job was the build system: grab loose props and weld them into one body. I wrote it actor-first, split it into components a week later, and added wheels with generated constraints and axle centre of mass.</li>
+          <li><strong>June–July: Build System V4.</strong> Parts still had to be special actor classes, and replication was unreliable, so I started a graph-first system that any actor could join. On 30 June I cut it roughly in half to get to a playable loop of place, fuse and detach.</li>
+          <li><strong>July: the team picks another build system.</strong> On 1–2 July a teammate’s build system landed and the game’s parts were ported onto it, the same day my V4 welding and replication work went in. V4 stayed an opt-in route beside it. In August I wrote a compatibility layer so content could move across piece by piece, then reverted it myself and moved on.</li>
+          <li><strong>August–September: the co-op layer.</strong> I moved to what the game didn’t have yet: resets without disconnects, late join, host migration, a save system and Steam Cloud. What I’d learned about welding went into client-side fixes in the new build system.</li>
+          <li><strong>September–October: shipping.</strong> My own achievement system gave way to Steam stats, and I added voice chat, cosmetic unlocks, localization with a first Swedish pass, profiling tools, graphics presets and baked lighting for the streamed levels. I archived my build systems on 14 September, and in October moved the rest of the superseded code, the team’s and mine, into Legacy folders that the build skips.</li>
+        </ul>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/raftcraft/proto-wheel.jpg" alt="Early wheel prototype in the editor: a bone-shaped axle between two grey cylinder wheels" width="493" height="421" loading="lazy">
+            <img src="../assets/img/raftcraft/proto-barrels.jpg" alt="Early build test level: a pile of wooden barrels and a loose round lid on a grey floor" width="589" height="368" loading="lazy">
+          </div>
+          <figcaption>June: the wheel prototype (an axle and two wheels joined by generated constraints) and the barrel pile I tested building with.</figcaption>
+        </figure>
+
+        <h2>Build System, Four Versions</h2>
+        <p class="lead">The goal never changed: players grab loose parts and fuse them into one rigid thing that the physics engine treats as a single body. Each version fixed what the previous one couldn’t do.</p>
+        <ol class="flow" aria-label="Build system versions">
+          <li><span class="flow__k">Actor-first</span><span class="flow__v">Part and assembly base classes, a carried part becomes the weld root</span></li>
+          <li><span class="flow__k">Components</span><span class="flow__v">Mass, contacts, graph and weld split out; wheels</span></li>
+          <li><span class="flow__k">V4</span><span class="flow__v">Any actor opts in; a server-owned graph replicated as data</span></li>
+          <li><span class="flow__k">Build Constructs</span><span class="flow__v">A compatibility layer for the team’s system, then reverted</span></li>
+        </ol>
+
+        <h3>From part classes to one component</h3>
+        <p>The first two versions needed every buildable thing to be one of my actor classes, with three meshes each: the visible one, an outer shell for sensing contacts and an inner collider. That was fine for a prototype, but every new prop meant a new subclass, and parts replicated reliably only some of the time.</p>
+        <p>V4 turned that around. A part is any actor with a <code>UBuildableV4Component</code>. The server keeps a graph of nodes (parts) and connections (welds or hinges), validates every fuse request against it, and clients rebuild their world from the graph. Its first pass had separate authoring components and a lot of machinery that nobody had played with yet. On 30 June I collapsed it to the one component.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/raftcraft/v4-authoring.jpg" alt="Unreal editor, 22 June: a barrel Blueprint with an authoring root, a default build shape, a build body and a runtime component, surrounded by yellow placement-sample rays" width="1098" height="569" loading="lazy">
+            <img src="../assets/img/raftcraft/v4-buildable.png" alt="Unreal editor, 25 June: a cardboard box Blueprint whose component list is just a scene root, a static mesh and BuildableV4" width="259" height="100" loading="lazy">
+          </div>
+          <figcaption>V4 on 22 June, with five authoring components per part and debug rays from the placement sampler, and three days later: a normal actor plus one component.</figcaption>
+        </figure>
+
+        <h3>Welded islands, not constraint chains</h3>
+        <p>Connecting parts with physics constraints made big structures sag and wobble. V4 welds every rigid island (parts connected by rigid joints) into one compound body under a root part, so Chaos simulates it as a single rigid body. Hinges become revolute constraints between island roots and are rebuilt whenever a root changes. Removing a part unwelds its island first, and when an island splits, each new root gets the old root’s velocity at its own position (v + ω × r) so the halves don’t stop dead.</p>
+        <p>The root has to be the same on every machine, or clients weld the same parts in different orders. It’s chosen by a fixed preference over snapshots sorted by node id: the part being held during a carry, then the island’s existing root, then an anchored part, then the lowest node id.</p>
+
+        <h3>Replicating the graph as data</h3>
+        <p>Parts weren’t replicated as actors at all. A late joiner gets a full snapshot of the graph; after that the server sends structural deltas, or a full snapshot when a delta would be larger or doesn’t follow on from the last revision the clients have:</p>
+        <figure class="code" data-lang="C++" data-name="ABuildGraphReplicationTransport::PublishGraphStateIfChanged">
+<pre><code>RefreshInitialGraphSnapshot();
+const FBuildGraphSnapshot CurrentSnapshot = InitialGraphSnapshot;
+const FBuildGraphStructuralDelta StructuralDelta =
+    BuildSystemV4Replication::MakeStructuralDelta(
+        LastPublishedSnapshot,
+        CurrentSnapshot
+    );
+const bool bUseFullSnapshot =
+    StructuralDelta.FromRevision != LastPublishedRevision ||
+    StructuralDelta.ToRevision != CurrentSnapshot.Revision ||
+    EstimateStructuralDeltaPayloadBytes(StructuralDelta) &gt;
+        EstimateFullSnapshotPayloadBytes(CurrentSnapshot);
+if (bUseFullSnapshot)
+{
+    Multicast_ApplyFullGraphSnapshot(CurrentSnapshot);
+}
+else
+{
+    Multicast_ApplyGraphStructuralDelta(StructuralDelta);
+}</code></pre>
+        </figure>
+        <ul>
+          <li>Clients apply each delta as a transaction and roll back if it doesn’t fit their graph. Stale deltas are dropped, early ones are queued (up to 32), and a gap that lasts a second triggers a resync.</li>
+          <li>Clients can’t call a server RPC on an actor they don’t own, so every player gets a small owner-only channel actor for resync requests, rate-limited to one every two seconds.</li>
+          <li>Positions are quantised to 0.01&nbsp;cm and rotations compressed, scale is implied, and endpoints are derived instead of sent. That roughly halved the bytes per connection.</li>
+          <li>38 automation tests run a server world and a client world side by side in one process, covering sockets, placement, welding, snapshots, deltas, resync and malformed input.</li>
+        </ul>
+
+        <h3>What carried over</h3>
+        <p>None of the V4 code is in the shipping game; it’s archived with its tests. What carried over was knowing where welding goes wrong. In September I fixed client-side welds in the team’s build system: wait until every part of an assembly has arrived before welding (each weld recreates the root’s physics particle), hold the root kinematic while waiting, apply the server’s root rotation before welding, skip welds that change nothing, and hold back a joining player until their raft has settled. The new system’s mass modes (loose, attached, carried) and its weld-to-root approach follow my first prototype.</p>
+        <p class="takeaway">Two months of build-system work didn’t ship as code.<br>It shipped as the welding and replication knowledge behind the fixes that did.</p>
+
+        <h2>Co-op Without a Dedicated Server</h2>
+        <p class="lead">Three things kept ending co-op sessions: a wipe disconnected everyone, late joiners fell into a world that wasn’t there yet, and the host quitting ended the game. I fixed them in that order.</p>
+
+        <h3>Resets that don’t disconnect everyone</h3>
+        <p>When the party wipes, the server travels back into the level. Over Steam sockets that disconnected every client. The cause turned out to be two things at once: the run game mode had never enabled seamless travel, so every reset was a hard travel, and the editor silently turns seamless travel off in play-in-editor unless a console variable says otherwise, so every test until then had been testing hard travel too.</p>
+        <p>Seamless travel brought its own bug. Clients keep replicated actors they don’t own through the travel, so loose build pieces survived as orphans: the raft “exploding into floating boxes”. The game mode now destroys every actor that isn’t safe to carry across, then waits before travelling:</p>
+        <figure class="code" data-lang="C++" data-name="AMultiplayerGameMode::TravelToLevel">
+<pre><code>DestroyTravelUnsafeActors();
+
+// Delayed by wall-clock time, NOT one tick.
+//
+// The destructions above only reach clients when the net driver next flushes,
+// and that runs at NetServerMaxTickRate — 30 Hz by default, so roughly every
+// 33ms. A single frame is 8-16ms, so deferring "one tick" could travel before
+// a single net update had happened, and the close bunches would never be sent.
+// Clients then keep those actors through seamless travel and end up holding
+// orphans.
+FTimerHandle TravelHandle;
+GetWorldTimerManager().SetTimer(TravelHandle,
+    FTimerDelegate::CreateWeakLambda(this, [this, TravelURL]()
+    {
+        UWorld* DeferredWorld = GetWorld();
+        if (!DeferredWorld || !DeferredWorld-&gt;ServerTravel(TravelURL))
+        {
+            UE_LOG(LogTemp, Error, TEXT("ServerTravel to '%s' failed."), *TravelURL);
+            bIsTravelling = false;
+        }
+    }), TravelDestructionReplicationDelay, false);</code></pre>
+          <figcaption>From MultiplayerGameMode.cpp, comment shortened and call rewrapped. The delay is 0.3 s, hidden behind the lose screen.</figcaption>
+        </figure>
+        <p>Resetting in place, without travel, was the alternative. I estimated 45–55 reset handlers, weeks of work, against half a day to harden travel, and wrote the comparison up for the team. Per-player state that has to outlive the level (colour, last position, which raft you were standing on) lives in a game-instance subsystem keyed by Steam id, and is applied from both login paths, because seamless travel never calls <code>PostLogin</code>. That’s why colours used to reset.</p>
+
+        <h3>Late join: no pawn before the host’s state</h3>
+        <p>A joining client checks, every 0.1&nbsp;seconds, that each of these has arrived before it tells the server it’s ready:</p>
+        <ol class="flow" aria-label="Join readiness checks">
+          <li><span class="flow__k">Game state</span><span class="flow__v">and a valid session id</span></li>
+          <li><span class="flow__k">Team data</span><span class="flow__v">published by the host, not defaults</span></li>
+          <li><span class="flow__k">World</span><span class="flow__v">every streamed chunk loaded and visible</span></li>
+          <li><span class="flow__k">Raft</span><span class="flow__v">the player’s raft welded and settled</span></li>
+        </ol>
+        <p>Chunks were spawned with multicasts, which only reach players who are already connected, so I added a replicated list of settled chunks that a late joiner streams from, matched by instance name so it’s safe to apply twice. Each blocker is logged once, and after 15&nbsp;seconds the player joins anyway with an error in the log, rather than waiting forever.</p>
+        <p>Designers decide what happens when a player is ready: <code>BP_RunGameMode</code> overrides <code>HandleJoinReady</code> to read team data and decide whether to regenerate the world. What they can’t do is spawn a pawn too early by accident:</p>
+        <figure class="code" data-lang="C++" data-name="ARunGameMode (RunGameMode.h)">
+<pre><code>/**
+ * The two pawn-spawning entry points, overridden for one reason: to put
+ * "no pawn before this machine has the host's state" somewhere a Blueprint
+ * cannot get around it.
+ *
+ * Everything else in the spawn path — PlayerCanRestart, HandleStartingNewPlayer,
+ * MustSpectate, SpawnDefaultPawnFor — is a BlueprintNativeEvent, so a Blueprint
+ * override REPLACES the C++ version and one missing Parent call would take the
+ * gate with it, silently. These two are plain virtuals that Blueprint can call
+ * but not override, so the rule holds whatever is done above them.
+ */
+virtual void RestartPlayerAtPlayerStart(AController* NewPlayer,
+    AActor* StartSpot) override;
+virtual void RestartPlayerAtTransform(AController* NewPlayer,
+    const FTransform&amp; SpawnTransform) override;</code></pre>
+        </figure>
+        <p>The first version started the check from <code>HandleStartingNewPlayer</code>. A day later I moved it, because that event is one Blueprint can override, and an override without the parent call would have stopped the check from starting while the hard gate kept refusing the player for good.</p>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/level-start.jpg" alt="A goblin in a stone lair at the start of a level, under the objective text Transport and protect the keystone!" width="1600" height="900" loading="lazy"></div>
+          <figcaption>The start of a level. A player who joins here arrives into an existing streamed world, a published team state and a raft that’s already built.</figcaption>
+        </figure>
+
+        <h3>Host migration</h3>
+        <p>In a listen-server game the host leaving normally ends the session. Here the run continues: same run, same streamed world, same raft, with riders put back on its deck.</p>
+        <ol class="flow" aria-label="Host migration">
+          <li><span class="flow__k">Hold</span><span class="flow__v">0.5 s of host silence freezes physics</span></li>
+          <li><span class="flow__k">Elect</span><span class="flow__v">after 5 s, every machine picks the same successor</span></li>
+          <li><span class="flow__k">Hand off</span><span class="flow__v">the new host opens a tagged session; the rest join it</span></li>
+          <li><span class="flow__k">Resume</span><span class="flow__v">same run, same world, the raft rebuilt and re-posed</span></li>
+        </ol>
+        <ul>
+          <li><strong>Hold.</strong> A client that hears nothing from the host for half a second freezes every simulated body: physics replication off, velocities saved, bodies kinematic. Not asleep, because a sleeping body wakes at the first contact, which on a deck with a player on it is immediately. Input is disabled too. It’s fully reversible, so an ordinary network hiccup recovers without anyone falling into the lava.</li>
+          <li><strong>Mirror ahead of time.</strong> During play the host keeps every client up to date with what a successor would need: run index and session id, the world-generation history and settled chunk layout, platform poses every two seconds, and a connection table. Each machine also snapshots the raft and the host’s team data itself, so nothing depends on one last message arriving.</li>
+          <li><strong>Elect without talking.</strong> After five seconds, each machine picks a successor from its own copy of the table. The timer lives on the game instance, because the engine has already started tearing the world down.</li>
+          <li><strong>Resume.</strong> The new host republishes the same run index, so no machine sees a run boundary, adopts the stored chunk layout if it was recorded for this map, rebuilds the raft from the snapshot without charging for it, and restores each platform’s pose once the world has streamed in. Platforms stay parked until the returning players are back, for up to 20 seconds.</li>
+        </ul>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/raft-swim.jpg" alt="A goblin swimming in a blue river, looking at the party’s raft drifting away downstream" width="1600" height="900" loading="lazy"></div>
+          <figcaption>Falling off is part of the game. Which raft each player is standing on is mirrored to every client, so after a host change riders are put back on their own deck.</figcaption>
+        </figure>
+        <figure class="code" data-lang="C++" data-name="FConnectionQuality::PickSuccessor">
+<pre><code>// Ranks on identity, not connection. The table replicates as one atomic
+// TArray, so a machine holds version N or N-1 of the whole thing — and a ping
+// ordering changes with every sample, so two machines one version apart would
+// elect different hosts and split the party. An id ordering only moves when
+// somebody joins or leaves.
+FString FConnectionQuality::PickSuccessor(
+    const TArray&lt;FConnectionQualitySample&gt;&amp; Samples)
+{
+    const FString* Best = nullptr;
+
+    for (const FConnectionQualitySample&amp; Sample : Samples)
+    {
+        // An id the platform could not supply is one no two machines would
+        // agree on, so it is not a candidate.
+        if (Sample.PlayerId.IsEmpty())
+        {
+            continue;
+        }
+
+        // Case-sensitive on purpose: the comparison has to mean the same thing
+        // on every machine.
+        if (Best == nullptr ||
+            Sample.PlayerId.Compare(*Best, ESearchCase::CaseSensitive) &lt; 0)
+        {
+            Best = &amp;Sample.PlayerId;
+        }
+    }
+
+    return Best != nullptr ? *Best : FString();
+}</code></pre>
+          <figcaption>The header comment from ConnectionQuality.h moved above the function; comments shortened. Ping and loss are still sampled, but they don’t decide the order.</figcaption>
+        </figure>
+        <p>The platform poses took three tries. Applying them in <code>BeginPlay</code> was too early, because assemblies weld after construction. Applying them on a migration flag failed because the flag was gone before streamed platforms existed. What works is continuous sampling, merged by platform key, where the presence of a record is the signal and each one is used once.</p>
+
+        <h2>Saves That Survive Travel and Host Changes</h2>
+        <p class="lead">Designers add variables to two Blueprints, <code>BP_TeamData</code> and <code>BP_PlayerData</code>, and pick each one’s lifetime from the Category dropdown: Run, Session or Permanent. That’s the whole integration.</p>
+        <p>In the game today, <code>BP_TeamData</code> holds 13 variables (money, remaining lives, unlocked lairs, beaten biomes, saved parts), all Run or Session. <code>BP_PlayerData</code> holds 19, mostly Permanent: volumes, graphics level, language, XP and the goblin’s hat, face and ears.</p>
+        <ol class="flow" aria-label="Save lifetimes">
+          <li><span class="flow__k">Run</span><span class="flow__v">Cleared when the party starts a new attempt</span></li>
+          <li><span class="flow__k">Session</span><span class="flow__v">Cleared when a new game session starts</span></li>
+          <li><span class="flow__k">Permanent</span><span class="flow__v">Player data only; written to disk and Steam Cloud</span></li>
+        </ol>
+
+        <h3>A dropdown that decides the lifetime</h3>
+        <p>Category is editor-only metadata, so a packaged build can’t read it. When a save container Blueprint compiles, it walks the properties the Blueprint declared, parses each Category and bakes a name-to-lifetime map into the class default object, which is cooked with the asset. C++ members are skipped by declaring class, not by name, so engine machinery can’t end up in a save. A Category that isn’t one of the three is filed as None and the designer gets a toast in the editor, because quietly treating a typo as Run would wipe something they meant to keep.</p>
+        <figure class="code" data-lang="C++" data-name="USaveContainer::ParseLifetime">
+<pre><code>ESaveLifetime USaveContainer::ParseLifetime(const FString&amp; CategoryText)
+{
+    // A Category can be a path like "Save|Run", so only the last segment
+    // decides the bucket.
+    FString Leaf = CategoryText;
+    int32 SeparatorIndex = INDEX_NONE;
+    if (CategoryText.FindLastChar(TEXT('|'), SeparatorIndex))
+    {
+        Leaf = CategoryText.Mid(SeparatorIndex + 1);
+    }
+
+    Leaf.TrimStartAndEndInline();
+
+    // FString comparison is case-insensitive, so "run" works as well as "Run".
+    if (Leaf == TEXT("Run"))       { return ESaveLifetime::Run; }
+    if (Leaf == TEXT("Session"))   { return ESaveLifetime::Session; }
+    if (Leaf == TEXT("Permanent")) { return ESaveLifetime::Permanent; }
+
+    // Not chosen yet means Run, so nothing quietly accumulates.
+    if (Leaf.IsEmpty() || Leaf == TEXT("Default")) { return ESaveLifetime::Run; }
+
+    // A typo must stay distinct: reading it as Run would wipe a variable
+    // somebody meant to keep.
+    return ESaveLifetime::None;
+}</code></pre>
+          <figcaption>From SaveContainer.cpp, with two comments rewrapped to fit.</figcaption>
+        </figure>
+
+        <h3>Who owns which data</h3>
+        <ul>
+          <li><strong>Team data belongs to the host.</strong> It replicates to clients as a subobject of the game state and never touches disk. On a client, a write guard snapshots the host’s values when they arrive and, after each frame’s actors tick, reverts any local Blueprint write, logging it once. A replicated revision counter lets late joiners tell real values from untouched defaults, and an async <code>Wait For Team Data</code> node replaced the delay nodes Blueprints had been using.</li>
+          <li><strong>Player data belongs to the player’s machine.</strong> It is never replicated, and ticking Replicated on a player variable is flagged at compile time. My first version had clients publish their permanent data to the server; a week later I removed that, so a player’s save never leaves their machine and anything others need to see lives in team data or live game state.</li>
+          <li><strong>Boundaries come from the session id and run index.</strong> A boundary is any <em>change</em> in either, not an increase, because joining a different host can give you a lower run index. Repeats are ignored, so a host change or a reconnect that republishes the same pair clears nothing. Permanent data is saved before anything is cleared.</li>
+        </ul>
+
+        <h3>Steam Cloud and corrupt saves</h3>
+        <ul>
+          <li><strong>One variable at a time.</strong> Permanent data is written per variable, keyed by name, so renaming or retyping one variable in a later patch loses only that variable, and the load reports which.</li>
+          <li><strong>Cloud first, decided once.</strong> The shipping build saves to Steam Cloud through the synchronous remote-storage API, so it also works during shutdown. Whether to use the cloud is decided on the first read and fixed for the rest of the process. Otherwise a load that ran before Steam was up could be followed by a write once it was, putting an empty save over the player’s real one.</li>
+          <li><strong>Quarantine.</strong> A save that won’t load is copied byte-for-byte to a local <code>_Unreadable</code> slot (never the cloud, which would spend the player’s quota) and the original is removed, so the same bad file doesn’t fail every launch on every machine. If the copy fails, all writes stop for the session so the only copy survives.</li>
+          <li><strong>Rescue.</strong> A save written before Steam Cloud was switched on is uploaded before the first cloud read, so playtesters’ existing saves didn’t look wiped.</li>
+        </ul>
+
+        <h2>Steam Stats and Cosmetic Unlocks</h2>
+        <p class="lead">Gameplay reports what happened (a jump, a level finished without building) as a gameplay tag. Project settings map tags to Steam stats, and Steam’s own progress thresholds unlock the achievements.</p>
+        <div class="compare">
+          <div>
+            <h5>August: my own ledger</h5>
+            <p>Achievements were DataTable rows, and a local ledger was the source of truth with Steam and Epic as mirrors, so it worked in the editor and offline. It had per-run and compound achievements and progress toasts, and generated the Steam ini.</p>
+          </div>
+          <div>
+            <h5>September: Steam is the truth</h5>
+            <p>The local cache and Steam ended up fighting each other, so I replaced it. Counts now live only in Steam stats, written through <code>ISteamUserStats</code>. The local cache, the achievement queries and the ini generator are gone, and the code shrank by more than a third.</p>
+          </div>
+        </div>
+        <ul>
+          <li><strong>One machine counts for one player.</strong> A report always means “this happened to me”. A team event goes to the host, which multicasts it so every machine reports it for its own player.</li>
+          <li><strong>Reads guard writes.</strong> Adding to a stat reads it first, and a failed read means no write, so a total Steam hasn’t loaded yet is never overwritten with a made-up one.</li>
+          <li><strong>Resets in the right order.</strong> Run-scoped stats reset at the save system’s boundaries: store, zero, store again. Steam evaluates unlocks when stats are stored, so zeroing a peak before it’s stored would silently skip the achievement.</li>
+        </ul>
+        <figure class="code" data-lang="C++" data-name="USteamStatSubsystem::ApplyResetScopes">
+<pre><code>// MANDATORY, and first. Steam evaluates achievement auto-unlock at StoreStats,
+// not at SetStat, so a run-scoped stat zeroed before its peak has been stored
+// is a threshold that silently never fires.
+StoreNow();
+
+for (const FSteamStatBinding&amp; Binding : FlatBindings)
+{
+    const bool bMatches =
+        (Binding.Reset == ESteamStatReset::Session &amp;&amp; bClearSession)
+        || (Binding.Reset == ESteamStatReset::Run &amp;&amp; bClearRunScope);
+
+    if (bMatches &amp;&amp; FSteamStatStore::TrySetStat(Binding.SteamStatName, 0))
+    {
+        bUnstoredChanges = true;
+    }
+}
+
+// Store the zeros. Without this they never leave the process.
+StoreNow();</code></pre>
+          <figcaption>Condensed from SteamStatSubsystem.cpp: the counter and the session-implies-run flag are left out.</figcaption>
+        </figure>
+        <p>Cosmetics build on both systems. A designer can lock any row of a cosmetics DataTable behind a Steam achievement, a stat reaching a value, or an <code>Unlock.*</code> tag fired from Blueprint; 34 hats currently unlock through tags. Unlocks are checked whenever a stat changes or Steam stores stats, saved straight away as permanent player data, and handed to the UI once, so a popup and the end-of-run screen never both show the same hat. The editor gets a one-line picker for table and row.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/raftcraft/cosmetics-unlocked.jpg" alt="Goblin customisation screen with a grid of hats such as a crown, a cap and bunny ears" width="1200" height="675" loading="lazy">
+            <img src="../assets/img/raftcraft/cosmetics-locked.jpg" alt="The same customisation screen on a fresh save, with every hat slot showing a padlock" width="1200" height="675" loading="lazy">
+          </div>
+          <figcaption>The customisation screen with hats unlocked, and the same screen on a fresh save.</figcaption>
+        </figure>
+
+        <h2>Saved Rafts and the 64 KB Limit</h2>
+        <p class="lead">The party’s raft carries over from one lair to the next. A teammate built the first version; I moved its storage into team data, so host migration carries it and clients can read it, and then it broke a real session.</p>
+        <p>In a three-player playtest, six stored rafts added up to 71,989 bytes. Team data replicates as part of the game state, a reliable bunch can’t be larger than 65,536 bytes (its size field is 16 bits) and can’t be split, so the engine refused the whole bunch. The run index was in the same bunch, so every client stopped receiving run boundaries and lost control of their character for the rest of the session.</p>
+        <ul>
+          <li>Only the most recent raft was ever read, so storage became one raft, not a list.</li>
+          <li>Each capture is measured with the save archive before it’s published: refused at 65,536 bytes with a clear error and the previous raft kept, and a warning from 32,768. Real rafts are 36–64 parts; the largest measured 39,493 bytes.</li>
+          <li>A capture identical to the stored raft isn’t republished. Players pull the save lever again and again, and those republishes had been most of this data’s network traffic.</li>
+          <li>Four automation tests pin the limits, including a real 64-part raft and the six-raft payload from that playtest.</li>
+        </ul>
+        <p>Rebuilding a saved raft costs money for every part the level’s material shop didn’t already provide. The bill is a pure function that takes the free stock as an argument, because that pool only exists on the host, and a client reading it would price every part. The stock is replicated on the rebuild pad, so host and client show the same price. In Blueprint, the designer’s lever is just <code>BaseCost + CostPerPart × GetRebuildUnaccountedPartCount</code>.</p>
+        <figure class="code" data-lang="C++" data-name="USavedPlatformLibrarySubsystem::ComputeRebuildBill">
+<pre><code>// What the material shop put in this level and nobody has used yet. Comes
+// in as an argument rather than being read off UFreeMaterialPoolSubsystem,
+// because that pool only exists on the host: a client reading it would find
+// it empty and price every single part.
+TMap&lt;UClass*, int32&gt; FreeByClass;
+FreeByClass.Reserve(FreeStock.Num());
+for (const FFreeMaterialStock&amp; Entry : FreeStock)
+{
+    if (Entry.PartClass != nullptr)
+    {
+        FreeByClass.FindOrAdd(Entry.PartClass.Get()) += Entry.Count;
+    }
+}
+
+for (const TPair&lt;UClass*, int32&gt;&amp; Pair : NeededByClass)
+{
+    FSavedPartBillLine&amp; Line = Bill.Lines.AddDefaulted_GetRef();
+    Line.PartClass = Pair.Key;
+    Line.NeededCount = Pair.Value;
+    Line.FreeAvailable = FreeByClass.FindRef(Pair.Key);
+    Line.UnaccountedCount = FMath::Max(0, Line.NeededCount - Line.FreeAvailable);
+    Bill.UnaccountedPartCount += Line.UnaccountedCount;
+}</code></pre>
+          <figcaption>Condensed from SavedPlatformLibrarySubsystem.cpp, comments rewrapped.</figcaption>
+        </figure>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/raft-lava.jpg" alt="Two goblins on a raft of dark planks built out from the keystone’s glowing circle, floating on a lake of lava under a giant skull" width="1600" height="900" loading="lazy"></div>
+          <figcaption>A raft on the lava, built out from the keystone’s circle: the structure the save and rebuild path carries from lair to lair.</figcaption>
+        </figure>
+
+        <h2>Tools and Release Prep</h2>
+        <p class="lead">The rest is what a small team needs to find problems and ship: spawning driven by data, a way to read Blueprints as text, logs from several machines, and profiling testers can run themselves.</p>
+
+        <h3>Part spawning from the catalog</h3>
+        <p>Pit stops scatter random raft parts. The first spawner needed hand-built lists per spawner; my second version reads the part catalog other teammates maintain, so adding a row makes a part eligible. A designer picks categories and tier weights (Common 70, Rare 25, Epic 5 by default), and each tier’s weight is split evenly among its parts, so adding parts to a tier doesn’t change how often that tier appears. Placement can be strict, adjust to fit, or search upward and forward for a free spot that avoids the world and everything placed in the same request. It also spawns continuously and fills areas, with 15 automation tests on selection and the catalog query. An early version read a Blueprint struct by matching generated property names; I replaced it with typed C++ rows two weeks later.</p>
+
+        <h3>Reading Blueprints as text</h3>
+        <p>A Blueprint’s logic can’t be recovered by searching its <code>.uasset</code>, which was a large part of why one travel bug took so long to find. I wrote a commandlet that dumps any Blueprint to text: parent class; variables with their type, Category, default and replication flags; and every graph with its nodes, resolved call targets, pin values, links and RPC flags. Category is in there because it decides a save variable’s lifetime. It runs safely next to an open editor, it’s now the documented way to answer Blueprint questions in the repository, and it’s how I checked the Blueprint details on this page.</p>
+
+        <h3>Logs from several machines</h3>
+        <p>A teammate wrote the original log system, which writes a file per gameplay tag. I made it something to rely on in multi-machine playtests: cached file writers behind a lock instead of reopening the file on every line, UTF-8 that can’t flip encoding mid-file, net mode and frame columns with the process and PIE instance in the folder name, per-tag severity overrides from config, a compile-time switch that removes it from Shipping, and 9 automation tests.</p>
+
+        <h3>Profiling that testers can run</h3>
+        <ul>
+          <li><strong>Performance summaries.</strong> Development builds write one CSV row per second (frame, game thread, render thread, GPU) with the machine’s specs at the top, and log averages, p99, hitches and stalls per level. A hitch is a frame over the larger of 50&nbsp;ms and twice the median; anything over a second is a stall and is kept out of the averages.</li>
+          <li><strong>Trace capture from the menu.</strong> Testers record an Unreal Insights trace from tick boxes in the main or pause menu, so a slow playtest machine sends back a trace instead of a description.</li>
+          <li><strong>Playtest mode.</strong> <code>-Playtest</code> makes a Development build look like Shipping to testers (no debug drawing, keys or menu) while keeping full logging.</li>
+          <li><strong>Graphics presets.</strong> The engine benchmark runs on first launch and its scores are saved with a hardware fingerprint. Recommendations are recomputed from the scores at every launch, labelled “(Recommended)” across 11 settings groups, and the benchmark only runs again when the hardware changes.</li>
+        </ul>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/raftcraft/main-menu-trace.jpg" alt="Raftcraft main menu with a trace capture panel: tick boxes for performance trace, detailed CPU timing, render and GPU commands, loading, worker threads and memory allocations" width="1600" height="900" loading="lazy">
+            <img src="../assets/img/raftcraft/graphics-settings.jpg" alt="Raftcraft video settings: graphics quality, a Use Recommended Settings button, render scale at 100 percent marked Recommended, and per-group quality dropdowns" width="1600" height="900" loading="lazy">
+          </div>
+          <figcaption>The trace capture panel on the main menu of a Development build, and the graphics settings with recommended values from the benchmark.</figcaption>
+        </figure>
+
+        <h3>The glowing raft</h3>
+        <p>In a multiplayer playtest the raft and the players glowed, on every machine including the host’s. Levels are built from chunks, each baked on its own as a standalone map and then streamed in moved and rotated. Baked lighting on scenery is stored per mesh and moves with it. Lighting for moving objects isn’t: it’s baked into a volumetric lightmap that can neither move nor rotate, and the scene holds only one. Anything spawned or picked up after a baked chunk streamed in was lit from that chunk’s misplaced volume, which in one Lava chunk held a strong white light 22&nbsp;m from where the raft starts.</p>
+        <p>There was a code workaround: the level streamer could give each chunk a new build-data id so its volume never loads. We fixed the content instead, so baked chunks work by construction. Every chunk now bakes sparse volume lighting samples instead of a volumetric lightmap, <code>r.IndirectLightingCache=0</code> stops the renderer reading those samples, and I rebaked all 62 chunks at Production quality. The bake had to run through the editor world, because the stock bake commandlet crashes when it saves a map containing a landscape, leaving the map and its lighting data out of step.</p>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/lighting-bug.jpg" alt="The lighting bug in a playtest recording: raft planks lit bright orange with glowing yellow seams beside darker, normally lit pallets" width="1600" height="726" loading="lazy"></div>
+          <figcaption>The bug in a playtest recording from 13 October: parts spawned or picked up after a baked chunk streamed in are lit far too bright. Compare the dark pallets at the edges.</figcaption>
+        </figure>
+
+        <p>I also moved the project from Unreal 5.7 to 5.8, which meant fixing the bundled plugins and replacing a network physics component subclass that 5.8 no longer lets you link against.</p>
+
+        <h2>Results</h2>
+        <ul>
+          <li>A wipe resets the attempt without disconnecting anyone, and late joiners arrive into the existing world, team state and raft instead of an empty level.</li>
+          <li>When the host leaves, the party elects a new host, reconnects and continues the same run with the same raft.</li>
+          <li>Designers add saved data by picking a Category in a dropdown. Saves sync through Steam Cloud, and a corrupt save is set aside instead of failing every launch.</li>
+          <li>Seven Steam stats are bound for the achievements, and 34 hat unlocks run through the same systems.</li>
+          <li>The saved raft can no longer take a session down: its size is checked against the network limit before it’s ever sent.</li>
+          <li>Testers record their own performance traces and CSVs, and graphics settings start from a benchmark of their machine.</li>
+          <li>Superseded systems, mine included, are archived where the build skips them, so new code isn’t written against dead APIs.</li>
+        </ul>
+
+        <h2>What I’d Change</h2>
+        <ul>
+          <li><strong>Get it playable, and agreed on, before it gets big.</strong> V4’s first version had editor authoring, rollback and 18 tests before anyone had played with it, and in the end the team built on a teammate’s simpler system that content was already moving to. A playable slice and a conversation in week one would probably have saved most of June.</li>
+          <li><strong>Keep the tests through the merge.</strong> To keep my merge to main small, I deleted the save and run-flow tests and a two-process network test. Nothing covers saves, Steam Cloud or host migration now. They belong in a test module that merges with the code.</li>
+          <li><strong>Budget replicated data from day one.</strong> The raft size limit came from a broken playtest. Every replicated container should have had a measured size and a ceiling from the start.</li>
+          <li><strong>Automate a host-migration test.</strong> It needs real Steam sessions, so it can’t run in the editor, and today it’s tested by hand. Two packaged builds driven by a script would catch regressions before a playtest does.</li>
+        </ul>
+
+        <aside class="project-cta" aria-label="Project links">
+          <dl>
+            <div><dt>Steam page:</dt><dd><a href="https://store.steampowered.com/app/5209580/Raftcraft/" target="_blank" rel="noopener">Wishlist Raftcraft</a> · out Q4 2026</dd></div>
+            <div><dt>Source:</dt><dd>Private while the game is in production</dd></div>
+          </dl>
+        </aside>
+      </article>
+    </div>
+
+    <nav class="container pager" aria-label="More projects">
+      <a href="../voxel-generator/"><span>← Previous</span><strong>Voxel Generator</strong></a>
+      <a class="pager__next" href="../time-to-breach/"><span>Next →</span><strong>Time to Breach</strong></a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span data-year>2026</span> Ossian Däckfors · Gameplay Programmer</p>
+      <nav aria-label="Footer">
+        <a href="mailto:ossian.dackfors@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ossian-d%C3%A4ckfors-481280120" target="_blank" rel="me noopener">LinkedIn</a>
+        <a href="https://github.com/Ossdac" target="_blank" rel="me noopener">GitHub</a>
+        <a href="../assets/Ossian_Dackfors_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

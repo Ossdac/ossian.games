@@ -41,6 +41,12 @@
   --tok-comment: #66717f;
   --tok-punct: #8f9aa8;
 
+  /* Chart series, in fixed order (validated for colour-blind separation on --surface) */
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
 
@@ -533,6 +539,56 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
 
 .card .chips { margin-top: auto; padding-top: 6px; }
 
+/* Groups inside #projects: a small label over each set of cards */
+.group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.group-head h3 {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.group-head span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.card + .group-head, .project-grid + .group-head { margin-top: 72px; }
+
+/* Featured card: media beside the body, with a Steam button above the card's stretched link */
+.card--feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  border-color: rgba(255, 181, 71, 0.3);
+  background:
+    radial-gradient(ellipse at top right, rgba(255, 181, 71, 0.08), transparent 60%),
+    var(--surface);
+}
+.card--feature:hover { border-color: rgba(255, 181, 71, 0.5); }
+.card--feature .card__media { aspect-ratio: auto; min-height: 320px; border-bottom: 0; border-right: 1px solid var(--line); }
+.card--feature .card__media img { position: absolute; inset: 0; }
+.card--feature .card__body { gap: 16px; padding: 32px 32px 30px; }
+.card--feature .card__title { font-size: 36px; }
+.card--feature .card__desc { font-size: 16px; color: var(--text-2); }
+.card--feature .chips { margin-top: 0; padding-top: 0; }
+
+.card__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
 /* ---------- About ---------- */
 
 .about {
@@ -906,6 +962,35 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
 }
 .fig figcaption::before { content: "fig." attr(data-n); color: var(--accent); white-space: nowrap; }
 
+/* Charts: inline SVG inside a .fig, a legend above and the data in a <details> table below */
+.viz__frame { display: block; padding: 18px 18px 14px; background: var(--surface); }
+.viz__legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 10px; padding: 0; list-style: none; font-size: 13px; color: var(--text-2); }
+.prose .viz__legend li { margin: 0; padding: 0; }
+.prose .viz__legend li::before { content: none; }
+.viz__swatch { display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 2px; vertical-align: -1px; }
+.viz__count { margin-left: 4px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.viz__scroll { overflow-x: auto; }
+.viz__svg { display: block; width: 100%; min-width: 600px; height: auto; overflow: visible; }
+.viz__s1 { fill: var(--series-1); background: var(--series-1); }
+.viz__s2 { fill: var(--series-2); background: var(--series-2); }
+.viz__s3 { fill: var(--series-3); background: var(--series-3); }
+.viz__s4 { fill: var(--series-4); background: var(--series-4); }
+.viz__grid { stroke: var(--line); stroke-width: 1; }
+.viz__base { stroke: var(--line-2); }
+.viz__marker { stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 3 3; }
+.viz__band { fill: rgba(255, 255, 255, 0.025); }
+.viz__tick, .viz__note { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); }
+.viz__note { fill: var(--text-2); }
+.viz__hit { fill: transparent; }
+.viz__hit:hover { fill: rgba(255, 255, 255, 0.05); }
+.viz__table { margin-top: 10px; font-size: 13px; overflow-x: auto; }
+.viz__table summary { cursor: pointer; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.viz__table summary:hover { color: var(--text); }
+.viz__table table { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.viz__table th, .viz__table td { padding: 4px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+.viz__table th { font-weight: 500; color: var(--text-2); }
+.viz__table th:first-child, .viz__table td:first-child { text-align: left; }
+
 /* ---------- Code ---------- */
 
 .code {
@@ -1091,6 +1176,8 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   .hero__grid, .project-hero__grid, .about { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .hero .panel { transform: none; }
   .project-grid { grid-template-columns: minmax(0, 1fr); }
+  .card--feature { grid-template-columns: minmax(0, 1fr); }
+  .card--feature .card__media { aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .section { padding: 88px 0; }
 }
 
@@ -1103,6 +1190,9 @@ code, kbd, pre { font-family: var(--font-mono); font-variant-ligatures: none; fo
   .section-head { margin-bottom: 32px; }
   .card__body { padding: 20px; }
   .card__title { font-size: 24px; }
+  .card--feature .card__body { padding: 20px; }
+  .card--feature .card__title { font-size: 28px; }
+  .card + .group-head, .project-grid + .group-head { margin-top: 56px; }
   .spec, .spec[data-cols="5"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .spec div { padding: 16px; border-top: 1px solid var(--line); border-right: 1px solid var(--line) !important; }
   .spec div:nth-child(2n) { border-right: 0 !important; }
