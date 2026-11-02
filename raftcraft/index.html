@@ -417,7 +417,30 @@ struct FRunAreaRecord
           <li><strong>What it found</strong> were four Blueprint bugs that travel had been hiding: the lose screen was never removed (3 widgets became 9 after five losses), per-pawn helper actors leaked on clients (5 became 93 over 22 wipes), a death during a wipe started a second wipe and cost a life, and the character’s per-tick movement RPCs were marked Reliable. That last one meant 256 unacknowledged bunches after 4.3&nbsp;seconds of host silence at 60&nbsp;fps, or 1.8 at 144, which dropped every client and started a host migration. I fixed all four in Blueprint. The retest had the widget and helper counts flat, 5,913 errors down to zero, and a scripted three-second host freeze with clients at 144&nbsp;fps dropped nobody.</li>
           <li><strong>Stress:</strong> 100 wipes with three clients in 17 minutes, 101 of 101 checksums matched, wipe time flat at four to five seconds. It also found that memory grows about 5&nbsp;MB per wipe with a flat object count, which is on the watch list; a real session has 20–40.</li>
         </ul>
+        <figure class="code" data-lang="text" data-name="results/campfirst/totals.txt">
+<pre><code>c1_wipes                 procs 2, host transitions 5, in-place 4, travel requests 0
+c3_rejoin                procs 4, host transitions 10, in-place 9, travel requests 0
+c4_timeout_fallback      procs 2, host transitions 9, in-place 2, travel requests 0
+c5_early_join            procs 3, host transitions 3, in-place 2, travel requests 0
+c6_migration_lair        procs 3, host transitions 2, in-place 1, travel requests 0
+c8_level_ends            procs 3, host transitions 8, in-place 7, travel requests 0
+c9_host_quits_midstart   procs 3, host transitions 2, in-place 1, travel requests 0
+c10_freeze               procs 3, host transitions 3, in-place 2, travel requests 0
+c14_stress               procs 4, host transitions 45, in-place 44, travel requests 0
+
+processes 36
+host transitions 111 | in-place teardowns 91 | travel requests 1
+transition x machine reaching Playing 344
+placements 338 | covered 0 | shared start within a transition 0
+client layout comparisons ok 202 | mismatched 0
+early-ready holds 89</code></pre>
+          <figcaption>The totals file the harness writes after a batch, here the camp-first suite of 29 October with four scenarios left out for length. The one travel request is the timeout-fallback scenario doing what it should.</figcaption>
+        </figure>
         <p>Level ends followed the next day, five to seven seconds from teardown to playing against 6–20 by travel, with each biome’s lighting sublevel retired on every machine, and then the camp joined the shell as a start area, so even lobby to game no longer travels. Removing travel also removed the voice gap: the 0.3-second cut had been the project’s own teardown releasing the talkers, and with nothing to tear down there is nothing to release.</p>
+        <figure class="fig fig--wide">
+          <div class="fig__frame"><img src="../assets/img/raftcraft/level-end-portal.jpg" alt="A goblin in a field of glowing grass in front of a huge swirling portal, under the text Portal closes in: 5, Grab Something!" width="1600" height="900" loading="lazy"></div>
+          <figcaption>The end of a level: the portal counts down and whoever is through goes on. Until 28 October this moment started a map reload; now the lair is rebuilt behind the fade.</figcaption>
+        </figure>
 
         <h3>The first Steam test</h3>
         <p>On 29 October four of us played the new flow over Steam for forty minutes: six runs, a real wipe, the host quitting mid-session and a client taking over by migration, then that client hosting fresh. No crashes. The producer’s bug list, triaged against all four logs, split cleanly. “Wiping sends you to a new biome” was a debug key. The real one was mine: the raft never came back on the migration host, because the resume flag was cleared when the shell finished loading, before the lair instance had even been requested, so the pad saw an idle session and spawned nothing. The same flag had quietly stopped every takeover since the shell went in from adopting the stored chunk list, so each new host had been generating a different lair from the same seed. Both now read a latch on the game mode that holds for exactly the resumed run; headless, the new host rebuilt the 22-part raft and adopted the layout with the same checksum on all three machines.</p>
@@ -646,6 +669,12 @@ for (const TPair&lt;UClass*, int32&gt;&amp; Pair : NeededByClass)
 
         <h3>A debug menu that works in a packaged build</h3>
         <p>The old debug menu had died quietly: nothing called it, every class its catalogs pointed at had been deleted, and its folder was excluded from cooking, so it had never worked in a Steam build at all. I replaced 3,300 lines of it with a Slate menu on F7: spawn any actor from lists the team keeps as data assets, server-validated so a client can’t spawn what isn’t listed, plus a host-only world panel to read and set difficulty, biome and seed and regenerate the world in place. It ships with no lists. While there I found that the world seed was the CPU’s cycle counter, a 32-bit timer that turned “random” into the current seed plus elapsed time, and changed both the menu and the level streamer to roll a real one.</p>
+        <figure class="fig fig--pair">
+          <div class="fig__frame">
+            <img src="../assets/img/raftcraft/debug-menu.png" alt="The debug menu panel: a World section with difficulty, biome and seed fields and a Regenerate button, then a Spawn section with a search box, a count and a list of parts such as Cannonball, Wood Pallet and Fishing Rod" width="548" height="900" loading="lazy">
+          </div>
+          <figcaption>The debug menu on F7 in a Development build: world controls at the top, then spawn lists the team fills in as data assets.</figcaption>
+        </figure>
 
         <h3>Clearing out the dead code</h3>
         <p>Before the release push I audited what in the project was actually live: 688 Blueprint graphs dumped and traced from the maps that ship, and every class reference in C++ checked. 261 of the 656 Blueprint assets were unreachable, along with 23 functions, 46 events and 84 variables inside live ones, two gigabytes of unused content and 27 class redirects nobody needed. The rules I set: a Legacy folder works as a delete, so every reference into it is removed rather than rerouted; paths inside it mirror the originals so anything can be dragged back; and nothing of anyone else’s goes without their sign-off. 218 files moved as pure renames, 53 config lines went, and I fixed the shipped Blueprints that broke once Legacy stopped loading, until 540 of 543 compiled. Legacy holds 56,000 lines of C++ now, about 31,000 of them mine.</p>
